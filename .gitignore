@@ -1,0 +1,3 @@
+groundstationenv/
+groundstation/groundstation/secrets.py
+*.pyc
