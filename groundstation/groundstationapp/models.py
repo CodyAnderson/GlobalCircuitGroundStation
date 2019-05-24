@@ -5,12 +5,12 @@ from django.db import models
 
 # Create your models here.
 
-class Packet(model.Model):
+class Packet(models.Model):
     id = models.AutoField(primary_key=True)
     packet_id = models.IntegerField()
     version = models.IntegerField()
 
-class IridiumData(model.Model):
+class IridiumData(models.Model):
     global_id = models.ForeignKey(Packet, on_delete=models.CASCADE)
     transmit_time = models.DateTimeField()
     iridium_latitude = models.FloatField()
@@ -18,3 +18,40 @@ class IridiumData(model.Model):
     iridium_cep = models.FloatField()
     momsn = models.IntegerField()
     imei = models.BigIntegerField()
+
+class SlowMeasurement(models.Model):
+    global_id = models.ForeignKey(Packet, on_delete=models.CASCADE)
+    gps_latitude = models.FloatField()
+    gps_longitude = models.FloatField()
+    gps_altitude = models.FloatField()
+    gps_time = models.DateTimeField()
+
+class RawData(models.Model):
+    global_id = models.ForeignKey(Packet, on_delete=models.CASCADE)
+    data = models.BinaryField()
+    hexdata = models.TextField()
+
+class SupData(models.Model):
+    global_id = models.ForeignKey(Packet, on_delete=models.CASCADE)
+    sub_id = models.IntegerField()
+    type = models.TextField()
+    value = models.IntegerField()
+
+class ConductivityData(models.Model):
+    global_id = models.ForeignKey(Packet, on_delete=models.CASCADE)
+    sub_id = models.IntegerField()
+    vert1 = models.IntegerField()
+    vert2 = models.IntegerField()
+
+class FastMeasurement(models.Model):
+    global_id = models.ForeignKey(Packet, on_delete=models.CASCADE)
+    sub_id = models.IntegerField()
+    vert1 = models.IntegerField()
+    vert2 = models.IntegerField()
+    vertD = models.IntegerField()
+    compassX = models.IntegerField()
+    compassY = models.IntegerField()
+    compassZ = models.IntegerField()
+    horiz1 = models.IntegerField()
+    horiz2 = models.IntegerField()
+    horizD = models.IntegerField()
