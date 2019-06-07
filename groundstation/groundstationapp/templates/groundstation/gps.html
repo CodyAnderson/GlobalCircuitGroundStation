@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+	<head>
+		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+		<script type="text/javascript">
+			google.load("visualization", "1", {packages:["corechart"]});
+		</script>
+	</head>
+	<body>
+
+		<h1>Map plot: </h1>
+		<h2> </h2>
+		<th>Shows the current latitude and longitude of the payload. </th>
+		<h2> </h2>
+		{{ chart.as_html }}
+		
+	</body>
+
+</html>

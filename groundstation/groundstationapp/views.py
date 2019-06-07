@@ -3,4 +3,63 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render
 
+import MySQLdb
+import time
+import StringIO
+
+from graphos.sources.simple import SimpleDataSource
+from graphos.renderers.gchart import LineChart
+
+from django.views.decorators.csrf import csrf_exempt
+
+import structure
+import secrets
+
 # Create your views here.
+
+def homepage(request):
+	return render(request, 'groundstation/homepage.html')
+
+def gps(request):    # Change to google maps
+	data = [
+				['Time', 'Latitude', 'Longitude']  # create a list to hold the column names and data for the axis names
+		   ]
+	
+	db = MySQLdb.connect(host="localhost", user=secrets.sqluser,passwd=secrets.sqlpassword, db="groundstation") # Access the database to get all the current data
+	cur = db.cursor()
+	cur.execute('SELECT i.transmit_time,d.gps_latitude,d.gps_longitude,gps_altitude FROM groundstation.groundstationapp_slowmeasurement AS d INNER JOIN groundstationapp_iridiumdata AS i on i.global_id_id = d.global_id_id' )
+	for row in cur.fetchall(): # going through each row
+		l = []
+		l.append(row[0]) # append each row to the data, only get the columns that we want
+		l.append(row[1])
+		l.append(row[2])
+		data.append(l)
+		
+	db.close()
+	data_source = SimpleDataSource(data=data)
+	chart = LineChart(data_source, options={'title': "Coordinates"}) # Creating a line chart
+	
+	context = {'chart': chart}
+	return render(request, 'groundstation/gps.html', context)	# rendering the chart when a request has gone through for this page, and using the mapPlot.html to render it
+
+@csrf_exempt
+def postfunc(request):
+	if (request.POST):
+		packet_data = request.POST.get('data')
+		iridium_txtime = request.POST.get('transmit_time',time.strftime("%Y-%m-%dT%H:%M:%SZ UTC",time.gmtime()))
+		iridium_imei = request.POST.get('imei')
+		iridium_momsn = request.POST.get('momsn')
+		iridium_latitude = request.POST.get('iridium_latitude')
+		iridium_longitude = request.POST.get('iridium_longitude')
+		iridium_cep = request.POST.get('iridium_cep')
+		Data={'data':packet_data,'txtime':iridium_txtime,'imei':iridium_imei,'momsn':iridium_momsn,'lat':iridium_latitude,'lon':iridium_longitude,'cep':iridium_cep}
+		print Data
+		packet_sio=StringIO.StringIO(packet_data)
+		packet_fields = structure.unpack(packet_sio)
+		print packet_fields
+		context = {'text': Data}
+	elif (request.GET):
+		context = {'text': 'get'}
+	else:
+		context = {'text': 'none'}
+	return render(request, 'groundstation/post.html', context)

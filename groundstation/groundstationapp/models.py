@@ -7,8 +7,8 @@ from django.db import models
 
 class Packet(models.Model):
     id = models.AutoField(primary_key=True)
-    packet_id = models.IntegerField()
-    version = models.IntegerField()
+    packet_id = models.IntegerField(null=True)
+    version = models.IntegerField(null=True)
 
 class IridiumData(models.Model):
     global_id = models.ForeignKey(Packet, on_delete=models.CASCADE)
