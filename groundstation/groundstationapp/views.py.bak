@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
-
+from __future__ import unicode_literals
 
 from django.shortcuts import render
 
 import MySQLdb
 import time
-import io
+import StringIO
 
 from graphos.sources.simple import SimpleDataSource
 from graphos.renderers.gchart import LineChart
 
 from django.views.decorators.csrf import csrf_exempt
 
-from . import structure
-from . import secrets
+import structure
+import secrets
 
 # Create your views here.
 
@@ -53,10 +53,10 @@ def postfunc(request):
 		iridium_longitude = request.POST.get('iridium_longitude')
 		iridium_cep = request.POST.get('iridium_cep')
 		Data={'data':packet_data,'txtime':iridium_txtime,'imei':iridium_imei,'momsn':iridium_momsn,'lat':iridium_latitude,'lon':iridium_longitude,'cep':iridium_cep}
-		print(Data)
-		packet_sio=io.StringIO(packet_data)
+		print Data
+		packet_sio=StringIO.StringIO(packet_data)
 		packet_fields = structure.unpack(packet_sio)
-		print(packet_fields)
+		print packet_fields
 		context = {'text': Data}
 	elif (request.GET):
 		context = {'text': 'get'}

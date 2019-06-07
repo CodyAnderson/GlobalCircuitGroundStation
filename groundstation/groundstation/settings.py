@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
-import secrets
+import super_secrets as secrets
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -82,7 +82,7 @@ DATABASES = {
         'NAME': 'groundstation',
         'USER': secrets.sqluser,
         'PASSWORD': secrets.sqlpassword,
-        'HOST': 'localhost',
+        'HOST': 'ssh.calamityconductor.com',
         'PORT': '',
     }
 }
