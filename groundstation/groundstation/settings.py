@@ -26,7 +26,7 @@ SECRET_KEY = secrets.secretkey
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['172.17.0.2']
+ALLOWED_HOSTS = ['localhost', '172.17.0.1', '172.17.0.2']
 
 
 # Application definition
@@ -82,7 +82,7 @@ DATABASES = {
         'NAME': 'groundstation',
         'USER': secrets.sqluser,
         'PASSWORD': secrets.sqlpassword,
-        'HOST': 'ssh.calamityconductor.com',
+        'HOST': '172.17.0.1',
         'PORT': '',
     }
 }
