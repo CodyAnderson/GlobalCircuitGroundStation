@@ -10,5 +10,5 @@ WORKDIR /usr/src/app/groundstation
 
 EXPOSE 8000/tcp
 
-CMD [ "python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD [ "python", "manage.py", "runserver", "0.0.0.0:8000" ]
 

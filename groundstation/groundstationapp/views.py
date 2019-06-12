@@ -13,7 +13,7 @@ from graphos.renderers.gchart import LineChart
 from django.views.decorators.csrf import csrf_exempt
 
 from . import structure
-from . import secrets
+import super_secrets as secrets
 
 # Create your views here.
 
