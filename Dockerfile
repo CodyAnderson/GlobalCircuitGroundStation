@@ -6,6 +6,8 @@ WORKDIR /usr/src/app
 
 COPY . .
 
+COPY ./groundstation/super_secrets.py ./groundstation/groundstationapp/super_secrets.py
+
 WORKDIR /usr/src/app/groundstation
 
 EXPOSE 8000/tcp
