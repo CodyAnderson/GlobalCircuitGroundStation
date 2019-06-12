@@ -23,7 +23,6 @@ from datetime import timedelta
 # Create your views here.
 
 def homepage(request):
-	new_packet = models.Packet.objects.create(packet_id=5,version=7)
 	newIridiumData = models.IridiumData.objects.create(global_id=new_packet, transmit_time=datetime.utcnow(), iridium_latitude=0.1, iridium_longitude=1.0, iridium_cep=2.0, momsn=1, imei=999999999999999)
 	newSlowMeasurement = models.SlowMeasurement.objects.create(global_id=new_packet, gps_latitude=0.11, gps_longitude=1.01, gps_altitude=999.999, gps_time=datetime.utcnow()-timedelta(hours=1))
 	
@@ -64,7 +63,16 @@ def gps(request):    # Change to google maps
 def postfunc(request):
 	if (request.POST):
 		packet_data = request.POST.get('data')
-		iridium_txtime = request.POST.get('transmit_time',time.strftime("%Y-%m-%dT%H:%M:%SZ UTC",time.gmtime()))
+    #if data exists
+    if packet_data is not None:
+      packet_sio=io.StringIO(packet_data)
+      packet_fields = structure.unpack(packet_sio)
+      new_packet = models.Packet.objects.create(packet_id=packet_fields['seq'],version=packet_fields['version'])
+    else:
+      new_packet = models.Packet.objects.create(packet_id=0xDEAD,version=0xDEAD)
+    #else
+		#iridium_txtime = request.POST.get('transmit_time',time.strftime("%Y-%m-%dT%H:%M:%SZ UTC",time.gmtime()))
+    iridium_txtime = request.POST.get('transmit_time')
 		iridium_imei = request.POST.get('imei')
 		iridium_momsn = request.POST.get('momsn')
 		iridium_latitude = request.POST.get('iridium_latitude')
@@ -72,8 +80,7 @@ def postfunc(request):
 		iridium_cep = request.POST.get('iridium_cep')
 		Data={'data':packet_data,'txtime':iridium_txtime,'imei':iridium_imei,'momsn':iridium_momsn,'lat':iridium_latitude,'lon':iridium_longitude,'cep':iridium_cep}
 		print(Data)
-		packet_sio=io.StringIO(packet_data)
-		packet_fields = structure.unpack(packet_sio)
+		
 		print(packet_fields)
 		context = {'text': Data}
 	elif (request.GET):
