@@ -31,7 +31,7 @@ def homepage(request):
 	
 	#newRawData = models.RawData.objects.create(new_packet, data=?, hexData=hexString)
 	
-    
+		
 	
 	
 	print('Here it is, boys.')
@@ -63,16 +63,16 @@ def gps(request):    # Change to google maps
 def postfunc(request):
 	if (request.POST):
 		packet_data = request.POST.get('data')
-    #if data exists
-    if packet_data is not None:
-      packet_sio=io.StringIO(packet_data)
-      packet_fields = structure.unpack(packet_sio)
-      new_packet = models.Packet.objects.create(packet_id=packet_fields['seq'],version=packet_fields['version'])
-    else:
-      new_packet = models.Packet.objects.create(packet_id=0xDEAD,version=0xDEAD)
-    #else
+		#if data exists
+		if packet_data is not None:
+			packet_sio=io.StringIO(packet_data)
+			packet_fields = structure.unpack(packet_sio)
+			new_packet = models.Packet.objects.create(packet_id=packet_fields['seq'],version=packet_fields['version'])
+		else:
+			new_packet = models.Packet.objects.create(packet_id=0xDEAD,version=0xDEAD)
+		#else
 		#iridium_txtime = request.POST.get('transmit_time',time.strftime("%Y-%m-%dT%H:%M:%SZ UTC",time.gmtime()))
-    iridium_txtime = request.POST.get('transmit_time')
+		iridium_txtime = request.POST.get('transmit_time')
 		iridium_imei = request.POST.get('imei')
 		iridium_momsn = request.POST.get('momsn')
 		iridium_latitude = request.POST.get('iridium_latitude')
