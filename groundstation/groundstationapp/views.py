@@ -13,11 +13,29 @@ from graphos.renderers.gchart import LineChart
 from django.views.decorators.csrf import csrf_exempt
 
 from . import structure
+from . import models
 import super_secrets as secrets
+
+from datetime import datetime
+from datetime import timedelta
+
 
 # Create your views here.
 
 def homepage(request):
+	new_packet = models.Packet.objects.create(packet_id=5,version=7)
+	newIridiumData = models.IridiumData.objects.create(global_id=new_packet, transmit_time=datetime.utcnow(), iridium_latitude=0.1, iridium_longitude=1.0, iridium_cep=2.0, momsn=1, imei=999999999999999)
+	newSlowMeasurement = models.SlowMeasurement.objects.create(global_id=new_packet, gps_latitude=0.11, gps_longitude=1.01, gps_altitude=999.999, gps_time=datetime.utcnow()-timedelta(hours=1))
+	
+	#emptyString = "dead"
+	#hexString = emptyString*(340//len(emptyString))
+	
+	#newRawData = models.RawData.objects.create(new_packet, data=?, hexData=hexString)
+	
+    
+	
+	
+	print('Here it is, boys.')
 	return render(request, 'groundstation/homepage.html')
 
 def gps(request):    # Change to google maps
