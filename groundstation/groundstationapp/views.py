@@ -19,12 +19,13 @@ import super_secrets as secrets
 from datetime import datetime
 from datetime import timedelta
 
+import binascii
 
 # Create your views here.
 
 def homepage(request):
-	newIridiumData = models.IridiumData.objects.create(global_id=new_packet, transmit_time=datetime.utcnow(), iridium_latitude=0.1, iridium_longitude=1.0, iridium_cep=2.0, momsn=1, imei=999999999999999)
-	newSlowMeasurement = models.SlowMeasurement.objects.create(global_id=new_packet, gps_latitude=0.11, gps_longitude=1.01, gps_altitude=999.999, gps_time=datetime.utcnow()-timedelta(hours=1))
+	#newIridiumData = models.IridiumData.objects.create(global_id=new_packet, transmit_time=datetime.utcnow(), iridium_latitude=0.1, iridium_longitude=1.0, iridium_cep=2.0, momsn=1, imei=999999999999999)
+	#newSlowMeasurement = models.SlowMeasurement.objects.create(global_id=new_packet, gps_latitude=0.11, gps_longitude=1.01, gps_altitude=999.999, gps_time=datetime.utcnow()-timedelta(hours=1))
 	
 	#emptyString = "dead"
 	#hexString = emptyString*(340//len(emptyString))
@@ -65,11 +66,16 @@ def postfunc(request):
 		packet_data = request.POST.get('data')
 		#if data exists
 		if packet_data is not None:
-			packet_sio=io.StringIO(packet_data)
-			packet_fields = structure.unpack(packet_sio)
+			#packet_sio=io.StringIO(binascii.unhexlify(packet_data).decode(errors='ignore'))
+			#packet_fields = structure.unpack(packet_sio)
+			binary_packet_data = binascii.unhexlify(packet_data)
+			packet_fields = structure.unpack_new(binary_packet_data)
+			print(packet_fields['seq'])
+			print(packet_fields['version'])
 			new_packet = models.Packet.objects.create(packet_id=packet_fields['seq'],version=packet_fields['version'])
+			new_RawData = models.RawData.objects.create(global_id=new_packet,data=binary_packet_data,hexdata=packet_data)
 		else:
-			new_packet = models.Packet.objects.create(packet_id=0xDEAD,version=0xDEAD)
+			new_Packet = models.Packet.objects.create(packet_id=0xDEAD,version=0xDEAD)
 		#else
 		#iridium_txtime = request.POST.get('transmit_time',time.strftime("%Y-%m-%dT%H:%M:%SZ UTC",time.gmtime()))
 		iridium_txtime = request.POST.get('transmit_time')
@@ -79,7 +85,7 @@ def postfunc(request):
 		iridium_longitude = request.POST.get('iridium_longitude')
 		iridium_cep = request.POST.get('iridium_cep')
 		Data={'data':packet_data,'txtime':iridium_txtime,'imei':iridium_imei,'momsn':iridium_momsn,'lat':iridium_latitude,'lon':iridium_longitude,'cep':iridium_cep}
-		print(Data)
+		#print(Data)
 		
 		print(packet_fields)
 		context = {'text': Data}
