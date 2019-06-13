@@ -72,7 +72,8 @@ def postfunc(request):
 			packet_fields = structure.unpack_new(binary_packet_data)
 			print(packet_fields['seq'])
 			print(packet_fields['version'])
-			new_IridiumData = models.IridiumData.objects.create(transmit_time = request.POST.get('transmit_time'), iridium_latitude = request.POST.get('iridium_latitude'), iridium_longitude = request.POST.get('iridium_longitude'), iridium_cep = request.POST.get('iridium_cep'), momsn = request.POST.get('momsn'), imei = request.POST.get('imei'), transmitted_via_satellite = True if request.POST.get('transmitted_via_satellite') is None else request.POST.get('transmitted_via_satellite'))
+			timestring = '20' + request.POST.get('transmit time')
+			new_IridiumData = models.IridiumData.objects.create(transmit_time = timestring, iridium_latitude = request.POST.get('iridium_latitude'), iridium_longitude = request.POST.get('iridium_longitude'), iridium_cep = request.POST.get('iridium_cep'), momsn = request.POST.get('momsn'), imei = request.POST.get('imei'), transmitted_via_satellite = True if request.POST.get('transmitted_via_satellite') is None else request.POST.get('transmitted_via_satellite'))
 			new_Packet = models.Packet.objects.create(global_id=new_IridiumData,packet_id=packet_fields['seq'],version=packet_fields['version'])
 			new_RawData = models.RawData.objects.create(global_id=new_Packet,data=binary_packet_data,hexdata=packet_data)
 			hour_now = packet_fields['time']//10000
