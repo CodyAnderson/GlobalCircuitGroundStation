@@ -38,10 +38,10 @@ def homepage(request):
 	print('Here it is, boys.')
 	return render(request, 'groundstation/homepage.html')
 
-def gps(request):    # Change to google maps
+def gps(request):		 # Change to google maps
 	data = [
-				['Time', 'Latitude', 'Longitude']  # create a list to hold the column names and data for the axis names
-		   ]
+				['Time', 'Latitude', 'Longitude']	 # create a list to hold the column names and data for the axis names
+			 ]
 	
 	db = MySQLdb.connect(host="localhost", user=secrets.sqluser,passwd=secrets.sqlpassword, db="groundstation") # Access the database to get all the current data
 	cur = db.cursor()
@@ -72,8 +72,17 @@ def postfunc(request):
 			packet_fields = structure.unpack_new(binary_packet_data)
 			print(packet_fields['seq'])
 			print(packet_fields['version'])
-			new_packet = models.Packet.objects.create(packet_id=packet_fields['seq'],version=packet_fields['version'])
-			new_RawData = models.RawData.objects.create(global_id=new_packet,data=binary_packet_data,hexdata=packet_data)
+			new_Packet = models.Packet.objects.create(packet_id=packet_fields['seq'],version=packet_fields['version'])
+			new_RawData = models.RawData.objects.create(global_id=new_Packet,data=binary_packet_data,hexdata=packet_data)
+			new_SlowMeasurement = models.SlowMeasurement.objects.create(global_id=new_Packet,gps_latitude=packet_fields['lat'],gps_longitude=packet_fields['lon'],gps_altitude=packet_fields['alt'],gps_time=packet_fields['time'])
+			for i in range(0,12):
+				new_FastMeasurement = models.FastMeasurement.objects.create(global_id=new_Packet,sub_id=i,vert1=packet_fields['vert1'][i],vert2=packet_fields['vert2'][i],vertD=packet_fields['vertD'][i],compassX=packet_fields['compassX'][i],compassY=packet_fields['compassY'][i],compassZ=packet_fields['compassZ'][i],horiz1=packet_fields['horiz1'][i],horiz2=packet_fields['horiz2'][i],horizD=packet_fields['horizD'][i])
+			for i in range(0,15):
+				new_ConductivityData = models.ConductivityData.objects.create(global_id=new_Packet,sub_id=i*10+(packet_fields['seq']%10),vert1=packet_fields['cVert1'][i],vert2=packet_fields['cVert2'][i])
+			labelList={"TemperatureL","TemperatureH","PressureL","PressureH","IL0","IL1","IL2","IH0","IH1","IH2","T0","T1","T2","Tmag","Tadc1","Tadc2","","","",""}
+			newSupDataL= models.SupData.objects.create(global_id=new_Packet,sub_id=packet_fields['seq']%10,type=labelList[(packet_fields['seq']%10)*2], value=packet_fields['sup'][0])
+			newSupDataH= models.SupData.objects.create(global_id=new_Packet,sub_id=packet_fields['seq']%10,type=labelList[((packet_fields['seq']%10)+1)*2], value=packet_fields['sup'][0])
+
 		else:
 			new_Packet = models.Packet.objects.create(packet_id=0xDEAD,version=0xDEAD)
 		#else
