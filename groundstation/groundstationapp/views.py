@@ -76,7 +76,7 @@ def postfunc(request):
 			new_RawData = models.RawData.objects.create(global_id=new_Packet,data=binary_packet_data,hexdata=packet_data)
 			hour_now = packet_fields['time']/10000
 			minute_now = (packet_fields['time']-hour_now*10000)/100
-			second_now = packet_fields['time']-hour_now*10000-minutes_now*100
+			second_now = packet_fields['time']-hour_now*10000-minute_now*100
 			time_now = datetime.utc.now().replace(hour=hour_now,minute=minute_now,second=second_now,microsecond=0)
 			new_SlowMeasurement = models.SlowMeasurement.objects.create(global_id=new_Packet,gps_latitude=packet_fields['lat'],gps_longitude=packet_fields['lon'],gps_altitude=packet_fields['alt'],gps_time=time_now)
 			for i in range(0,12):
