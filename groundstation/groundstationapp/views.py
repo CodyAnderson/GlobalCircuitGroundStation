@@ -107,3 +107,26 @@ def postfunc(request):
 	else:
 		context = {'text': 'none'}
 	return render(request, 'groundstation/post.html', context)
+
+def horizontal(request):
+	data = [
+				['Time', 'H1', 'H2', 'HD']	 # create a list to hold the column names and data for the axis names
+			]
+	ordered_fastmeasurements = models.FastMeasurement.objects.order_by('global_id', 'sub_id')
+	print(len(ordered_fastmeasurements))
+	onlyWantedData = [[x.global_id.id*12+x.sub_id,x.horiz1,x.horiz2,x.horizD] for x in ordered_fastmeasurements]
+	data = data + onlyWantedData
+	
+	chartTitle = "Horizontal Measurements"
+	chartDescription = "This is a test graph generated from all of the fast measurement data.\n This is mostly for demonstration.\n Please enjoy."
+	
+	data_source = SimpleDataSource(data=data)
+	chart = LineChart(data_source, options={'title': chartTitle}) # Creating a line chart
+	
+	context = {'chart': chart, 'title': chartTitle, 'description': chartDescription}
+
+	return render(request, 'groundstation/graph.html', context)
+	
+def vertical(request):
+	
+	return render(request, 'groundstation/homepage.html')

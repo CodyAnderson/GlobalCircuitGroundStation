@@ -16,14 +16,14 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from groundstationapp.views import homepage, gps, postfunc
+from groundstationapp.views import homepage, gps, postfunc, horizontal, vertical
 
 urlpatterns = [
     url(r'^$', homepage, name='homepage'),
-    url(r'^gps/$', gps, name='gps'),
+    #url(r'^gps/$', gps, name='gps'),
 	#url(r'^altitude/$', altitude, name='altitude'),
-	#url(r'^horizontal/$', horizontal, name='horizontal'),
-	#url(r'^vertical/$', vertical, name='vertical'),
+	url(r'^horizontal/$', horizontal, name='horizontal'),
+	url(r'^vertical/$', vertical, name='vertical'),
 	#url(r'^compass/$', compass, name='compass'),
 	#url(r'^conductivity/$', conductivity, name='conductivity'),
     url(r'^post/$', postfunc, name='postfunc'),
