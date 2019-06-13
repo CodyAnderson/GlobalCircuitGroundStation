@@ -77,7 +77,7 @@ def postfunc(request):
 			hour_now = packet_fields['time']/10000
 			minute_now = (packet_fields['time']-hour_now*10000)/100
 			second_now = packet_fields['time']-hour_now*10000-minute_now*100
-			time_now = datetime.utc.now().replace(hour=hour_now,minute=minute_now,second=second_now,microsecond=0)
+			time_now = datetime.utcnow().replace(hour=hour_now,minute=minute_now,second=second_now,microsecond=0)
 			new_SlowMeasurement = models.SlowMeasurement.objects.create(global_id=new_Packet,gps_latitude=packet_fields['lat'],gps_longitude=packet_fields['lon'],gps_altitude=packet_fields['alt'],gps_time=time_now)
 			for i in range(0,12):
 				new_FastMeasurement = models.FastMeasurement.objects.create(global_id=new_Packet,sub_id=i,vert1=packet_fields['vert1'][i],vert2=packet_fields['vert2'][i],vertD=packet_fields['vertD'][i],compassX=packet_fields['compassX'][i],compassY=packet_fields['compassY'][i],compassZ=packet_fields['compassZ'][i],horiz1=packet_fields['horiz1'][i],horiz2=packet_fields['horiz2'][i],horizD=packet_fields['horizD'][i])
