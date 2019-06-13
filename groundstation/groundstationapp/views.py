@@ -85,7 +85,7 @@ def postfunc(request):
 				new_ConductivityData = models.ConductivityData.objects.create(global_id=new_Packet,sub_id=i*10+(packet_fields['seq']%10),vert1=packet_fields['cVert1'][i],vert2=packet_fields['cVert2'][i])
 			labelList=["TemperatureL","TemperatureH","PressureL","PressureH","IL0","IL1","IL2","IH0","IH1","IH2","T0","T1","T2","Tmag","Tadc1","Tadc2","","","",""]
 			newSupDataL= models.SupData.objects.create(global_id=new_Packet,sub_id=packet_fields['seq']%10,type=labelList[(packet_fields['seq']%10)*2], value=packet_fields['sup'][0])
-			newSupDataH= models.SupData.objects.create(global_id=new_Packet,sub_id=packet_fields['seq']%10,type=labelList[((packet_fields['seq']%10)+1)*2], value=packet_fields['sup'][0])
+			newSupDataH= models.SupData.objects.create(global_id=new_Packet,sub_id=packet_fields['seq']%10,type=labelList[((packet_fields['seq']%10)*2)+1], value=packet_fields['sup'][1])
 
 		else:
 			new_Packet = models.Packet.objects.create(packet_id=0xDEAD,version=0xDEAD)
