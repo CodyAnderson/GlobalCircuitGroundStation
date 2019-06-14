@@ -117,8 +117,21 @@ def horizontal(request):
 			]
 	ordered_fastmeasurements = models.FastMeasurement.objects.order_by('global_id', 'sub_id')
 	print(len(ordered_fastmeasurements))
-	onlyWantedData = [[x.global_id.id*12+x.sub_id,x.horiz1,x.horiz2,x.horizD] for x in ordered_fastmeasurements]
-	data = data + onlyWantedData
+	scalar = 0.000125 if request.GET.get('volts','') == 'True' else 1
+	top = 99999 if not request.GET.get('top','') else float(request.GET.get('top',''))
+	bottom = -99999 if not request.GET.get('bottom','') else float(request.GET.get('bottom',''))
+	onlyWantedData = []
+	wantedimei = request.GET.get('imei','*')
+	for x in ordered_fastmeasurements:
+		if(wantedimei == '*' or wantedimei == str(x.global_id.global_id.imei)):
+			onlyWantedData.append([x.global_id.id*12+x.sub_id,x.horiz1*scalar if x.horiz1*scalar <= top and x.horiz1*scalar >= bottom else top if x.horiz1*scalar > top else bottom,x.horiz2*scalar if x.horiz2*scalar <= top and x.horiz2*scalar >= bottom else top if x.horiz2*scalar > top else bottom,x.horizD*scalar if x.horizD*scalar <= top and x.horizD*scalar >= bottom else top if x.horizD*scalar > top else bottom])
+	minstringint = int(request.GET.get('min','0'))
+	maxstringint = int(request.GET.get('max','999999'))
+	onlyReallyWantedData = []
+	for x in onlyWantedData:
+		if(x[0] >= minstringint and x[0] <= maxstringint):
+			onlyReallyWantedData.append(x)
+	data = data + onlyReallyWantedData
 	
 	chartTitle = "Horizontal Measurements"
 	chartDescription = "This is a test graph generated from all of the fast measurement data.\n This is mostly for demonstration.\n Please enjoy."
@@ -136,8 +149,22 @@ def vertical(request):
 			]
 	ordered_fastmeasurements = models.FastMeasurement.objects.order_by('global_id', 'sub_id')
 	print(len(ordered_fastmeasurements))
-	onlyWantedData = [[x.global_id.id*12+x.sub_id,x.vert1,x.vert2,x.vertD] for x in ordered_fastmeasurements]
-	data = data + onlyWantedData
+	scalar = 0.000125 if request.GET.get('volts','') == 'True' else 1
+	top = 99999 if not request.GET.get('top','') else float(request.GET.get('top',''))
+	bottom = -99999 if not request.GET.get('bottom','') else float(request.GET.get('bottom',''))
+	onlyWantedData = []
+	wantedimei = request.GET.get('imei','*')
+	for x in ordered_fastmeasurements:
+		if(wantedimei == '*' or wantedimei == str(x.global_id.global_id.imei)):
+			onlyWantedData.append([x.global_id.id*12+x.sub_id,x.vert1*scalar if x.vert1*scalar <= top and x.vert1*scalar >= bottom else top if x.vert1*scalar > top else bottom,x.vert2*scalar if x.vert2*scalar <= top and x.vert2*scalar >= bottom else top if x.vert2*scalar > top else bottom,x.vertD*scalar if x.vertD*scalar <= top and x.vertD*scalar >= bottom else top if x.vertD*scalar > top else bottom])
+	minstringint = int(request.GET.get('min','0'))
+	maxstringint = int(request.GET.get('max','999999'))
+	wantedimei = request.GET.get('imei','*')
+	onlyReallyWantedData = []
+	for x in onlyWantedData:
+		if(x[0] >= minstringint and x[0] <= maxstringint):
+			onlyReallyWantedData.append(x)
+	data = data + onlyReallyWantedData
 	
 	chartTitle = "Vertical Measurements"
 	chartDescription = "This is a test graph generated from all of the fast measurement data.\n This is mostly for demonstration.\n Please enjoy."
