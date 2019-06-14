@@ -74,6 +74,7 @@ def postfunc(request):
 			print(packet_fields['version'])
 			timestring = '20' + request.POST.get('transmit_time')
 			new_IridiumData = models.IridiumData.objects.create(transmit_time = timestring, iridium_latitude = request.POST.get('iridium_latitude'), iridium_longitude = request.POST.get('iridium_longitude'), iridium_cep = request.POST.get('iridium_cep'), momsn = request.POST.get('momsn'), imei = request.POST.get('imei'), transmitted_via_satellite = True if request.POST.get('transmitted_via_satellite') is None else request.POST.get('transmitted_via_satellite'))
+			print(new_IridiumData.transmit_time)
 			new_Packet = models.Packet.objects.create(global_id=new_IridiumData,packet_id=packet_fields['seq'],version=packet_fields['version'])
 			new_RawData = models.RawData.objects.create(global_id=new_Packet,data=binary_packet_data,hexdata=packet_data)
 			hour_now = packet_fields['time']//10000
@@ -130,5 +131,37 @@ def horizontal(request):
 	return render(request, 'groundstation/graph.html', context)
 	
 def vertical(request):
+	data = [
+				['Time', 'V1', 'V2', 'VD']	 # create a list to hold the column names and data for the axis names
+			]
+	ordered_fastmeasurements = models.FastMeasurement.objects.order_by('global_id', 'sub_id')
+	print(len(ordered_fastmeasurements))
+	onlyWantedData = [[x.global_id.id*12+x.sub_id,x.vert1,x.vert2,x.vertD] for x in ordered_fastmeasurements]
+	data = data + onlyWantedData
 	
-	return render(request, 'groundstation/homepage.html')
+	chartTitle = "Vertical Measurements"
+	chartDescription = "This is a test graph generated from all of the fast measurement data.\n This is mostly for demonstration.\n Please enjoy."
+	
+	data_source = SimpleDataSource(data=data)
+	chart = LineChart(data_source, options={'title': chartTitle}) # Creating a line chart
+	
+	context = {'chart': chart, 'title': chartTitle, 'description': chartDescription}
+	return render(request, 'groundstation/graph.html', context)
+
+def conductivity(request):
+	data = [
+				['Time', 'V1', 'V2' ]	 # create a list to hold the column names and data for the axis names
+			]
+	ordered_condmeasurements = models.ConductivityData.objects.order_by('global_id', 'sub_id')
+	print(len(ordered_condmeasurements))
+	onlyWantedData = [[x.global_id.id*12+x.sub_id,x.vert1,x.vert2] for x in ordered_condmeasurements]
+	data = data + onlyWantedData
+	
+	chartTitle = "Conductivity Measurements"
+	chartDescription = "This is a test graph generated from all of the conductivity measurement data.\n This is mostly for demonstration.\n Please enjoy."
+	
+	data_source = SimpleDataSource(data=data)
+	chart = LineChart(data_source, options={'title': chartTitle}) # Creating a line chart
+	
+	context = {'chart': chart, 'title': chartTitle, 'description': chartDescription}
+	return render(request, 'groundstation/graph.html',context)
