@@ -10,12 +10,15 @@ import io
 from graphos.sources.simple import SimpleDataSource
 from graphos.renderers.gchart import LineChart
 
+from django.db.models import IntegerField, DateTimeField, ExpressionWrapper, F
+
 from django.views.decorators.csrf import csrf_exempt
 
 from . import structure
 from . import models
 import super_secrets as secrets
 
+import datetime as dt
 from datetime import datetime
 from datetime import timedelta
 
@@ -73,7 +76,10 @@ def postfunc(request):
 			print(packet_fields['seq'])
 			print(packet_fields['version'])
 			timestring = request.POST.get('transmit_time')
-			new_IridiumData = models.IridiumData.objects.create(transmit_time = timestring, iridium_latitude = request.POST.get('iridium_latitude'), iridium_longitude = request.POST.get('iridium_longitude'), iridium_cep = request.POST.get('iridium_cep'), momsn = request.POST.get('momsn'), imei = request.POST.get('imei'), transmitted_via_satellite = True if request.POST.get('transmitted_via_satellite') is None else request.POST.get('transmitted_via_satellite'))
+			filteredImei = request.POST.get('imei')
+			if(filteredImei == "CollinsLaptop"):
+				filteredImei = "888888888888888"
+			new_IridiumData = models.IridiumData.objects.create(transmit_time = timestring, iridium_latitude = request.POST.get('iridium_latitude'), iridium_longitude = request.POST.get('iridium_longitude'), iridium_cep = request.POST.get('iridium_cep'), momsn = request.POST.get('momsn'), imei = filteredImei, transmitted_via_satellite = True if request.POST.get('transmitted_via_satellite') is None else request.POST.get('transmitted_via_satellite'))
 			print(new_IridiumData.transmit_time)
 			new_Packet = models.Packet.objects.create(global_id=new_IridiumData,packet_id=packet_fields['seq'],version=packet_fields['version'])
 			new_RawData = models.RawData.objects.create(global_id=new_Packet,data=binary_packet_data,hexdata=packet_data)
@@ -115,21 +121,24 @@ def horizontal(request):
 	data = [
 				['Time', 'H1', 'H2', 'HD']	 # create a list to hold the column names and data for the axis names
 			]
-	ordered_fastmeasurements = models.FastMeasurement.objects.order_by('global_id', 'sub_id')
-	print(len(ordered_fastmeasurements))
+	minstringint = datetime.strptime(request.GET.get('min','2000-04-01T10:00:00'),"%Y-%m-%dT%H:%M:%S").replace(tzinfo=dt.timezone.utc)
+	maxstringint = datetime.strptime(request.GET.get('max','2020-05-16T10:00:00'),"%Y-%m-%dT%H:%M:%S").replace(tzinfo=dt.timezone.utc)
+	ordered_fastmeasurements = models.FastMeasurement.objects.filter(global_id__global_id__transmit_time__gte=minstringint).filter(global_id__global_id__transmit_time__lte=maxstringint).order_by('global_id', 'sub_id')
+	#print(ordered_fastmeasurements.query)
 	scalar = 0.000125 if request.GET.get('volts','') == 'True' else 1
 	top = 99999 if not request.GET.get('top','') else float(request.GET.get('top',''))
 	bottom = -99999 if not request.GET.get('bottom','') else float(request.GET.get('bottom',''))
 	onlyWantedData = []
 	wantedimei = request.GET.get('imei','*')
+	if(wantedimei == "CollinsLaptop"):
+		wantedimei = "888888888888888"
 	for x in ordered_fastmeasurements:
 		if(wantedimei == '*' or wantedimei == str(x.global_id.global_id.imei)):
-			onlyWantedData.append([x.global_id.id*12+x.sub_id,x.horiz1*scalar if x.horiz1*scalar <= top and x.horiz1*scalar >= bottom else top if x.horiz1*scalar > top else bottom,x.horiz2*scalar if x.horiz2*scalar <= top and x.horiz2*scalar >= bottom else top if x.horiz2*scalar > top else bottom,x.horizD*scalar if x.horizD*scalar <= top and x.horizD*scalar >= bottom else top if x.horizD*scalar > top else bottom])
-	minstringint = int(request.GET.get('min','0'))
-	maxstringint = int(request.GET.get('max','999999'))
+			onlyWantedData.append([x.global_id.global_id.transmit_time+x.sub_id*timedelta(seconds=5),x.horiz1*scalar if x.horiz1*scalar <= top and x.horiz1*scalar >= bottom else top if x.horiz1*scalar > top else bottom,x.horiz2*scalar if x.horiz2*scalar <= top and x.horiz2*scalar >= bottom else top if x.horiz2*scalar > top else bottom,x.horizD*scalar if x.horizD*scalar <= top and x.horizD*scalar >= bottom else top if x.horizD*scalar > top else bottom])
+	
 	onlyReallyWantedData = []
 	for x in onlyWantedData:
-		if(x[0] >= minstringint and x[0] <= maxstringint):
+		if True: #if(x[0] >= minstringint and x[0] <= maxstringint):
 			onlyReallyWantedData.append(x)
 	data = data + onlyReallyWantedData
 	
@@ -147,22 +156,26 @@ def vertical(request):
 	data = [
 				['Time', 'V1', 'V2', 'VD']	 # create a list to hold the column names and data for the axis names
 			]
-	ordered_fastmeasurements = models.FastMeasurement.objects.order_by('global_id', 'sub_id')
-	print(len(ordered_fastmeasurements))
+	minstringint = datetime.strptime(request.GET.get('min','2000-01-01T10:00:00'),"%Y-%m-%dT%H:%M:%S").replace(tzinfo=dt.timezone.utc)
+	maxstringint = datetime.strptime(request.GET.get('max','2020-12-25T10:00:00'),"%Y-%m-%dT%H:%M:%S").replace(tzinfo=dt.timezone.utc)
+	ordered_fastmeasurements = models.FastMeasurement.objects.filter(global_id__global_id__transmit_time__gte=minstringint).filter(global_id__global_id__transmit_time__lte=maxstringint).order_by('global_id', 'sub_id')
+	#print(len(ordered_fastmeasurements))
 	scalar = 0.000125 if request.GET.get('volts','') == 'True' else 1
 	top = 99999 if not request.GET.get('top','') else float(request.GET.get('top',''))
 	bottom = -99999 if not request.GET.get('bottom','') else float(request.GET.get('bottom',''))
 	onlyWantedData = []
 	wantedimei = request.GET.get('imei','*')
+	if(wantedimei == "CollinsLaptop"):
+		wantedimei = "888888888888888"
 	for x in ordered_fastmeasurements:
 		if(wantedimei == '*' or wantedimei == str(x.global_id.global_id.imei)):
-			onlyWantedData.append([x.global_id.id*12+x.sub_id,x.vert1*scalar if x.vert1*scalar <= top and x.vert1*scalar >= bottom else top if x.vert1*scalar > top else bottom,x.vert2*scalar if x.vert2*scalar <= top and x.vert2*scalar >= bottom else top if x.vert2*scalar > top else bottom,x.vertD*scalar if x.vertD*scalar <= top and x.vertD*scalar >= bottom else top if x.vertD*scalar > top else bottom])
-	minstringint = int(request.GET.get('min','0'))
-	maxstringint = int(request.GET.get('max','999999'))
+			onlyWantedData.append([x.global_id.global_id.transmit_time+x.sub_id*timedelta(seconds=5),x.vert1*scalar if x.vert1*scalar <= top and x.vert1*scalar >= bottom else top if x.vert1*scalar > top else bottom,x.vert2*scalar if x.vert2*scalar <= top and x.vert2*scalar >= bottom else top if x.vert2*scalar > top else bottom,x.vertD*scalar if x.vertD*scalar <= top and x.vertD*scalar >= bottom else top if x.vertD*scalar > top else bottom])
+	#minstringint = int(request.GET.get('min','0'))
+	#maxstringint = int(request.GET.get('max','999999'))
 	wantedimei = request.GET.get('imei','*')
 	onlyReallyWantedData = []
 	for x in onlyWantedData:
-		if(x[0] >= minstringint and x[0] <= maxstringint):
+		if True: #if(x[0] >= minstringint and x[0] <= maxstringint):
 			onlyReallyWantedData.append(x)
 	data = data + onlyReallyWantedData
 	
