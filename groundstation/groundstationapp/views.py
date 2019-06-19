@@ -239,6 +239,6 @@ def newGraph(request):
 	data_source = SimpleDataSource(data=data)
 	chart = LineChart(data_source, options={'title': chartTitle}) # Creating a line chart
 	
-	context = {'chart': chart, 'title': chartTitle, 'description': chartDescription}
+	context = {'chart': chart, 'title': chartTitle, 'description': chartDescription, 'imei': request.GET.get('imei','')}
 
 	return render(request, 'groundstation/newGraph.html', context)

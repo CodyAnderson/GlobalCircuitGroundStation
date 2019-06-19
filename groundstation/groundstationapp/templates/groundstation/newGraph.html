@@ -13,9 +13,9 @@
 		<th>{{ description }} </th>
 		<h2> </h2>
 		{{ chart.as_html }}
-		<form action="/action_page.php">
-			First name:<br>
-			<input type="text" name="firstname" value="Mickey"><br>
+		<form>
+			imei:<br>
+			<input type="text" name="imei" value="{{ imei }}"><br>
 			Last name:<br>
 			<input type="text" name="lastname" value="Mouse"><br><br>
 			<input type="submit" value="Submit">
