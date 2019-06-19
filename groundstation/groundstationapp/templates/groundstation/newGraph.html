@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+	<head>
+		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+		<script type="text/javascript">
+			google.load("visualization", "1", {packages:["corechart"]});
+		</script>
+	</head>
+	<body>
+
+		<h1>{{ title }} </h1>
+		<h2> </h2>
+		<th>{{ description }} </th>
+		<h2> </h2>
+		{{ chart.as_html }}
+		<form action="/action_page.php">
+			First name:<br>
+			<input type="text" name="firstname" value="Mickey"><br>
+			Last name:<br>
+			<input type="text" name="lastname" value="Mouse"><br><br>
+			<input type="submit" value="Submit">
+		</form>
+	</body>
+
+</html>

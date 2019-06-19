@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from groundstationapp.views import homepage, gps, postfunc, horizontal, vertical, conductivity
+from groundstationapp.views import homepage, gps, postfunc, horizontal, vertical, conductivity, newGraph
 
 urlpatterns = [
     url(r'^$', homepage, name='homepage'),
@@ -26,5 +26,6 @@ urlpatterns = [
 	url(r'^vertical/$', vertical, name='vertical'),
 	#url(r'^compass/$', compass, name='compass'),
 	url(r'^conductivity/$', conductivity, name='conductivity'),
+	url(r'^newgraph/$', newGraph, name='newGraph'),
     url(r'^post/$', postfunc, name='postfunc'),
 ]
