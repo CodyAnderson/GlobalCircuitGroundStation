@@ -212,21 +212,24 @@ def newGraph(request):
 	data = [
 				['Time', 'H1', 'H2', 'HD']	 # create a list to hold the column names and data for the axis names
 			]
-	ordered_fastmeasurements = models.FastMeasurement.objects.order_by('global_id', 'sub_id')
-	print(len(ordered_fastmeasurements))
+	minstringint = datetime.strptime(request.GET.get('min','2000-04-01T10:00:00'),"%Y-%m-%dT%H:%M:%S").replace(tzinfo=dt.timezone.utc)
+	maxstringint = datetime.strptime(request.GET.get('max','2020-05-16T10:00:00'),"%Y-%m-%dT%H:%M:%S").replace(tzinfo=dt.timezone.utc)
+	ordered_fastmeasurements = models.FastMeasurement.objects.filter(global_id__global_id__transmit_time__gte=minstringint).filter(global_id__global_id__transmit_time__lte=maxstringint).order_by('global_id', 'sub_id')
+	#print(ordered_fastmeasurements.query)
 	scalar = 0.000125 if request.GET.get('volts','') == 'True' else 1
 	top = 99999 if not request.GET.get('top','') else float(request.GET.get('top',''))
 	bottom = -99999 if not request.GET.get('bottom','') else float(request.GET.get('bottom',''))
 	onlyWantedData = []
 	wantedimei = request.GET.get('imei','*')
+	if(wantedimei == "CollinsLaptop"):
+		wantedimei = "888888888888888"
 	for x in ordered_fastmeasurements:
 		if(wantedimei == '*' or wantedimei == str(x.global_id.global_id.imei)):
-			onlyWantedData.append([x.global_id.id*12+x.sub_id,x.horiz1*scalar if x.horiz1*scalar <= top and x.horiz1*scalar >= bottom else top if x.horiz1*scalar > top else bottom,x.horiz2*scalar if x.horiz2*scalar <= top and x.horiz2*scalar >= bottom else top if x.horiz2*scalar > top else bottom,x.horizD*scalar if x.horizD*scalar <= top and x.horizD*scalar >= bottom else top if x.horizD*scalar > top else bottom])
-	minstringint = int(request.GET.get('min','0'))
-	maxstringint = int(request.GET.get('max','999999'))
+			onlyWantedData.append([x.global_id.global_id.transmit_time+x.sub_id*timedelta(seconds=5),x.horiz1*scalar if x.horiz1*scalar <= top and x.horiz1*scalar >= bottom else top if x.horiz1*scalar > top else bottom,x.horiz2*scalar if x.horiz2*scalar <= top and x.horiz2*scalar >= bottom else top if x.horiz2*scalar > top else bottom,x.horizD*scalar if x.horizD*scalar <= top and x.horizD*scalar >= bottom else top if x.horizD*scalar > top else bottom])
+	
 	onlyReallyWantedData = []
 	for x in onlyWantedData:
-		if(x[0] >= minstringint and x[0] <= maxstringint):
+		if True: #if(x[0] >= minstringint and x[0] <= maxstringint):
 			onlyReallyWantedData.append(x)
 	data = data + onlyReallyWantedData
 	
