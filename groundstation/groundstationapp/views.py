@@ -72,7 +72,7 @@ def postfunc(request):
 			packet_fields = structure.unpack_new(binary_packet_data)
 			print(packet_fields['seq'])
 			print(packet_fields['version'])
-			timestring = '20' + request.POST.get('transmit_time')
+			timestring = request.POST.get('transmit_time')
 			new_IridiumData = models.IridiumData.objects.create(transmit_time = timestring, iridium_latitude = request.POST.get('iridium_latitude'), iridium_longitude = request.POST.get('iridium_longitude'), iridium_cep = request.POST.get('iridium_cep'), momsn = request.POST.get('momsn'), imei = request.POST.get('imei'), transmitted_via_satellite = True if request.POST.get('transmitted_via_satellite') is None else request.POST.get('transmitted_via_satellite'))
 			print(new_IridiumData.transmit_time)
 			new_Packet = models.Packet.objects.create(global_id=new_IridiumData,packet_id=packet_fields['seq'],version=packet_fields['version'])
