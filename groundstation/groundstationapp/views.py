@@ -205,9 +205,9 @@ def conductivity(request):
 	
 	context = {'chart': chart, 'title': chartTitle, 'description': chartDescription}
 	return render(request, 'groundstation/graph.html',context)
-    
-    
-    
+	
+	
+	
 def newGraph(request):
 	data = [
 				['Time', 'H1', 'H2', 'HD']	 # create a list to hold the column names and data for the axis names
@@ -239,6 +239,17 @@ def newGraph(request):
 	data_source = SimpleDataSource(data=data)
 	chart = LineChart(data_source, options={'title': chartTitle}) # Creating a line chart
 	
-	context = {'chart': chart, 'title': chartTitle, 'description': chartDescription, 'imei': request.GET.get('imei',''), 'maxTime': request.GET.get('maxTime',''), 'minTime': request.GET.get('minTime',''), 'maxVal': request.GET.get('maxVal',''), 'minVal': request.GET.get('minVal',''), 'volts': request.GET.get('volts','')}
+	signalString = request.GET.get('signal','')
+	
+	horizontal =   True if signalString == 'horizontal'   else False
+	vertical =     True if signalString == 'vertical'     else False
+	compass =      True if signalString == 'compass'      else False
+	conductivity = True if signalString == 'conductivity' else False
+	gps =          True if signalString == 'gps'          else False
+	iridium =      True if signalString == 'iridium'      else False
+	
+	
+	
+	context = {'chart': chart, 'title': chartTitle, 'description': chartDescription, 'imei': request.GET.get('imei',''), 'maxTime': request.GET.get('maxTime',''), 'minTime': request.GET.get('minTime',''), 'maxVal': request.GET.get('maxVal',''), 'minVal': request.GET.get('minVal',''), 'volts': request.GET.get('volts',''), 'horizontal': horizontal, 'vertical': vertical, 'compass': compass, 'conductivity': conductivity, 'gps': gps, 'iridium': iridium}
 
 	return render(request, 'groundstation/newGraph.html', context)

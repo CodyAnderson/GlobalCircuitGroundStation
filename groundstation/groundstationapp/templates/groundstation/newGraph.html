@@ -7,14 +7,24 @@
 		</script>
 	</head>
 	<body>
-        <div style="float: left;">
-            <h1>{{ title }} </h1>
-            <h2> </h2>
-            <th>{{ description }} </th>
-            <h2> </h2>
-            {{ chart.as_html }}
-        </div>
+		<div style="float: left;">
+			<h1>{{ title }} </h1>
+			<h2> </h2>
+			<th>{{ description }} </th>
+			<h2> </h2>
+			{{ chart.as_html }}
+		</div>
 		<form style="float: left;">
+			signal:<br>
+			<input type="radio" name="signal" value="horizontal"{% if horizontal %} checked {% endif %}>Horizontal<br>
+			<input type="radio" name="signal" value="vertical"{% if vertical %} checked {% endif %}>Vertical<br>
+			<input type="radio" name="signal" value="compass"{% if compass %} checked {% endif %}>Compass<br><br>
+			
+			<input type="radio" name="signal" value="conductivity"{% if conductivity %} checked {% endif %}>Conductivity<br><br>
+			
+			<input type="radio" name="signal" value="gps"{% if gps %} checked {% endif %}>GPS Position<br>
+			<input type="radio" name="signal" value="iridium"{% if iridium %} checked {% endif %}>Iridium Position<br><br>
+			
 			imei:<br>
 			<input type="text" name="imei" value="{{ imei }}"><br>
 			maxTime:<br>
@@ -27,7 +37,7 @@
 			<input type="text" name="minVal" value="{{ minVal }}"><br>
 			volts:<br>
 			<input type="text" name="volts" value="{{ volts }}"><br><br>
-			<input type="submit" value="Submit">
+			<input type="submit" value="Refresh">
 		</form>
 	</body>
 
