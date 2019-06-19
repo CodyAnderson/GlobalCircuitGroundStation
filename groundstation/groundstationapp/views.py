@@ -212,13 +212,13 @@ def newGraph(request):
 	data = [
 				['Time', 'H1', 'H2', 'HD']	 # create a list to hold the column names and data for the axis names
 			]
-	minstringint = datetime.strptime(request.GET.get('min','2000-04-01T10:00:00'),"%Y-%m-%dT%H:%M:%S").replace(tzinfo=dt.timezone.utc)
-	maxstringint = datetime.strptime(request.GET.get('max','2020-05-16T10:00:00'),"%Y-%m-%dT%H:%M:%S").replace(tzinfo=dt.timezone.utc)
+	minstringint = datetime.strptime(request.GET.get('minTime','2000-04-01T10:00:00'),"%Y-%m-%dT%H:%M:%S").replace(tzinfo=dt.timezone.utc)
+	maxstringint = datetime.strptime(request.GET.get('maxTime','2020-05-16T10:00:00'),"%Y-%m-%dT%H:%M:%S").replace(tzinfo=dt.timezone.utc)
 	ordered_fastmeasurements = models.FastMeasurement.objects.filter(global_id__global_id__transmit_time__gte=minstringint).filter(global_id__global_id__transmit_time__lte=maxstringint).order_by('global_id', 'sub_id')
 	#print(ordered_fastmeasurements.query)
 	scalar = 0.000125 if request.GET.get('volts','') == 'True' else 1
-	top = 99999 if not request.GET.get('top','') else float(request.GET.get('top',''))
-	bottom = -99999 if not request.GET.get('bottom','') else float(request.GET.get('bottom',''))
+	top = 99999 if not request.GET.get('maxVal','') else float(request.GET.get('maxVal',''))
+	bottom = -99999 if not request.GET.get('minVal','') else float(request.GET.get('minVal',''))
 	onlyWantedData = []
 	wantedimei = request.GET.get('imei','*')
 	if(wantedimei == "CollinsLaptop"):

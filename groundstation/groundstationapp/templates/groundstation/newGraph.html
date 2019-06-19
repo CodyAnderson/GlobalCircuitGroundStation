@@ -7,17 +7,24 @@
 		</script>
 	</head>
 	<body>
-
-		<h1>{{ title }} </h1>
-		<h2> </h2>
-		<th>{{ description }} </th>
-		<h2> </h2>
-		{{ chart.as_html }}
-		<form>
+        <div style="float: left;">
+            <h1>{{ title }} </h1>
+            <h2> </h2>
+            <th>{{ description }} </th>
+            <h2> </h2>
+            {{ chart.as_html }}
+        </div>
+		<form style="float: left;">
 			imei:<br>
 			<input type="text" name="imei" value="{{ imei }}"><br>
-			Last name:<br>
-			<input type="text" name="lastname" value="Mouse"><br><br>
+			maxTime:<br>
+			<input type="text" name="maxTime" value="{{ maxTime }}"><br>
+			minTime:<br>
+			<input type="text" name="minTime" value="{{ minTime }}"><br>
+			maxVal:<br>
+			<input type="text" name="maxVal" value="{{ maxVal }}"><br>
+			minVal:<br>
+			<input type="text" name="minVal" value="{{ minVal }}"><br><br>
 			<input type="submit" value="Submit">
 		</form>
 	</body>
