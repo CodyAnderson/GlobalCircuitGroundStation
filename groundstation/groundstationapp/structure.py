@@ -39,11 +39,11 @@ def unpack_new(fstring):
     values['vert1']=struct.unpack('<12h',fstring[92:116])
     values['vert2']=struct.unpack('<12h',fstring[116:140])
     values['vertD']=struct.unpack('<12h',fstring[140:164])
-    values['compassX']=struct.unpack('<12H',fstring[164:188])
-    values['compassY']=struct.unpack('<12H',fstring[188:212])
-    values['compassZ']=struct.unpack('<12H',fstring[212:236])
-    values['cVert1']=struct.unpack('<15H',fstring[236:266])
-    values['cVert2']=struct.unpack('<15H',fstring[266:296])
+    values['compassX']=struct.unpack('<12h',fstring[164:188])
+    values['compassY']=struct.unpack('<12h',fstring[188:212])
+    values['compassZ']=struct.unpack('<12h',fstring[212:236])
+    values['cVert1']=struct.unpack('<15h',fstring[236:266])
+    values['cVert2']=struct.unpack('<15h',fstring[266:296])
     values['sup']=struct.unpack('<2H',fstring[296:300])
     values['ballast']=struct.unpack('<B',fstring[300:301])[0]
     values['cutdown']=struct.unpack('<B',fstring[301:302])[0]
