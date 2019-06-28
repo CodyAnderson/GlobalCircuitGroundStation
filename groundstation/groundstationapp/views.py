@@ -7,6 +7,8 @@ import MySQLdb
 import time
 import io
 
+import requests
+
 from graphos.sources.simple import SimpleDataSource
 from graphos.sources.model import ModelDataSource
 from graphos.renderers.gchart import LineChart
@@ -64,6 +66,30 @@ def gps(request):		 # Change to google maps
 	context = {'chart': chart}
 	return render(request, 'groundstation/gps.html', context)	# rendering the chart when a request has gone through for this page, and using the mapPlot.html to render it
 
+@csrf_exempt
+def submitfunc(request):
+	imei = request.GET.get('imei', '')
+	message = request.GET.get('message', '')
+	context={
+	'chart': 'Chart Uh-Oh',
+	'title': 'Title Uh-Oh',
+	'description': 'Decsription Uh-Oh',
+	'imei': imei,
+	}
+	print("IMEI: " + imei)
+	print("MESSAGE: " + message)
+	postData = {
+	'imei': imei,
+	'data': message,
+	'username': rock7username,
+	'password': rock7password
+	}
+	if(imei != ''):
+		r = requests.post("https://core.rock7.com/rockblock/MT", data=postData)
+		print(r.status_code)
+		print(r.content)
+	return render(request, 'groundstation/submit.html', context)
+	
 @csrf_exempt
 def postfunc(request):
 	if (request.POST):

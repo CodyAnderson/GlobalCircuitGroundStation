@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+	<head>
+		<script>
+			if ( window.history.replaceState )
+			{
+				window.history.replaceState(null,null,window.location.href.split('?')[0])
+			}
+		</script>
+	</head>
+	<body>
+		<div style="float: left;">
+			<h1><!--{{ title }}-->Test Title</h1>
+			<h2> </h2>
+			<th><!--{{ description }}--> Test Description</th>
+			<h2> </h2>
+			<!--{{ chart }}--> Test Lack of Chart
+		</div>
+		<form style="float: left;">
+			imei:<br>
+			<input type="text" name="imei" value="{{ imei }}"><br><br>
+			
+			message:<br>
+			<textarea name = "message" rows = "3" cols = "80"></textarea>
+			<br><br>
+			<input type="submit" value="Send">
+		</form>
+	</body>
+
+</html>
