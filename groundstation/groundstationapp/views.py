@@ -81,8 +81,8 @@ def submitfunc(request):
 	postData = {
 	'imei': imei,
 	'data': message,
-	'username': rock7username,
-	'password': rock7password
+	'username': secrets.rock7username,
+	'password': secrets.rock7password
 	}
 	if(imei != ''):
 		r = requests.post("https://core.rock7.com/rockblock/MT", data=postData)
