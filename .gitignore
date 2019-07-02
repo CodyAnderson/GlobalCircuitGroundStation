@@ -1,4 +1,5 @@
 groundstationenv/
+venv/
 secrets.py
 super_secrets.py
 *.pyc
