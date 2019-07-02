@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from groundstationapp.views import homepage, gps, postfunc, horizontal, vertical, conductivity, newGraph, submitfunc
+from groundstationapp.views import homepage, gps, postfunc, horizontal, vertical, conductivity, newGraph, submitfunc, dumpfunc
 
 urlpatterns = [
     url(r'^$', homepage, name='homepage'),
@@ -29,4 +29,5 @@ urlpatterns = [
 	url(r'^newgraph/$', newGraph, name='newGraph'),
     url(r'^post/$', postfunc, name='postfunc'),
 	url(r'^submit/$', submitfunc, name='submitfunc'),
+	url(r'^dump.json$', dumpfunc, name='dumpfunc'),
 ]

@@ -65,6 +65,29 @@ def gps(request):		 # Change to google maps
 	
 	context = {'chart': chart}
 	return render(request, 'groundstation/gps.html', context)	# rendering the chart when a request has gone through for this page, and using the mapPlot.html to render it
+	
+@csrf_exempt
+def dumpfunc(request):
+	minPack = request.GET.get('minPack', '1')
+	maxPack = request.GET.get('maxPack', '1')
+	
+	packetList = []
+	
+	ordered_raw_packets = models.RawData.objects.filter(global_id__global_id__id__gte=minPack).filter(global_id__global_id__id__lte=maxPack).order_by('global_id__global_id__id')
+	for x in ordered_raw_packets:
+		packet = {
+		"imei": str(x.global_id.global_id.imei),
+		"momsn": str(x.global_id.global_id.momsn),
+		"transmit_time": str(x.global_id.global_id.transmit_time),
+		"iridium_latitude": str(x.global_id.global_id.iridium_latitude),
+		"iridium_longitude": str(x.global_id.global_id.iridium_longitude),
+		"iridium_cep": str(x.global_id.global_id.iridium_cep),
+		"data": str(x.hexdata)
+		}
+		packetList.append(packet)
+	context = {'packetList': packetList}
+	return render(request, 'groundstation/dump.json', context)
+
 
 @csrf_exempt
 def submitfunc(request):
