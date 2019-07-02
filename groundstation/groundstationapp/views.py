@@ -110,15 +110,24 @@ def postfunc(request):
 			print(new_IridiumData.transmit_time)
 			new_Packet = models.Packet.objects.create(global_id=new_IridiumData,packet_id=packet_fields['seq'],version=packet_fields['version'])
 			new_RawData = models.RawData.objects.create(global_id=new_Packet,data=binary_packet_data,hexdata=packet_data)
+			
 			hour_now = packet_fields['time']//10000
 			minute_now = (packet_fields['time']-hour_now*10000)//100
 			second_now = packet_fields['time']-hour_now*10000-minute_now*100
 			time_now = datetime.utcnow().replace(hour=hour_now,minute=minute_now,second=second_now,microsecond=0)
-			new_SlowMeasurement = models.SlowMeasurement.objects.create(global_id=new_Packet,gps_latitude=packet_fields['lat'],gps_longitude=packet_fields['lon'],gps_altitude=packet_fields['alt'],gps_time=time_now)
+			
+			cond_hour_now = packet_fields['cond_time']//10000
+			cond_minute_now = (packet_fields['cond_time']-cond_hour_now*10000)//100
+			cond_second_now = packet_fields['cond_time']-cond_hour_now*10000-cond_minute_now*100
+			cond_time_now = datetime.utcnow().replace(hour=cond_hour_now,minute=cond_minute_now,second=cond_second_now,microsecond=0)
+
+
+
+			new_SlowMeasurement = models.SlowMeasurement.objects.create(global_id=new_Packet,gps_latitude=packet_fields['lat'],gps_longitude=packet_fields['lon'],gps_altitude=packet_fields['alt'],gps_time=time_now,cond_gps_time=cond_time_now)
 			for i in range(0,12):
 				new_FastMeasurement = models.FastMeasurement.objects.create(global_id=new_Packet,sub_id=i,vert1=packet_fields['vert1'][i],vert2=packet_fields['vert2'][i],vertD=packet_fields['vertD'][i],compassX=packet_fields['compassX'][i],compassY=packet_fields['compassY'][i],compassZ=packet_fields['compassZ'][i],horiz1=packet_fields['horiz1'][i],horiz2=packet_fields['horiz2'][i],horizD=packet_fields['horizD'][i])
 			for i in range(0,15):
-				new_ConductivityData = models.ConductivityData.objects.create(global_id=new_Packet,sub_id=i*10+(packet_fields['seq']%10),vert1=packet_fields['cVert1'][i],vert2=packet_fields['cVert2'][i])
+				new_ConductivityData = models.ConductivityData.objects.create(global_id=new_SlowMeasurement,sub_id=i*10+(packet_fields['seq']%10),vert1=packet_fields['cVert1'][i],vert2=packet_fields['cVert2'][i])
 			labelList=["Temperature","Temperature","Pressure","Pressure","IL0","IL1","IL2","IH0","IH1","IH2","T0","T1","T2","Tmag","Tadc1","Tadc2","","","",""]
 			newSupDataL= models.SupData.objects.create(global_id=new_Packet,sub_id=0,type=labelList[(packet_fields['seq']%10)*2], value=packet_fields['sup'][0])
 			newSupDataH= models.SupData.objects.create(global_id=new_Packet,sub_id=0 if (packet_fields['seq']%10 > 1) else 1,type=labelList[((packet_fields['seq']%10)*2)+1], value=packet_fields['sup'][1])
@@ -384,7 +393,7 @@ def newGraph(request):
 		chartTitle = "Conductivity Measurements"
 		chartDescription = "This is a test graph generated from conductivity probe data.\n This is mostly for demonstration.\n Please enjoy."
 							
-		ordered_condmeasurements = models.ConductivityData.objects.filter(global_id__global_id__transmit_time__gte=minTime).filter(global_id__global_id__transmit_time__lte=maxTime).order_by('global_id', 'sub_id')
+		ordered_condmeasurements = models.ConductivityData.objects.filter(global_id__cond_gps_time__gte=minTime).filter(global_id__cond_gps_time__lte=maxTime).order_by('global_id__cond_gps_time', 'sub_id')
 		#print(ordered_fastmeasurements.query)
 		scalar = 0.000125 if request.GET.get('volts','') == 'True' else 1
 		top = 99999 if not request.GET.get('maxVal','') else float(request.GET.get('maxVal',''))
@@ -394,7 +403,7 @@ def newGraph(request):
 			wantedimei = imeiNames[imei]
 		for x in ordered_condmeasurements:
 			if(wantedimei == '*' or wantedimei == str(x.global_id.global_id.imei)):
-				tempDateTime = x.global_id.global_id.transmit_time+x.sub_id*timedelta(seconds=0.1)
+				tempDateTime = x.global_id.cond_gps_time+x.sub_id*timedelta(seconds=0.1)
 				tDTS = tempDateTime.strftime("Date(%Y, %m, %d, %H, %M, %S, %f)")
 				tempDateString = tDTS[:11] + '{0:02d}'.format(int(tDTS[11:13])-1) + tDTS[13:31] + '{0:03d}'.format(int(tDTS[31:37])//1000) + tDTS[37:]
 				onlyWantedData.append([tempDateString, x.vert1*scalar, x.vert2*scalar])

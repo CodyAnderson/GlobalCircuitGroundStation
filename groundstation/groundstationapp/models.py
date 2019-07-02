@@ -24,11 +24,13 @@ class Packet(models.Model):
 
 
 class SlowMeasurement(models.Model):
+		id = models.AutoField(primary_key=True)
 		global_id = models.ForeignKey(Packet, on_delete=models.CASCADE)
 		gps_latitude = models.FloatField()
 		gps_longitude = models.FloatField()
 		gps_altitude = models.FloatField()
 		gps_time = models.DateTimeField()
+		cond_gps_time = models.DateTimeField()
 
 class RawData(models.Model):
 		global_id = models.ForeignKey(Packet, on_delete=models.CASCADE)
@@ -42,7 +44,7 @@ class SupData(models.Model):
 		value = models.IntegerField()
 
 class ConductivityData(models.Model):
-		global_id = models.ForeignKey(Packet, on_delete=models.CASCADE)
+		global_id = models.ForeignKey(SlowMeasurement, on_delete=models.CASCADE)
 		sub_id = models.IntegerField()
 		vert1 = models.IntegerField()
 		vert2 = models.IntegerField()

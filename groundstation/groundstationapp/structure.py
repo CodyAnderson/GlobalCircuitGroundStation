@@ -47,4 +47,6 @@ def unpack_new(fstring):
     values['sup']=struct.unpack('<2H',fstring[296:300])
     values['ballast']=struct.unpack('<B',fstring[300:301])[0]
     values['cutdown']=struct.unpack('<B',fstring[301:302])[0]
+    values['cond_time']=struct.unpack('<I',fstring[302:306])[0]
+
     return values
