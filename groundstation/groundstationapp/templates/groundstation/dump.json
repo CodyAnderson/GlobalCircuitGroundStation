@@ -7,6 +7,5 @@
     "iridium_longitude": "{{ packet.iridium_longitude }}",
     "iridium_cep": "{{ packet.iridium_cep }}",
     "data": "{{ packet.data }}"
-  },{% endfor %}
-  {}
+  }{% if packet is not packetList|last %},{% endif %}{% endfor %}
 ]
