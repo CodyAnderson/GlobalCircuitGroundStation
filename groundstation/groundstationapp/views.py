@@ -170,7 +170,20 @@ def postfunc(request):
 			newSupDataH= models.SupData.objects.create(global_id=new_Packet,sub_id=0 if (packet_fields['seq']%10 > 1) else 1,type=labelList[((packet_fields['seq']%10)*2)+1], value=packet_fields['sup'][1])
 
 		else:
-			new_Packet = models.Packet.objects.create(packet_id=0xDEAD,version=0xDEAD)
+			binary_packet_data = binascii.unhexlify(packet_data)
+			packet_fields = structure.unpack_new(binary_packet_data)
+			print(packet_fields['seq'])
+			print(packet_fields['version'])
+			#timestring = '20' + request.POST.get('transmit_time')
+			datetimeString = datetime.strptime(request.POST.get('transmit_time'),"%y-%m-%d %H:%M:%S")
+			filteredImei = request.POST.get('imei')
+			if(filteredImei == "CollinsLaptop"):
+				filteredImei = "888888888888888"
+			new_IridiumData = models.IridiumData.objects.create(transmit_time = datetimeString, iridium_latitude = request.POST.get('iridium_latitude'), iridium_longitude = request.POST.get('iridium_longitude'), iridium_cep = request.POST.get('iridium_cep'), momsn = request.POST.get('momsn'), imei = filteredImei, transmitted_via_satellite = True if request.POST.get('transmitted_via_satellite') is None else request.POST.get('transmitted_via_satellite'))
+			print(new_IridiumData.transmit_time)
+			new_Packet = models.Packet.objects.create(global_id=new_IridiumData,packet_id=packet_fields['seq'],version=packet_fields['version'])
+			new_RawData = models.RawData.objects.create(global_id=new_Packet,data=binary_packet_data,hexdata=packet_data)
+			
 		#else
 		#iridium_txtime = request.POST.get('transmit_time',time.strftime("%Y-%m-%dT%H:%M:%SZ UTC",time.gmtime()))
 		iridium_txtime = request.POST.get('transmit_time')
