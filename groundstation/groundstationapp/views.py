@@ -69,7 +69,7 @@ def gps(request):		 # Change to google maps
 @csrf_exempt
 def dumpfunc(request):
 	minPack = request.GET.get('minPack', '1')
-	maxPack = request.GET.get('maxPack', '1')
+	maxPack = request.GET.get('maxPack', '517')
 	
 	packetList = []
 	
@@ -91,7 +91,7 @@ def dumpfunc(request):
 @csrf_exempt
 def scrapefunc(request):
 	minPack = request.GET.get('minPack', '1')
-	maxPack = request.GET.get('maxPack', '1')
+	maxPack = request.GET.get('maxPack', '517')
 	scrapeURL = request.GET.get('scrapeURL', 'https://gec.codyanderson.net/dump.json')
 	
 	context = {
@@ -139,11 +139,12 @@ def postfunc(request):
 			packet_fields = structure.unpack_new(binary_packet_data)
 			print(packet_fields['seq'])
 			print(packet_fields['version'])
-			timestring = '20' + request.POST.get('transmit_time')
+			#timestring = '20' + request.POST.get('transmit_time')
+			datetimeString = datetime.strptime(request.POST.get('transmit_time'),"%y-%m-%d %H:%M:%S")
 			filteredImei = request.POST.get('imei')
 			if(filteredImei == "CollinsLaptop"):
 				filteredImei = "888888888888888"
-			new_IridiumData = models.IridiumData.objects.create(transmit_time = timestring, iridium_latitude = request.POST.get('iridium_latitude'), iridium_longitude = request.POST.get('iridium_longitude'), iridium_cep = request.POST.get('iridium_cep'), momsn = request.POST.get('momsn'), imei = filteredImei, transmitted_via_satellite = True if request.POST.get('transmitted_via_satellite') is None else request.POST.get('transmitted_via_satellite'))
+			new_IridiumData = models.IridiumData.objects.create(transmit_time = datetimeString, iridium_latitude = request.POST.get('iridium_latitude'), iridium_longitude = request.POST.get('iridium_longitude'), iridium_cep = request.POST.get('iridium_cep'), momsn = request.POST.get('momsn'), imei = filteredImei, transmitted_via_satellite = True if request.POST.get('transmitted_via_satellite') is None else request.POST.get('transmitted_via_satellite'))
 			print(new_IridiumData.transmit_time)
 			new_Packet = models.Packet.objects.create(global_id=new_IridiumData,packet_id=packet_fields['seq'],version=packet_fields['version'])
 			new_RawData = models.RawData.objects.create(global_id=new_Packet,data=binary_packet_data,hexdata=packet_data)
@@ -151,12 +152,12 @@ def postfunc(request):
 			hour_now = packet_fields['time']//10000
 			minute_now = (packet_fields['time']-hour_now*10000)//100
 			second_now = packet_fields['time']-hour_now*10000-minute_now*100
-			time_now = datetime.utcnow().replace(hour=hour_now,minute=minute_now,second=second_now,microsecond=0)
+			time_now = datetimeString.replace(hour=hour_now,minute=minute_now,second=second_now,microsecond=0)
 			
 			cond_hour_now = packet_fields['cond_time']//10000
 			cond_minute_now = (packet_fields['cond_time']-cond_hour_now*10000)//100
 			cond_second_now = packet_fields['cond_time']-cond_hour_now*10000-cond_minute_now*100
-			cond_time_now = datetime.utcnow().replace(hour=cond_hour_now,minute=cond_minute_now,second=cond_second_now,microsecond=0)
+			cond_time_now = datetimeString.replace(hour=cond_hour_now,minute=cond_minute_now,second=cond_second_now,microsecond=0)
 
 
 

@@ -23,30 +23,62 @@
 		</script>
 	</head>
 	<body>
-		<div style="float: left;">
+		<div>
 			<h1>Test Title</h1>
 			<h2> </h2>
 			<th>Test Description</th>
 			<h2> </h2>
 			Test Lack of Chart
 		</div>
-		<form style="float: left;">
-			minPack:<br>
-			<input type="text" name="minPack" value="{{ minPack }}"><br><br>
-			maxPack:<br>
-			<input type="text" name="maxPack" value="{{ maxPack }}"><br><br>
+		<br>
+		<div>
+		<form>
+			minPacket:<br>
+			<input type="text" name="minPack" value="{{ minPack }}"><br>
+			maxPacket:<br>
+			<input type="text" name="maxPack" value="{{ maxPack }}"><br>
 			scrapeURL:<br>
-			<input type="text" name="scrapeURL" value="{{ scrapeURL }}"><br><br>
+			<input type="text" name="scrapeURL" value="{{ scrapeURL }}"><br>
 			<!--<input type="submit" value="Scrape">-->
 		</form>
+		<br>
 		<button onclick="scrapeMe()">Scrape</button>
 		<script>
+			var xhttp = new XMLHttpRequest();
 			function scrapeMe() {
-
-			  getJSON('https://gec.codyanderson.net/dump.json?maxPack=50',function(err,data){alert(data[1].momsn);});
+				document.getElementById("CLI").innerHTML = document.getElementById("CLI").innerHTML + "\nStarting...\n";
+				var URLToScrape = document.getElementsByName("scrapeURL")[0].value + "?minPack=" + document.getElementsByName("minPack")[0].value + "&maxPack=" + document.getElementsByName("maxPack")[0].value;
+				getJSON(URLToScrape,
+					function(err,data)
+					{
+						for (i = 0; i < data.length; i++)
+						{
+							document.getElementById("CLI").innerHTML = document.getElementById("CLI").innerHTML + "\n" + "Posting record number " + String(i) + ":"
+							xhttp.open("POST", "/post/", false);
+							xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+							var pS = "";
+							pS = pS + "imei=" + data[i].imei
+							pS = pS + "&" + "momsn=" + data[i].momsn
+							pS = pS + "&" + "transmit_time=" + data[i].transmit_time
+							pS = pS + "&" + "iridium_latitude=" + data[i].iridium_latitude
+							pS = pS + "&" + "iridium_longitude=" + data[i].iridium_longitude
+							pS = pS + "&" + "iridium_cep=" + data[i].iridium_cep
+							pS = pS + "&" + "data=" + data[i].data
+							var paramString = pS;
+							xhttp.send(paramString);
+							document.getElementById("CLI").innerHTML = document.getElementById("CLI").innerHTML + "\n\t" + JSON.stringify(data[i]);
+						}
+						document.getElementById("CLI").innerHTML = document.getElementById("CLI").innerHTML + "\nDone";
+						//alert(data.length);
+					}
+				);
 
 			}
 		</script>
+		</div>
+		<br>
+		<br>
+		<pre id="CLI" style="background-color:#000000;color:#00FF00;"><h1>Scraping Output</h1></pre>
 	</body>
 
 </html>
