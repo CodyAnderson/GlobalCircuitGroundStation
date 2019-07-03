@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+	<head>
+		<script>
+			//if ( window.history.replaceState )
+			//{
+			//	window.history.replaceState(null,null,window.location.href.split('?')[0])
+			//}
+			var getJSON = function(url, callback) {
+				var xhr = new XMLHttpRequest();
+				xhr.open('GET', url, true);
+				xhr.responseType = 'json';
+				xhr.onload = function() {
+				  var status = xhr.status;
+				  if (status === 200) {
+					callback(null, xhr.response);
+				  } else {
+					callback(status, xhr.response);
+				  }
+				};
+				xhr.send();
+			};
+		</script>
+	</head>
+	<body>
+		<div style="float: left;">
+			<h1>Test Title</h1>
+			<h2> </h2>
+			<th>Test Description</th>
+			<h2> </h2>
+			Test Lack of Chart
+		</div>
+		<form style="float: left;">
+			minPack:<br>
+			<input type="text" name="minPack" value="{{ minPack }}"><br><br>
+			maxPack:<br>
+			<input type="text" name="maxPack" value="{{ maxPack }}"><br><br>
+			scrapeURL:<br>
+			<input type="text" name="scrapeURL" value="{{ scrapeURL }}"><br><br>
+			<!--<input type="submit" value="Scrape">-->
+		</form>
+		<button onclick="scrapeMe()">Scrape</button>
+		<script>
+			function scrapeMe() {
+
+			  getJSON('https://gec.codyanderson.net/dump.json?maxPack=50',function(err,data){alert(data[1].momsn);});
+
+			}
+		</script>
+	</body>
+
+</html>

@@ -87,6 +87,20 @@ def dumpfunc(request):
 		packetList.append(packet)
 	context = {'packetList': packetList}
 	return render(request, 'groundstation/dump.json', context)
+	
+@csrf_exempt
+def scrapefunc(request):
+	minPack = request.GET.get('minPack', '1')
+	maxPack = request.GET.get('maxPack', '1')
+	scrapeURL = request.GET.get('scrapeURL', 'https://gec.codyanderson.net/dump.json')
+	
+	context = {
+	"minPack" : minPack,
+	"maxPack" : maxPack,
+	"scrapeURL" : scrapeURL
+	}
+	
+	return render(request, 'groundstation/scrape.html', context)
 
 
 @csrf_exempt
