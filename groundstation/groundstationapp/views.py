@@ -327,7 +327,7 @@ def newGraph(request):
 	if not minTime:
 		minTime = '2000-04-01T10:00:00'
 	if not maxTime:
-		maxTime = '2020-05-16T10:00:00'
+		maxTime = '2000-05-16T10:00:00'
 	if not maxVal:
 		maxVal = None
 	if not minVal:

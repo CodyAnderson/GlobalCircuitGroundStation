@@ -8,8 +8,8 @@
 	
 		
 		<div style="display: block; width: 100%;">
-			<h1 style="display: inline-block;">Global Circuit Ground Station</h1>
-			<h1 style="color: #ff0000; display: inline-block;">&nbsp;{{ serverType }} SERVER</h1>
+			<h1 >Global Circuit Ground Station</h1>
+			<h1 style="color: {% if serverType == "DEVELOPMENT" %}#FF0000{% elif serverType == "PRODUCTION" %}#008000{% else %}#FF8000{% endif %};">&nbsp;{{ serverType }} SERVER</h1>
 		</div>
 		<div style="display: block;">
 			<div style="background-color:#dddddd; display: inline-block; padding: 0em 1em 0em 1em; float: left;">
