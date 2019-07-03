@@ -41,7 +41,6 @@ def homepage(request):
 		
 	
 	
-	print('Here it is, boys.')
 	return render(request, 'groundstation/homepage.html')
 
 def gps(request):		 # Change to google maps
@@ -132,7 +131,7 @@ def postfunc(request):
 	if (request.POST):
 		packet_data = request.POST.get('data')
 		#if data exists
-		if packet_data is not None:
+		if (packet_data is not None) and (packet_data[0:2].upper() in ['00','01','02','03','04','05','06','FF','FE','FD','FC','FB','FA','F9']):
 			#packet_sio=io.StringIO(binascii.unhexlify(packet_data).decode(errors='ignore'))
 			#packet_fields = structure.unpack(packet_sio)
 			binary_packet_data = binascii.unhexlify(packet_data)
