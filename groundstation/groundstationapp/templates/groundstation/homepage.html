@@ -1,64 +1,93 @@
 <!doctype html>
 <html>
     <head>
-		<h1>&#x1d572;lobal &#x1d56e;ircuit &#x1d57b;ayload &#x1d56f;ata</h1>
+		<title>Global Circuit Ground Station</title>
     </head>
     <body>
-		<h2>Graphs: </h2>
-	    <form action="/gps/">
-			<input type="submit" value="GPS Coordinates" />
-        </form>
-        
-		<h2> </h2>
+	
+	
 		
-	    <form action="/altitude/">
-			<input type="submit" value="Altitude" />
-        </form>
+		<div style="display: block; width: 100%;">
+			<h1 style="display: inline-block;">Global Circuit Ground Station</h1>
+			<h1 style="color: #ff0000; display: inline-block;">&nbsp;{{ serverType }} SERVER</h1>
+		</div>
+		<div style="display: block;">
+			<div style="background-color:#dddddd; display: inline-block; padding: 0em 1em 0em 1em; float: left;">
+				<h2>Updated Features</h2>
+				<h3>(You probably should use these)</h3>
+				
+				<a href="/newgraph"><button>Graphs</button></a>
+				<br><br>
+				<button>Uplink</button>
+				<br><br>
+				<a href="/dump.json"><button>dump.json</button></a>
+				<br><br>
+				<button>Scrape</button>
+				<br><br>
+			</div>
 		
-		<h3> </h3>
 		
-        <form action="/horizontal/">
-			<input type="submit" value="Horizontal Probes" />
-        </form>
-        
-        <h4> </h4>
-        
-        <form action="/vertical/">
-			<input type="submit" value="Vertical Probes" />
-        </form>
-		
-		<h5> </h5>
-		
-	    <form action="/compass/">
-			<input type="submit" value="Compass Data" />
-        </form>
-		
-		<h6> </h6>
-		
-        <form action="/conductivity/">
-			<input type="submit" value="Conductivity" />
-        </form>
-        
-        <h2> </h2>
-        
-        <h2>Tables: </h2>
-        <h2> </h2>
-        <form action="/tables/">
-			<input type="submit" value="Tables" />
-        </form>
-        
-        <h2> </h2>
-        <h2>Download Files: </h2>
-        <h2> </h2>
-        <form action="/pdf/">
-			<input type="submit" value="Download PDF" />
-        </form>
-        
-        <h2></h2>
-        
-        <form action="/csv/">
-			<input type="submit" value="Download CSV" />
-        </form>
-
+			<div style="background-color:#aaaaaa; display: inline-block; padding: 0em 1em 1em 1em; float: left;">
+				<h2>Legacy Features</h2>
+				<h4 style="float: left;">(You probably should</h4>
+				<h3 style="color: #ff0000; float: left;">&nbsp;NOT&nbsp;</h3>
+				<h4 style="float: left;">use these)</h4>
+				<h3>Graphs: </h3>
+				<form action="/gps/">
+					<input type="submit" value="GPS Coordinates" />
+				</form>
+				
+				<h3> </h3>
+				
+				<form action="/altitude/">
+					<input type="submit" value="Altitude" />
+				</form>
+				
+				<h3> </h3>
+				
+				<form action="/horizontal/">
+					<input type="submit" value="Horizontal Probes" />
+				</form>
+				
+				<h4> </h4>
+				
+				<form action="/vertical/">
+					<input type="submit" value="Vertical Probes" />
+				</form>
+				
+				<h5> </h5>
+				
+				<form action="/compass/">
+					<input type="submit" value="Compass Data" />
+				</form>
+				
+				<h6> </h6>
+				
+				<form action="/conductivity/">
+					<input type="submit" value="Conductivity" />
+				</form>
+				
+				<h3> </h3>
+				
+				<h3>Tables: </h3>
+				<h3> </h3>
+				<form action="/tables/">
+					<input type="submit" value="Tables" />
+				</form>
+				
+				<h3> </h3>
+				<h3>Download Files: </h3>
+				<h3> </h3>
+				<form action="/pdf/">
+					<input type="submit" value="Download PDF" />
+				</form>
+			
+				<h3></h3>
+			
+				<form action="/csv/">
+					<input type="submit" value="Download CSV" />
+				</form>
+			</div>
+		</div>
     </body>
 </html>

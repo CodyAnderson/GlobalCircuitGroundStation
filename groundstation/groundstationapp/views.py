@@ -40,8 +40,8 @@ def homepage(request):
 	
 		
 	
-	
-	return render(request, 'groundstation/homepage.html')
+	context = {'serverType': secrets.serverType}
+	return render(request, 'groundstation/homepage.html',context)
 
 def gps(request):		 # Change to google maps
 	data = [
