@@ -78,7 +78,7 @@ def dumpfunc(request):
 		packet = {
 		"imei": str(x.global_id.global_id.imei),
 		"momsn": str(x.global_id.global_id.momsn),
-		"transmit_time": str(x.global_id.global_id.transmit_time),
+		"transmit_time": (x.global_id.global_id.transmit_time).strftime("%y-%m-%d %H:%M:%S"),
 		"iridium_latitude": str(x.global_id.global_id.iridium_latitude),
 		"iridium_longitude": str(x.global_id.global_id.iridium_longitude),
 		"iridium_cep": str(x.global_id.global_id.iridium_cep),
