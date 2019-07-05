@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 	<head>
+		<title>GEC Uplink: {{ serverType }} SERVER</title>
 		<script>
 			if ( window.history.replaceState )
 			{
@@ -9,22 +10,59 @@
 		</script>
 	</head>
 	<body>
-		<div style="float: left;">
-			<h1>Test Title</h1>
-			<h2> </h2>
-			<th>Test Description</th>
-			<h2> </h2>
-			Test Lack of Chart
+		<div style="display: block; width: 100%;">
+			<h1 >Global Circuit Ground Station</h1>
+			<h1 style="color: {% if serverType == "DEVELOPMENT" %}#FF0000{% elif serverType == "PRODUCTION" %}#008000{% else %}#FF8000{% endif %};">&nbsp;{{ serverType }} SERVER</h1>
 		</div>
-		<form style="float: left;">
-			imei:<br>
-			<input type="text" name="imei" value="{{ imei }}"><br><br>
+		<div style="display: block;">
+			<form>
+				imei:
+				<br>
+				<input type="text" name="imei" value="{{ imei }}">
+				<br>
+				<br>
+				
+				message (HEX):
+				<br>
+				<textarea id="hexid" name="message" rows="3" cols="80"></textarea>
+				<br>
+				message (UTF8):
+				<br>
+				<textarea id="utf8id" name="humanMessage" rows="3" cols="80"></textarea>
+				<br>
+				<br>
+				
+				<input type="submit" value="Send">
+			</form>
+		</div>
+		<script>
+			String.prototype.hexEncode = function(){
+				var hex, i;
+
+				var result = "";
+				for (i=0; i<this.length; i++) {
+					hex = this.charCodeAt(i).toString(16);
+					result += ("000"+hex).slice(-4);
+				}
+
+				return result
+			}
 			
-			message:<br>
-			<textarea name = "message" rows = "3" cols = "80"></textarea>
-			<br><br>
-			<input type="submit" value="Send">
-		</form>
+			String.prototype.hexDecode = function(){
+				var j;
+				var hexes = this.match(/.{1,4}/g) || [];
+				var back = "";
+				for(j = 0; j<hexes.length; j++) {
+					back += String.fromCharCode(parseInt(hexes[j], 16));
+				}
+
+				return back;
+			}
+			
+			document.getElementById('utf8id').addEventListener('keydown', function (event) {
+				
+			});
+		</script>
 	</body>
 
 </html>

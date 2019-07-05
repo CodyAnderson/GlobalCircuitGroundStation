@@ -107,9 +107,7 @@ def submitfunc(request):
 	imei = request.GET.get('imei', '')
 	message = request.GET.get('message', '')
 	context={
-	'chart': 'Chart Uh-Oh',
-	'title': 'Title Uh-Oh',
-	'description': 'Decsription Uh-Oh',
+	'serverType': secrets.serverType,
 	'imei': imei,
 	}
 	print("IMEI: " + imei)
