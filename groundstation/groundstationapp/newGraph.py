@@ -10,10 +10,11 @@ import datetime as dt
 from datetime import datetime
 from datetime import timedelta
 
-from .graphs.conductivity import testFunc
-	
+from .graphs.conductivity import conductivity
 
-signalFunctions = {'test': testFunc}
+signalFunctions = {
+    'conductivity': conductivity,
+    }
 
 
 
@@ -258,7 +259,7 @@ def newGraph(request):
 	
 	chart = LineChart(data_source, options=chartOptions) # Creating a line chart
 	
-	signalFunctions['test'](request)
+	signalFunctions['conductivity'](request)
 	
 	
 	signalString = request.GET.get('signal','')

@@ -7,8 +7,8 @@ from graphos.renderers.gchart import LineChart
 import datetime as dt
 from datetime import datetime
 from datetime import timedelta
-
-def testFunc(getParams):
+    
+def conductivity(getParams):
 	print('Test')
 
 def newGraph(request):
