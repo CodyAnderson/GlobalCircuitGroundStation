@@ -31,5 +31,5 @@ urlpatterns = [
 	url(r'^submit/$', submitfunc, name='submitfunc'),
 	url(r'^dump.json$', dumpfunc, name='dumpfunc'),
 	url(r'^scrape/$', scrapefunc, name='scrapefunc'),
-	url(r'^utf8.js$', utf8js, name='utf8js'),
+	url(r'^utf8\.js$', utf8js, name='utf8js'),
 ]
