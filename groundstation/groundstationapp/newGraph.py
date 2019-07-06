@@ -10,8 +10,7 @@ import datetime as dt
 from datetime import datetime
 from datetime import timedelta
 
-def testFunc(getParams):
-	print('Test')
+from graphs.conductivity import testFunc
 	
 
 signalFunctions = {'test': testFunc}

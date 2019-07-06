@@ -10,6 +10,9 @@ import datetime as dt
 from datetime import datetime
 from datetime import timedelta
 
+def testFunc(getParams):
+	print('Test')
+
 def newGraph(request):
 
 	imeiNames = {
