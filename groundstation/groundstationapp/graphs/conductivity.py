@@ -10,14 +10,6 @@ import datetime as dt
 from datetime import datetime
 from datetime import timedelta
 
-def testFunc(getParams):
-    print('Test')
-    
-
-signalFunctions = {'test': testFunc}
-
-
-
 def newGraph(request):
 
 	imeiNames = {
@@ -259,15 +251,12 @@ def newGraph(request):
 	
 	chart = LineChart(data_source, options=chartOptions) # Creating a line chart
 	
-    signalFunctions['test'](request)
-    
-    
 	signalString = request.GET.get('signal','')
 	
-	horizontal =	 True if signalString == 'horizontal'	else False
+	horizontal =	 True if signalString == 'horizontal'		else False
 	vertical =		 True if signalString == 'vertical'		else False
 	compass =		 True if signalString == 'compass'		else False
-	conductivity =   True if signalString == 'conductivity' else False
+	conductivity = True if signalString == 'conductivity' else False
 	gps =			 True if signalString == 'gps'			else False
 	iridium =		 True if signalString == 'iridium'		else False
 	cep =			 True if signalString == 'cep'			else False
