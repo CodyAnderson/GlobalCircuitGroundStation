@@ -29,6 +29,9 @@ import binascii
 
 # Create your views here.
 
+def utf8js(request):
+	return render(request, 'groundstation/utf8.js')
+
 def homepage(request):
 	#newIridiumData = models.IridiumData.objects.create(global_id=new_packet, transmit_time=datetime.utcnow(), iridium_latitude=0.1, iridium_longitude=1.0, iridium_cep=2.0, momsn=1, imei=999999999999999)
 	#newSlowMeasurement = models.SlowMeasurement.objects.create(global_id=new_packet, gps_latitude=0.11, gps_longitude=1.01, gps_altitude=999.999, gps_time=datetime.utcnow()-timedelta(hours=1))
