@@ -4,8 +4,6 @@ from graphos.sources.simple import SimpleDataSource
 from graphos.sources.model import ModelDataSource
 from graphos.renderers.gchart import LineChart
 
-from . import models
-
 import datetime as dt
 from datetime import datetime
 from datetime import timedelta
