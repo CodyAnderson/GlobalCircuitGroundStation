@@ -29,7 +29,7 @@ urlpatterns = [
 	url(r'^newgraph/$', newGraph, name='newGraph'),
     url(r'^post/$', postfunc, name='postfunc'),
 	url(r'^submit/$', submitfunc, name='submitfunc'),
+	url(r'^submit/utf8\.js$', utf8js, name='utf8js'),
 	url(r'^dump.json$', dumpfunc, name='dumpfunc'),
 	url(r'^scrape/$', scrapefunc, name='scrapefunc'),
-	url(r'^utf8\.js$', utf8js, name='utf8js'),
 ]
