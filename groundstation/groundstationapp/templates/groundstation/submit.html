@@ -1,4 +1,6 @@
-<!doctype html>
+<!DOCTYPE html>
+<html lang=en>
+<meta charset=utf-8>
 <html>
 	<head>
 		<title>GEC Uplink: {{ serverType }} SERVER</title>
@@ -8,6 +10,7 @@
 				window.history.replaceState(null,null,window.location.href.split('?')[0])
 			}
 		</script>
+        <script src="utf8.js"></script>
 	</head>
 	<body>
 		<div style="display: block; width: 100%;">
@@ -36,7 +39,28 @@
 			</form>
 		</div>
 		<script>
-			String.prototype.hexEncode = function(){
+            var masterBox = 0;
+            
+            
+            
+            
+            
+            function String2Hex(tmp) {
+                var str = '';
+                for(var i = 0; i < tmp.length; i++) {
+                    str += tmp[i].charCodeAt(0).toString(16);
+                }
+                return str;
+            }
+            
+            
+            
+            
+            
+            
+            
+            
+			String.prototype.hex16Encode = function(){
 				var hex, i;
 
 				var result = "";
@@ -48,7 +72,7 @@
 				return result
 			}
 			
-			String.prototype.hexDecode = function(){
+			String.prototype.hex16Decode = function(){
 				var j;
 				var hexes = this.match(/.{1,4}/g) || [];
 				var back = "";
@@ -58,10 +82,60 @@
 
 				return back;
 			}
+			String.prototype.hex8Encode = function(){
+				var hex, i;
+
+				var result = "";
+				for (i=0; i<this.length; i++) {
+					hex = this.charCodeAt(i).toString(16);
+					result += ("000"+hex).slice(-2);
+				}
+
+				return result
+			}
+			
+			String.prototype.hex8Decode = function(){
+				var j;
+				var hexes = this.match(/.{1,2}/g) || [];
+				var back = "";
+				for(j = 0; j<hexes.length; j++) {
+					back += String.fromCharCode(parseInt(hexes[j], 16));
+				}
+
+				return back;
+			}
+            
+            function updateBoxes()
+            {
+                if(masterBox == 1)
+                {
+                    document.getElementById('hexid').value = utf8.encode(document.getElementById('utf8id').value).hex8Encode();
+                    //document.getElementById('hexid').value = String2Hex(document.getElementById('utf8id').value);
+                }
+                if(masterBox === 2)
+                {
+                    document.getElementById('utf8id').value = utf8.decode(document.getElementById('hexid').value.replace(/\s+/g, '').hex8Decode());
+                    //var s = document.getElementById('hexid').value;
+                    //document.getElementById('utf8id').value = decodeURIComponent(s.replace(/\s+/g, '').replace(/[0-9a-f]{2}/g, '%$&'));
+                }
+            }
+			
+			document.getElementById('hexid').addEventListener('keydown', function (event) {
+				//document.getElementById('utf8id')
+                masterBox = 2;
+			});
+			
+			document.getElementById('hexid').addEventListener('keypress', function (event) {
+				//document.getElementById('utf8id')
+                console.log(event);
+			});
 			
 			document.getElementById('utf8id').addEventListener('keydown', function (event) {
-				
+				//document.getElementById('utf8id')
+                masterBox = 1;
 			});
+            
+            setInterval(function(){ updateBoxes(); }, 50);
 		</script>
 	</body>
 
