@@ -16,7 +16,8 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from groundstationapp.views import homepage, gps, postfunc, horizontal, vertical, conductivity, newGraph.newGraph, submitfunc, dumpfunc, scrapefunc, utf8js
+from groundstationapp.views import homepage, gps, postfunc, horizontal, vertical, conductivity, submitfunc, dumpfunc, scrapefunc, utf8js
+from groundstationapp.newGraph import newGraph
 
 urlpatterns = [
     url(r'^$', homepage, name='homepage'),

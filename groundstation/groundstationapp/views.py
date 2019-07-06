@@ -19,7 +19,6 @@ from django.views.decorators.csrf import csrf_exempt
 
 from . import structure
 from . import models
-from . import newGraph
 import super_secrets as secrets
 
 import datetime as dt
