@@ -11,8 +11,8 @@ from datetime import datetime
 from datetime import timedelta
 
 def testFunc(getParams):
-    print('Test')
-    
+	print('Test')
+	
 
 signalFunctions = {'test': testFunc}
 
@@ -259,9 +259,9 @@ def newGraph(request):
 	
 	chart = LineChart(data_source, options=chartOptions) # Creating a line chart
 	
-    signalFunctions['test'](request)
-    
-    
+	signalFunctions['test'](request)
+	
+	
 	signalString = request.GET.get('signal','')
 	
 	horizontal =	 True if signalString == 'horizontal'	else False
