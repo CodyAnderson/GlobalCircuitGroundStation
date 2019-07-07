@@ -17,6 +17,7 @@ from .graphs.vertical    import vertical
 from .graphs.compass     import compass
 from .graphs.cep       import cep
 from .graphs.gps       import gps
+from .graphs.iridium       import iridium
 from .graphs.termStatus import termStatus
 from .graphs.supervision import supervision
 
@@ -27,6 +28,7 @@ signalFunctions = {
   'compass'    : compass,
   'cep'      : cep,
   'gps'      : gps,
+  'iridium'      : iridium,
   'termStatus': termStatus,
   'supervision': supervision
   }
