@@ -5,6 +5,7 @@ from graphos.sources.model import ModelDataSource
 from graphos.renderers.gchart import LineChart
 
 from . import models
+from imeiNames import imeiNames
 
 import datetime as dt
 from datetime import datetime
@@ -23,15 +24,6 @@ signalFunctions = {
 
 
 def newGraph(request):
-
-	imeiNames = {
-		"CollinsLaptop": "8"*15,
-		"GEC1": "0"*15,
-		"GEC2": "9"*15,
-		"TEMP_TEST_1": "0",
-		"TestingRockBlock1": "300434063219840",
-		"TestingRockBlock2": "300434063839690"
-	}
 
 	#signal
 	signal = request.GET.get('signal', '')
