@@ -98,7 +98,7 @@ def dumpfunc(request):
         packetList.append(packet)
   elif(binary == 'True'):
     for x in ordered_raw_packets:
-      packetList.append(str(x.data))
+      packetList.append(x.data)
    
   context = {'packetList': packetList, 'binary': binary}
   return render(request, 'groundstation/dump.json', context)
