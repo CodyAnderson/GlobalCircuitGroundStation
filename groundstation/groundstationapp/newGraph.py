@@ -157,6 +157,7 @@ def newGraph(request):
   compass =    True if signalString == 'compass'    else False
   conductivity =   True if signalString == 'conductivity' else False
   gps =      True if signalString == 'gps'      else False
+  gpsAltitude =      True if signalString == 'gpsAltitude'      else False
   iridium =    True if signalString == 'iridium'    else False
   cep =      True if signalString == 'cep'      else False
   termStatus = True if signalString == 'termStatus' else False
