@@ -93,7 +93,7 @@ def dumpfunc(request):
             "iridium_latitude": str(x.global_id.global_id.iridium_latitude),
             "iridium_longitude": str(x.global_id.global_id.iridium_longitude),
             "iridium_cep": str(x.global_id.global_id.iridium_cep),
-            "data": str(x.hexdata)
+            "data": x.hexdata
             }
             packetList.append(packet)
      elif(binary == 'True'):
