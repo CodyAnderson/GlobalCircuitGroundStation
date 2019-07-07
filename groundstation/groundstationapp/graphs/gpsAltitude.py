@@ -14,7 +14,7 @@ from datetime import timedelta
 def tohex(val, nbits):
   return hex((val + (1 << nbits)) % (1 << nbits))
   
-def gps(getParams):
+def gpsAltitude(getParams):
   #signal
   signal = getParams['signal']
   #imei
