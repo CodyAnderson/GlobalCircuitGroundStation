@@ -30,8 +30,8 @@ def unpack_new(fstring):
     values['yikes']=struct.unpack('<B',fstring[1:2])[0]
     values['seq']=struct.unpack('<H',fstring[2:4])[0]
     values['time']=struct.unpack('<I',fstring[4:8])[0]
-    values['lat']=struct.unpack('<i',fstring[8:12])[0]
-    values['lon']=struct.unpack('<i',fstring[12:16])[0]
+    values['lat']=struct.unpack('<I',fstring[8:12])[0]
+    values['lon']=struct.unpack('<I',fstring[12:16])[0]
     values['alt']=struct.unpack('<I',fstring[16:20])[0]
     values['horiz1']=struct.unpack('<12h',fstring[20:44])
     values['horiz2']=struct.unpack('<12h',fstring[44:68])
