@@ -76,8 +76,8 @@ def gps(getParams):
       
       
       
-      #onlyWantedData.append([tempDateString, realLong, realLat])
-      onlyWantedData.append([tempDateString, x.gps_longitude, x.gps_latitude])
+      onlyWantedData.append([tempDateString, realLong, realLat])
+      #onlyWantedData.append([tempDateString, x.gps_longitude, x.gps_latitude])
       
   chartOptions["series"] = {0: {"targetAxisIndex": 0},1: {"targetAxisIndex": 1}}
   chartOptions["vAxes"] = {0: {"title": 'Longitude'}, 1: {"title": 'Latitude'}}
