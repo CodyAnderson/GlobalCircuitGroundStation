@@ -28,6 +28,7 @@ signalFunctions = {
   'compass'    : compass,
   'cep'      : cep,
   'gps'      : gps,
+  'gpsAltitude' : gpsAltitude,
   'iridium'      : iridium,
   'termStatus': termStatus,
   'supervision': supervision
