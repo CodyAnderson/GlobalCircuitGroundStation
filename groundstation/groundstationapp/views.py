@@ -93,12 +93,12 @@ def dumpfunc(request):
         "iridium_latitude": str(x.global_id.global_id.iridium_latitude),
         "iridium_longitude": str(x.global_id.global_id.iridium_longitude),
         "iridium_cep": str(x.global_id.global_id.iridium_cep),
-        "data": x.hexdata
+        "data": str(x.hexdata)
         }
         packetList.append(packet)
   elif(binary == 'True'):
     for x in ordered_raw_packets:
-      packetList.append(x.data)
+      packetList.append(x.hexdata)
    
   context = {'packetList': packetList, 'binary': binary}
   return render(request, 'groundstation/dump.json', context)
