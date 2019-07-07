@@ -68,6 +68,9 @@ def gps(getParams):
       realLongString = str(realLong).zfill(9)
       realLatString = str(realLat).zfill(9)
       
+      print(realLongString)
+      print(realLatString)
+      
       realLong = longSign * (float(realLongString[0:3]) + (float(realLongString[3:5]) + float(realLongString[5:9])/10000.0 )/60.0)
       realLat = latSign * (float(realLatString[0:3]) + (float(realLatString[3:5]) + float(realLatString[5:9])/10000.0 )/60.0)
       
