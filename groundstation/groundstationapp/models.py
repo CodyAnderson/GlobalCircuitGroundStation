@@ -21,7 +21,12 @@ class Packet(models.Model):
 		packet_id = models.IntegerField(null=True)
 		version = models.IntegerField(null=True)
 
-
+class Status(models.Model):
+    id = models.AutoField(primary_key=True)
+    global_id = models.ForeignKey(Packet, on_delete=models.CASCADE)
+    yikes = models.IntegerField()
+    ballast = models.IntegerField()
+    cutdown = models.IntegerField()
 
 class SlowMeasurement(models.Model):
 		id = models.AutoField(primary_key=True)
