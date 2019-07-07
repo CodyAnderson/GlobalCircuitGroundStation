@@ -52,14 +52,28 @@ def gps(getParams):
       tDTS = tempDateTime.strftime("Date(%Y, %m, %d, %H, %M, %S, %f)")
       tempDateString = tDTS[:11] + '{0:02d}'.format(int(tDTS[11:13])-1) + tDTS[13:31] + '{0:03d}'.format(int(tDTS[31:37])//1000) + tDTS[37:]
       
-      tempLong = x.gps_longitude
+      realLong = x.gps_longitude
+      longSign = 1.0
+      realLat = x.gps_latitude
+      latSign = 1.0
+      
+      if (x.gps_longitude > 0x80000000):
+        realLong = x.gps_longitude - 0x80000000
+        longSign = -1.0
+      
+      if (x.gps_latitude > 0x80000000):
+        realLat = x.gps_latitude - 0x80000000
+        latSign = -1.0
+        
+      realLongString = str(realLong).zfill(9)
+      realLatString = str(realLat).zfill(9)
+      
+      realLong = longSign * (float(realLongString[0:3]) + (float(realLongString[3:5]) + float(realLongString[5:9])/10000.0 )/60.0)
+      realLat = latSign * (float(realLatString[0:3]) + (float(realLatString[3:5]) + float(realLatString[5:9])/10000.0 )/60.0)
       
       
       
-      
-      
-      
-      onlyWantedData.append([tempDateString, x.gps_longitude, x.gps_latitude])
+      onlyWantedData.append([tempDateString, realLong, realLat])
       
   chartOptions["series"] = {0: {"targetAxisIndex": 0},1: {"targetAxisIndex": 1}}
   chartOptions["vAxes"] = {0: {"title": 'Longitude'}, 1: {"title": 'Latitude'}}
