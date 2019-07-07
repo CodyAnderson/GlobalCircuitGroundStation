@@ -17,6 +17,7 @@ from .graphs.vertical	   import vertical
 from .graphs.compass	   import compass
 from .graphs.cep		   import cep
 from .graphs.gps		   import gps
+from .graphs.termStatus import termStatus
 
 signalFunctions = {
 	'conductivity': conductivity,
@@ -25,6 +26,7 @@ signalFunctions = {
 	'compass'	   : compass,
 	'cep'		   : cep,
 	'gps'		   : gps,
+  'termStatus': termStatus
 	}
 
 
