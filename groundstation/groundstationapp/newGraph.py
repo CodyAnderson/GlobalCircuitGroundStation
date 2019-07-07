@@ -10,7 +10,7 @@ import datetime as dt
 from datetime import datetime
 from datetime import timedelta
 
-from .graphs.conductivity import conductivity, horizontal, vertical, compass, cep
+from .graphs.conductivity import conductivity#, horizontal, vertical, compass, cep
 
 signalFunctions = {
 	'conductivity': conductivity,
