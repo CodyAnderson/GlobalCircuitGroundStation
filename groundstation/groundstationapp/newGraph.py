@@ -11,7 +11,11 @@ import datetime as dt
 from datetime import datetime
 from datetime import timedelta
 
-from .graphs.conductivity import horizontal, conductivity#, vertical, compass, cep
+from .graphs.conductivity import conductivity
+from .graphs.horizontal   import horizontal
+#from .graphs.vertical     import vertical
+#from .graphs.compass      import compass
+#from .graphs.cep          import cep
 
 signalFunctions = {
 	'conductivity': conductivity,
