@@ -72,22 +72,35 @@ def gps(request):		 # Change to google maps
 def dumpfunc(request):
 	minPack = request.GET.get('minPack', '1')
 	maxPack = request.GET.get('maxPack', '517')
+	totalPack = request.GET.get('totalPack', '60')
+    reverseOrder = request.GET.get('reverse', 'False')
+    binary = request.GET.get('binary', 'False')
 	
 	packetList = []
 	
-	ordered_raw_packets = models.RawData.objects.filter(global_id__global_id__id__gte=minPack).filter(global_id__global_id__id__lte=maxPack).order_by('global_id__global_id__id')
-	for x in ordered_raw_packets:
-		packet = {
-		"imei": str(x.global_id.global_id.imei),
-		"momsn": str(x.global_id.global_id.momsn),
-		"transmit_time": (x.global_id.global_id.transmit_time).strftime("%y-%m-%d %H:%M:%S"),
-		"iridium_latitude": str(x.global_id.global_id.iridium_latitude),
-		"iridium_longitude": str(x.global_id.global_id.iridium_longitude),
-		"iridium_cep": str(x.global_id.global_id.iridium_cep),
-		"data": str(x.hexdata)
-		}
-		packetList.append(packet)
-	context = {'packetList': packetList}
+    sortOrder = 'global_id__global_id__id'
+    if(reverseOrder == 'True'):
+        sortOrder = '-global_id__global_id__id'
+    
+    
+	ordered_raw_packets = models.RawData.objects.filter(global_id__global_id__id__gte=minPack).filter(global_id__global_id__id__lte=maxPack).order_by(sortOrder)
+    if(binary == 'False'):
+        for x in ordered_raw_packets:
+            packet = {
+            "imei": str(x.global_id.global_id.imei),
+            "momsn": str(x.global_id.global_id.momsn),
+            "transmit_time": (x.global_id.global_id.transmit_time).strftime("%y-%m-%d %H:%M:%S"),
+            "iridium_latitude": str(x.global_id.global_id.iridium_latitude),
+            "iridium_longitude": str(x.global_id.global_id.iridium_longitude),
+            "iridium_cep": str(x.global_id.global_id.iridium_cep),
+            "data": str(x.hexdata)
+            }
+            packetList.append(packet)
+     elif(binary == 'True'):
+        for x in ordered_raw_packets:
+            packetList.append(str(x.data))
+     
+	context = {'packetList': packetList, 'binary': binary}
 	return render(request, 'groundstation/dump.json', context)
 	
 @csrf_exempt

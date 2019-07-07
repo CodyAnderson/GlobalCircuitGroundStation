@@ -1,3 +1,7 @@
+{% if binary == 'True' %}
+{% for packet in packetList %}{{ packet }}
+{% endfor %}
+{% else %}
 [
   {% for packet in packetList %}{
     "imei": "{{ packet.imei }}",
@@ -9,3 +13,4 @@
     "data": "{{ packet.data }}"
   }{% if packet is not packetList|last %},{% endif %}{% endfor %}
 ]
+{% endif %}
