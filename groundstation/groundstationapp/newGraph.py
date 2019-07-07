@@ -5,7 +5,7 @@ from graphos.sources.model import ModelDataSource
 from graphos.renderers.gchart import LineChart
 
 from . import models
-from imeiNames import imeiNames
+from .imeiNames import imeiNames
 
 import datetime as dt
 from datetime import datetime
