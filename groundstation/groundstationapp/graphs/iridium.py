@@ -76,7 +76,7 @@ def iridium(getParams):
       
       
       
-      onlyWantedData.append([tempDateString, iridium_longitude, iridium_latitude])
+      onlyWantedData.append([tempDateString, x.iridium_longitude, x.iridium_latitude])
       #onlyWantedData.append([tempDateString, x.gps_longitude, x.gps_latitude])
       
   chartOptions["series"] = {0: {"targetAxisIndex": 0},1: {"targetAxisIndex": 1}}
