@@ -39,7 +39,7 @@ def supervision(getParams):
       
   
             
-  supdata = models.SupData.objects.filter(global_id__global_id__transmit_time__gte=minTime).filter(global_id__global_id__transmit_time__lte=maxTime).order_by('global_id', 'sub_id')
+  supdata = models.SupData.objects.filter(global_id__global_id__transmit_time__gte=minTime).filter(global_id__global_id__transmit_time__lte=maxTime).order_by('global_id')
   #print(ordered_fastmeasurements.query)
   top = 99999 if not maxVal else float(maxVal)
   bottom = -99999 if not minVal else float(minVal)
@@ -48,12 +48,15 @@ def supervision(getParams):
     wantedimei = imeiNames[imei]
   for x in supdata:
     if(wantedimei == '*' or wantedimei == str(x.global_id.global_id.imei)):
-      tempDateTime = x.global_id.global_id.transmit_time
-      tDTS = tempDateTime.strftime("Date(%Y, %m, %d, %H, %M, %S, %f)")
-      tempDateString = tDTS[:11] + '{0:02d}'.format(int(tDTS[11:13])-1) + tDTS[13:31] + '{0:03d}'.format(int(tDTS[31:37])//1000) + tDTS[37:]
       if(((x.type=='Temperature' or x.type=='Pressure') and x.sub_id==0) or x.type=='IL0' or x.type=='IL2' or x.type=='IH1' or x.type=='T0' or x.type=='T2' or x.type=='Tadc1' or x.type=='Text'):
+        tempDateTime = x.global_id.global_id.transmit_time
+        tDTS = tempDateTime.strftime("Date(%Y, %m, %d, %H, %M, %S, %f)")
+        tempDateString = tDTS[:11] + '{0:02d}'.format(int(tDTS[11:13])-1) + tDTS[13:31] + '{0:03d}'.format(int(tDTS[31:37])//1000) + tDTS[37:]
         onlyWantedData.append([tempDateString, x.value, x.global_id.packet_id%10, 0])
       else:
+        tempDateTime = x.global_id.global_id.transmit_time + timedelta(seconds=30)
+        tDTS = tempDateTime.strftime("Date(%Y, %m, %d, %H, %M, %S, %f)")
+        tempDateString = tDTS[:11] + '{0:02d}'.format(int(tDTS[11:13])-1) + tDTS[13:31] + '{0:03d}'.format(int(tDTS[31:37])//1000) + tDTS[37:]
         onlyWantedData.append([tempDateString, x.value, x.global_id.packet_id%10, 1])
   
   chartOptions["series"] = {0: {"targetAxisIndex": 0},1: {"targetAxisIndex": 1}, 2: {"targetAxisIndex": 1}}
