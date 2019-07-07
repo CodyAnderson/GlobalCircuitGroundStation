@@ -29,8 +29,8 @@ def supervision(getParams):
 	volts = getParams['volts']
 	
 	chart = None
-	chartTitle = "Termination Status"
-	chartDescription = "This is a test graph generated from terminate status data.\n This is mostly for demonstration.\n Please enjoy."
+	chartTitle = "Supervision"
+	chartDescription = "This is a test graph generated from supervision data.\n This is mostly for demonstration.\n Please enjoy."
 	chartOptions = {'title': chartTitle}
 	onlyWantedData = []
 	dataHeader = [
