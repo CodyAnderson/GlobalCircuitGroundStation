@@ -31,8 +31,8 @@ def iridium(getParams):
   volts = getParams['volts']
   
   chart = None
-  chartTitle = "GPS Position"
-  chartDescription = "This is a test graph generated from GPS position.\n This is mostly for demonstration.\n Please enjoy."
+  chartTitle = "Iridium Position"
+  chartDescription = "This is a test graph generated from Iridium position.\n This is mostly for demonstration.\n Please enjoy."
   chartOptions = {'title': chartTitle}
   onlyWantedData = []
   dataHeader = [
