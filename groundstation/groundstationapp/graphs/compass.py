@@ -11,7 +11,7 @@ import datetime as dt
 from datetime import datetime
 from datetime import timedelta
 	
-def horizontal(getParams):
+def compass(getParams):
 	
 	#signal
 	signal = getParams['signal']
@@ -29,13 +29,13 @@ def horizontal(getParams):
 	volts = getParams['volts']
 	
 	chart = None
-	chartTitle = "Horizontal Measurements"
-	chartDescription = "This is a test graph generated from horizontal probe data.\n This is mostly for demonstration.\n Please enjoy."
+	chartTitle = "Magnetometer Compass Measurements"
+	chartDescription = "This is a test graph generated from magnetometer compass readings.\n This is mostly for demonstration.\n Please enjoy."
 	chartOptions = {'title': chartTitle}
 	onlyWantedData = []
 	dataHeader = [
-			[{'type': 'datetime', 'label': 'Time'}, 'H1', 'H2', 'HD']	 # create a list to hold the column names and data for the axis names
-		]
+		[{'type': 'datetime', 'label': 'Time'}, 'CX', 'CY', 'CZ']	 # create a list to hold the column names and data for the axis names
+	]
 			
 	
 						
@@ -52,7 +52,7 @@ def horizontal(getParams):
 			tempDateTime = x.global_id.global_id.transmit_time+x.sub_id*timedelta(seconds=5)
 			tDTS = tempDateTime.strftime("Date(%Y, %m, %d, %H, %M, %S, %f)")
 			tempDateString = tDTS[:11] + '{0:02d}'.format(int(tDTS[11:13])-1) + tDTS[13:31] + '{0:03d}'.format(int(tDTS[31:37])//1000) + tDTS[37:]
-			onlyWantedData.append([tempDateString, x.horiz1*scalar, x.horiz2*scalar, x.horizD*scalar])
+			onlyWantedData.append([tempDateString, x.compassX*scalar, x.compassY*scalar, x.compassZ*scalar])   
 
 
 			
@@ -68,3 +68,6 @@ def horizontal(getParams):
 	chart = LineChart(data_source, options=chartOptions) # Creating a line chart
 
 	return chart, chartTitle, chartDescription, chartOptions
+							
+		
+	
