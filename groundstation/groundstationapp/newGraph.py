@@ -13,12 +13,12 @@ from datetime import timedelta
 from .graphs.conductivity import conductivity, horizontal, vertical, compass, cep
 
 signalFunctions = {
-    'conductivity': conductivity,
-    #'horizontal'  : horizontal,
-    #'vertical'    : vertical,
-    #'compass'     : compass,
-    #'cep'         : cep
-    }
+	'conductivity': conductivity,
+	#'horizontal'  : horizontal,
+	#'vertical'	   : vertical,
+	#'compass'	   : compass,
+	#'cep'		   : cep
+	}
 
 
 
@@ -114,29 +114,29 @@ def newGraph(request):
 							
 	data = []
 	onlyWantedData = []
-    
-    getParams = {}
 	
-    chart = None
-    data_source = None
-    
+	getParams = {}
+	
+	chart = None
+	data_source = None
+	
 	chartTitle = "Title Here"
 	chartDescription = "Description Here"
 	chartOptions = {'title': chartTitle}
-    
-    
-    
-    
-    
-    
-    
-    
-    #chart, chartTitle, chartDescription, chartOptions = signalFunctions[signal](getParams)
-    
-    
-    
-    
-    
+	
+	
+	
+	
+	
+	
+	
+	
+	#chart, chartTitle, chartDescription, chartOptions = signalFunctions[signal](getParams)
+	
+	
+	
+	
+	
 	
 	if(signal == 'vertical'):
 		data = [
@@ -268,7 +268,7 @@ def newGraph(request):
 	horizontal =	 True if signalString == 'horizontal'	else False
 	vertical =		 True if signalString == 'vertical'		else False
 	compass =		 True if signalString == 'compass'		else False
-	conductivity =   True if signalString == 'conductivity' else False
+	conductivity =	 True if signalString == 'conductivity' else False
 	gps =			 True if signalString == 'gps'			else False
 	iridium =		 True if signalString == 'iridium'		else False
 	cep =			 True if signalString == 'cep'			else False
