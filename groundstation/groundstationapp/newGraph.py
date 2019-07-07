@@ -178,6 +178,7 @@ def newGraph(request):
     'compass': compass,
     'conductivity': conductivity,
     'gps': gps,
+    'gpsAltitude': gpsAltitude,
     'iridium': iridium,
     'cep': cep,
     'termStatus': termStatus,
