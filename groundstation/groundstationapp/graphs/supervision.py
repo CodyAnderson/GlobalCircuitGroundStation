@@ -48,7 +48,7 @@ def supervision(getParams):
     wantedimei = imeiNames[imei]
   for x in supdata:
     if(wantedimei == '*' or wantedimei == str(x.global_id.global_id.imei)):
-      if(((x.type=='Temperature' or x.type=='Pressure') and x.sub_id==0) or x.type=='IL0' or x.type=='IL2' or x.type=='IH1' or x.type=='T0' or x.type=='T2' or x.type=='Tadc1' or x.type=='Text'):
+      if(((x.type=='Temperature' or x.type=='Pressure') and x.sub_id==0) or x.type=='IL0' or x.type=='IL2' or x.type=='IH1' or x.type=='T0' or x.type=='T2' or x.type=='Tadc1' or x.type=='Text' or x.type=='UNUSED0'):
         tempDateTime = x.global_id.global_id.transmit_time
         tDTS = tempDateTime.strftime("Date(%Y, %m, %d, %H, %M, %S, %f)")
         tempDateString = tDTS[:11] + '{0:02d}'.format(int(tDTS[11:13])-1) + tDTS[13:31] + '{0:03d}'.format(int(tDTS[31:37])//1000) + tDTS[37:]
