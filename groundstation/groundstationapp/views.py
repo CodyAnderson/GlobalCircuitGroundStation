@@ -107,6 +107,7 @@ def scrapefunc(request):
 
 @csrf_exempt
 def submitfunc(request):
+    password = request.GET.get('password', '')
 	imei = request.GET.get('imei', '')
 	message = request.GET.get('message', '')
 	context={
@@ -121,7 +122,7 @@ def submitfunc(request):
 	'username': secrets.rock7username,
 	'password': secrets.rock7password
 	}
-	if(imei != ''):
+	if(imei != '' and password == secrets.commandPassword):
 		r = requests.post("https://core.rock7.com/rockblock/MT", data=postData)
 		print(r.status_code)
 		print(r.content)
