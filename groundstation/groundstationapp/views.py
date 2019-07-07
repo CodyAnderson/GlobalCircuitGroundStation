@@ -80,7 +80,7 @@ def dumpfunc(request):
   
   sortOrder = 'global_id__global_id__id'
   if(reverseOrder == 'True'):
-    sortOrder = '-global_id__global_id__id'
+    sortOrder = 'global_id__global_id__-id'
   
   
   ordered_raw_packets = models.RawData.objects
