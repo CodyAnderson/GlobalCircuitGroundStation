@@ -72,7 +72,7 @@ def gps(request):    # Change to google maps
 def dumpfunc(request):
   minPack = request.GET.get('minPack', '1')
   maxPack = request.GET.get('maxPack', '517')
-  totalPack = request.GET.get('totalPack', '60')
+  totalPack = int(request.GET.get('totalPack', '0'))
   reverseOrder = request.GET.get('reverse', 'False')
   binary = request.GET.get('binary', 'False')
   
@@ -83,7 +83,12 @@ def dumpfunc(request):
     sortOrder = '-global_id__global_id__id'
   
   
-  ordered_raw_packets = models.RawData.objects.filter(global_id__global_id__id__gte=minPack).filter(global_id__global_id__id__lte=maxPack).order_by(sortOrder)
+  ordered_raw_packets = models.RawData.objects
+  if(totalPack == 0):
+    ordered_raw_packets = ordered_raw_packets.filter(global_id__global_id__id__gte=minPack).filter(global_id__global_id__id__lte=maxPack).order_by(sortOrder)
+  else:
+    ordered_raw_packets = ordered_raw_packets.filter(global_id__global_id__id__gte=minPack).filter(global_id__global_id__id__lte=maxPack).order_by(sortOrder)[:totalPack]
+  
   if(binary == 'False'):
       for x in ordered_raw_packets:
         packet = {
