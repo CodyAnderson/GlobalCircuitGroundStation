@@ -16,15 +16,24 @@
 		</div>
 		<form style="float: left;">
 			signal:<br>
-			<input type="radio" name="signal" value="horizontal"{% if horizontal %} {{ "checked" }} {% endif %}>Horizontal<br>
-			<input type="radio" name="signal" value="vertical"{% if vertical %} {{ "checked" }} {% endif %}>Vertical<br>
-			<input type="radio" name="signal" value="compass"{% if compass %} {{ "checked" }} {% endif %}>Compass<br><br>
-			
-			<input type="radio" name="signal" value="conductivity"{% if conductivity %} {{ "checked" }} {% endif %}>Conductivity<br><br>
-			
-			<input type="radio" name="signal" value="gps"{% if gps %} {{ "checked" }} {% endif %}>GPS Position<br>
-			<input type="radio" name="signal" value="iridium"{% if iridium %} {{ "checked" }} {% endif %}>Iridium Position<br><br>
-			
+			<input type="radio" name="signal" value="horizontal"{% if horizontal %} {{ "checked" }} {% endif %}>Horizontal
+      <br>
+			<input type="radio" name="signal" value="vertical"{% if vertical %} {{ "checked" }} {% endif %}>Vertical
+      <br>
+			<input type="radio" name="signal" value="compass"{% if compass %} {{ "checked" }} {% endif %}>Compass
+      <br>
+      <br>
+			<input type="radio" name="signal" value="conductivity"{% if conductivity %} {{ "checked" }} {% endif %}>Conductivity
+      <br>
+      <br>
+			<input type="radio" name="signal" value="gps"{% if gps %} {{ "checked" }} {% endif %}>GPS Position
+      <br>
+			<input type="radio" name="signal" value="iridium"{% if iridium %} {{ "checked" }} {% endif %}>Iridium Position
+      <br>
+      <br>
+			<input type="radio" name="signal" value="termStatus"{% if termStatus %} {{ "checked" }} {% endif %}>Termination Status
+      <br>
+      <br>
 			
 			<input type="radio" name="signal" value="cep"{% if cep %} {{ "checked" }} {% endif %}>Iridium CEP<br><br>
 			

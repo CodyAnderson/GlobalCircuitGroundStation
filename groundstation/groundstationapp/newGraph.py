@@ -153,6 +153,7 @@ def newGraph(request):
 	gps =			 True if signalString == 'gps'			else False
 	iridium =		 True if signalString == 'iridium'		else False
 	cep =			 True if signalString == 'cep'			else False
+  termStatus = True if signalString == 'termStatus' else False
 	
 	
 	context = {
@@ -171,7 +172,8 @@ def newGraph(request):
 		'conductivity': conductivity,
 		'gps': gps,
 		'iridium': iridium,
-		'cep': cep
+		'cep': cep,
+    'termStatus': termStatus
 		}
 	#if request.GET.get('maxTime',None):
 	#	context['maxTime'] = request.GET.get('maxTime',None)
