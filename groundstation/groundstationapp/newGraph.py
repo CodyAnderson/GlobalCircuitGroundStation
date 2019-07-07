@@ -115,7 +115,15 @@ def newGraph(request):
 	data = []
 	onlyWantedData = []
 	
-	getParams = {}
+	getParams = {
+        'signal' :        signal ,
+        'imei'   :        imei   ,
+        'maxTime':        maxTime,
+        'minTime':        minTime,
+        'maxVal' :        maxVal ,
+        'minVal' :        minVal ,
+        'volts'  :        volts  ,
+    }
 	
 	chart = None
 	data_source = None

@@ -11,21 +11,32 @@ from datetime import datetime
 from datetime import timedelta
 	
 def conductivity(getParams):
-
-	chart = None
 	
-	chartTitle = "Title Here"
-	chartDescription = "Description Here"
+	#signal
+	signal = getParams['signal']
+	#imei
+	imei = getParams['imei']
+	#maxTime
+	maxTime = getParams['maxTime']
+	#minTime
+	minTime = getParams['minTime']
+	#maxVal
+	maxVal = getParams['maxVal']
+	#minVal
+	minVal = getParams['minVal']
+	#volts
+	volts = getParams['volts']
+	
+	chart = None
+	chartTitle = "Conductivity Measurements"
+	chartDescription = "This is a test graph generated from conductivity probe data.\n This is mostly for demonstration.\n Please enjoy."
 	chartOptions = {'title': chartTitle}
-
 	onlyWantedData = []
-
 	dataHeader = [
 				[{'type': 'datetime', 'label': 'Time'}, 'V1', 'V2']	 # create a list to hold the column names and data for the axis names
 			]
 			
-	chartTitle = "Conductivity Measurements"
-	chartDescription = "This is a test graph generated from conductivity probe data.\n This is mostly for demonstration.\n Please enjoy."
+	
 						
 	ordered_condmeasurements = models.ConductivityData.objects.filter(global_id__cond_gps_time__gte=minTime).filter(global_id__cond_gps_time__lte=maxTime).order_by('global_id__cond_gps_time', 'sub_id')
 	#print(ordered_fastmeasurements.query)
