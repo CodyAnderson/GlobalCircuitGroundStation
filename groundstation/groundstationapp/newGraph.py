@@ -176,7 +176,8 @@ def newGraph(request):
     'gps': gps,
     'iridium': iridium,
     'cep': cep,
-    'termStatus': termStatus
+    'termStatus': termStatus,
+    'supervision': supervision
     }
   #if request.GET.get('maxTime',None):
   # context['maxTime'] = request.GET.get('maxTime',None)
