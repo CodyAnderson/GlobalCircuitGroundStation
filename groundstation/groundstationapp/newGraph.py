@@ -18,6 +18,7 @@ from .graphs.compass     import compass
 from .graphs.cep       import cep
 from .graphs.gps       import gps
 from .graphs.termStatus import termStatus
+from .graphs.supervision import supervision
 
 signalFunctions = {
   'conductivity': conductivity,
@@ -26,7 +27,8 @@ signalFunctions = {
   'compass'    : compass,
   'cep'      : cep,
   'gps'      : gps,
-  'termStatus': termStatus
+  'termStatus': termStatus,
+  'supervision': supervision
   }
 
 
@@ -154,6 +156,7 @@ def newGraph(request):
   iridium =    True if signalString == 'iridium'    else False
   cep =      True if signalString == 'cep'      else False
   termStatus = True if signalString == 'termStatus' else False
+  supervision = True if signalString == 'supervision' else False
   
   
   context = {
