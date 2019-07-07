@@ -19,7 +19,7 @@ from .graphs.horizontal   import horizontal
 
 signalFunctions = {
 	'conductivity': conductivity,
-	#'horizontal'  : horizontal,
+	'horizontal'  : horizontal,
 	#'vertical'	   : vertical,
 	#'compass'	   : compass,
 	#'cep'		   : cep
