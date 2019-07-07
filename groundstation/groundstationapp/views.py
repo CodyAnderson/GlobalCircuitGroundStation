@@ -87,7 +87,7 @@ def dumpfunc(request):
   if(totalPack == 0):
     ordered_raw_packets = ordered_raw_packets.filter(global_id__global_id__id__gte=minPack).filter(global_id__global_id__id__lte=maxPack).order_by(sortOrder)
   else:
-    ordered_raw_packets = ordered_raw_packets.filter(global_id__global_id__id__gte=minPack).filter(global_id__global_id__id__lte=maxPack).order_by(sortOrder)[:totalPack]
+    ordered_raw_packets = ordered_raw_packets.order_by(sortOrder)[:totalPack]
   
   if(binary == 'False'):
       for x in ordered_raw_packets:
