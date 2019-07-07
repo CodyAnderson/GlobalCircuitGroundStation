@@ -68,7 +68,7 @@ def horizontal(getParams):
 	chart = LineChart(data_source, options=chartOptions) # Creating a line chart
 
 	return chart, chartTitle, chartDescription, chartOptions
-    
+	
 def vertical(getParams):
 	
 	#signal
@@ -110,7 +110,7 @@ def vertical(getParams):
 			tempDateTime = x.global_id.global_id.transmit_time+x.sub_id*timedelta(seconds=5)
 			tDTS = tempDateTime.strftime("Date(%Y, %m, %d, %H, %M, %S, %f)")
 			tempDateString = tDTS[:11] + '{0:02d}'.format(int(tDTS[11:13])-1) + tDTS[13:31] + '{0:03d}'.format(int(tDTS[31:37])//1000) + tDTS[37:]
-			onlyWantedData.append([tempDateString, x.horiz1*scalar, x.horiz2*scalar, x.horizD*scalar])
+			onlyWantedData.append([tempDateString, x.vert1*scalar, x.vert2*scalar, x.vertD*scalar])	   
 
 
 			
@@ -126,24 +126,6 @@ def vertical(getParams):
 	chart = LineChart(data_source, options=chartOptions) # Creating a line chart
 
 	return chart, chartTitle, chartDescription, chartOptions
-
-data 
-				
-		chartTitle = "Vertical Measurements"
-		chartDescription = "This is a test graph generated from vertical probe data.\n This is mostly for demonstration.\n Please enjoy."
 							
-		ordered_fastmeasurements = models.FastMeasurement.objects.filter(global_id__global_id__transmit_time__gte=minTime).filter(global_id__global_id__transmit_time__lte=maxTime).order_by('global_id', 'sub_id')
-		#print(ordered_fastmeasurements.query)
-		scalar = 0.000125 if request.GET.get('volts','') == 'True' else 1
-		top = 99999 if not request.GET.get('maxVal','') else float(request.GET.get('maxVal',''))
-		bottom = -99999 if not request.GET.get('minVal','') else float(request.GET.get('minVal',''))
-		wantedimei = imei
-		if(imei in imeiNames):
-			wantedimei = imeiNames[imei]
-		for x in ordered_fastmeasurements:
-			if(wantedimei == '*' or wantedimei == str(x.global_id.global_id.imei)):
-				tempDateTime = x.global_id.global_id.transmit_time+x.sub_id*timedelta(seconds=5)
-				tDTS = tempDateTime.strftime("Date(%Y, %m, %d, %H, %M, %S, %f)")
-				tempDateString = tDTS[:11] + '{0:02d}'.format(int(tDTS[11:13])-1) + tDTS[13:31] + '{0:03d}'.format(int(tDTS[31:37])//1000) + tDTS[37:]
-				onlyWantedData.append([tempDateString, x.vert1*scalar, x.vert2*scalar, x.vertD*scalar])    
-    
+		
+	
