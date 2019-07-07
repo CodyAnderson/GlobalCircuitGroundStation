@@ -107,7 +107,7 @@ def scrapefunc(request):
 
 @csrf_exempt
 def submitfunc(request):
-    password = request.GET.get('password', '')
+	password = request.GET.get('password', '')
 	imei = request.GET.get('imei', '')
 	message = request.GET.get('message', '')
 	context={
