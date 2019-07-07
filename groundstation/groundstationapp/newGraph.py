@@ -135,8 +135,6 @@ def newGraph(request):
 	
 	
 	
-	chart, chartTitle, chartDescription, chartOptions = signalFunctions[signal](getParams)
-	
 	
 	
 	
@@ -230,7 +228,7 @@ def newGraph(request):
 							
 		
 	
-	chartOptions['title'] = chartTitle
+	
 	#onlyWantedData.append([tempDateString,x.horiz1*scalar if x.horiz1*scalar <= top and x.horiz1*scalar >= bottom else top if x.horiz1*scalar > top else bottom,x.horiz2*scalar if x.horiz2*scalar <= top and x.horiz2*scalar >= bottom else top if x.horiz2*scalar > top else bottom,x.horizD*scalar if x.horizD*scalar <= top and x.horizD*scalar >= bottom else top if x.horizD*scalar > top else bottom])
 	
 	
@@ -240,7 +238,9 @@ def newGraph(request):
 	#		onlyReallyWantedData.append(x)
 	#data = data + onlyReallyWantedData
 
-	if(not (signal in ['conductivity', 'horizontal'])):
+	if(signal in signalFunctions):
+        chart, chartTitle, chartDescription, chartOptions = signalFunctions[signal](getParams)
+    else:
 		data = data + onlyWantedData
 	
 		data_source = SimpleDataSource(data=data)
@@ -248,7 +248,7 @@ def newGraph(request):
 	
 		chart = LineChart(data_source, options=chartOptions) # Creating a line chart
 	
-	
+	chartOptions['title'] = chartTitle
 	signalString = request.GET.get('signal','')
 	
 	horizontal =	 True if signalString == 'horizontal'	else False
