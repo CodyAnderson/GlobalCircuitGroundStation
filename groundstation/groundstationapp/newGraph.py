@@ -12,10 +12,10 @@ from datetime import datetime
 from datetime import timedelta
 
 from .graphs.conductivity import conductivity
-from .graphs.horizontal   import horizontal
-#from .graphs.vertical     import vertical
-#from .graphs.compass      import compass
-#from .graphs.cep          import cep
+from .graphs.horizontal	  import horizontal
+#from .graphs.vertical	   import vertical
+#from .graphs.compass	   import compass
+#from .graphs.cep		   import cep
 
 signalFunctions = {
 	'conductivity': conductivity,
@@ -112,14 +112,14 @@ def newGraph(request):
 	onlyWantedData = []
 	
 	getParams = {
-        'signal' :        signal ,
-        'imei'   :        imei   ,
-        'maxTime':        maxTime,
-        'minTime':        minTime,
-        'maxVal' :        maxVal ,
-        'minVal' :        minVal ,
-        'volts'  :        volts  ,
-    }
+		'signal' :		  signal ,
+		'imei'	 :		  imei	 ,
+		'maxTime':		  maxTime,
+		'minTime':		  minTime,
+		'maxVal' :		  maxVal ,
+		'minVal' :		  minVal ,
+		'volts'	 :		  volts	 ,
+	}
 	
 	chart = None
 	data_source = None
@@ -239,8 +239,8 @@ def newGraph(request):
 	#data = data + onlyReallyWantedData
 
 	if(signal in signalFunctions):
-        chart, chartTitle, chartDescription, chartOptions = signalFunctions[signal](getParams)
-    else:
+		chart, chartTitle, chartDescription, chartOptions = signalFunctions[signal](getParams)
+	else:
 		data = data + onlyWantedData
 	
 		data_source = SimpleDataSource(data=data)
