@@ -11,7 +11,7 @@ import datetime as dt
 from datetime import datetime
 from datetime import timedelta
 
-from .graphs.conductivity import conductivity#, horizontal, vertical, compass, cep
+from .graphs.conductivity import horizontal, conductivity#, vertical, compass, cep
 
 signalFunctions = {
 	'conductivity': conductivity,
@@ -131,7 +131,7 @@ def newGraph(request):
 	
 	
 	
-	#chart, chartTitle, chartDescription, chartOptions = signalFunctions[signal](getParams)
+	chart, chartTitle, chartDescription, chartOptions = signalFunctions[signal](getParams)
 	
 	
 	
@@ -220,29 +220,11 @@ def newGraph(request):
 		chartOptions["series"] = {0: {"targetAxisIndex": 0},1: {"targetAxisIndex": 1}}
 		chartOptions["vAxes"] = {0: {"title": 'Iridium CEP (inverse signal strength (km))'}, 1: {"title": 'Time since packet (minutes)'}}
 		onlyWantedData[0][2] = 0.0
-	else:
-		signal = 'horizontal'
-		data = [
-					[{'type': 'datetime', 'label': 'Time'}, 'H1', 'H2', 'HD']	 # create a list to hold the column names and data for the axis names
-				]
+		
 				
-		chartTitle = "Horizontal Measurements"
-		chartDescription = "This is a test graph generated from horizontal probe data.\n This is mostly for demonstration.\n Please enjoy."
+		
 							
-		ordered_fastmeasurements = models.FastMeasurement.objects.filter(global_id__global_id__transmit_time__gte=minTime).filter(global_id__global_id__transmit_time__lte=maxTime).order_by('global_id', 'sub_id')
-		#print(ordered_fastmeasurements.query)
-		scalar = 0.000125 if request.GET.get('volts','') == 'True' else 1
-		top = 99999 if not request.GET.get('maxVal','') else float(request.GET.get('maxVal',''))
-		bottom = -99999 if not request.GET.get('minVal','') else float(request.GET.get('minVal',''))
-		wantedimei = imei
-		if(imei in imeiNames):
-			wantedimei = imeiNames[imei]
-		for x in ordered_fastmeasurements:
-			if(wantedimei == '*' or wantedimei == str(x.global_id.global_id.imei)):
-				tempDateTime = x.global_id.global_id.transmit_time+x.sub_id*timedelta(seconds=5)
-				tDTS = tempDateTime.strftime("Date(%Y, %m, %d, %H, %M, %S, %f)")
-				tempDateString = tDTS[:11] + '{0:02d}'.format(int(tDTS[11:13])-1) + tDTS[13:31] + '{0:03d}'.format(int(tDTS[31:37])//1000) + tDTS[37:]
-				onlyWantedData.append([tempDateString, x.horiz1*scalar, x.horiz2*scalar, x.horizD*scalar])
+		
 	
 	chartOptions['title'] = chartTitle
 	#onlyWantedData.append([tempDateString,x.horiz1*scalar if x.horiz1*scalar <= top and x.horiz1*scalar >= bottom else top if x.horiz1*scalar > top else bottom,x.horiz2*scalar if x.horiz2*scalar <= top and x.horiz2*scalar >= bottom else top if x.horiz2*scalar > top else bottom,x.horizD*scalar if x.horizD*scalar <= top and x.horizD*scalar >= bottom else top if x.horizD*scalar > top else bottom])
@@ -254,7 +236,7 @@ def newGraph(request):
 	#		onlyReallyWantedData.append(x)
 	#data = data + onlyReallyWantedData
 
-	if(not signal == 'conductivity'):
+	if(not (signal in ['conductivity', 'horizontal'])):
 		data = data + onlyWantedData
 	
 		data_source = SimpleDataSource(data=data)
