@@ -23,7 +23,7 @@ def unpack(f):
     values['cVert2']=struct.unpack('<15H',f.read(30))
     values['sup']=struct.unpack('<4B',f.read(4))
     return values
-	
+  
 def unpack_new(fstring):
     values={}
     values['version']=struct.unpack('<B',fstring[0:1])[0]
