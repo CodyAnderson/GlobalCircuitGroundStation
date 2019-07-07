@@ -52,7 +52,7 @@ def gpsAltitude(getParams):
       tDTS = tempDateTime.strftime("Date(%Y, %m, %d, %H, %M, %S, %f)")
       tempDateString = tDTS[:11] + '{0:02d}'.format(int(tDTS[11:13])-1) + tDTS[13:31] + '{0:03d}'.format(int(tDTS[31:37])//1000) + tDTS[37:]
       
-      realAlt = x.gps_altitude//10
+      realAlt = x.gps_altitude/10
       
       
       
