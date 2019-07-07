@@ -65,8 +65,8 @@ def gps(getParams):
         realLat = x.gps_latitude - 0x80000000
         latSign = -1.0
         
-      realLongString = str(realLong).zfill(9)
-      realLatString = str(realLat).zfill(9)
+      realLongString = str(int(realLong)).zfill(9)
+      realLatString = str(int(realLat)).zfill(9)
       
       print(realLongString)
       print(realLatString)
