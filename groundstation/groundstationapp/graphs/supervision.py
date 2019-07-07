@@ -34,7 +34,7 @@ def supervision(getParams):
   chartOptions = {'title': chartTitle}
   onlyWantedData = []
   dataHeader = [
-      [{'type': 'datetime', 'label': 'Time'}, 'value', 'sequence', 'ID']   # create a list to hold the column names and data for the axis names
+      [{'type': 'datetime', 'label': 'Time'}, 'valueL', 'valueH', 'sequence']   # create a list to hold the column names and data for the axis names
     ]
       
   
@@ -51,10 +51,10 @@ def supervision(getParams):
       tempDateTime = x.global_id.global_id.transmit_time
       tDTS = tempDateTime.strftime("Date(%Y, %m, %d, %H, %M, %S, %f)")
       tempDateString = tDTS[:11] + '{0:02d}'.format(int(tDTS[11:13])-1) + tDTS[13:31] + '{0:03d}'.format(int(tDTS[31:37])//1000) + tDTS[37:]
-      onlyWantedData.append([tempDateString, x.value, x.global_id.packet_id, x.sub_id])
+      onlyWantedData.append([tempDateString, x.value[0], x.value[1], x.global_id.packet_id%10])
   
-  chartOptions["series"] = {0: {"targetAxisIndex": 0},1: {"targetAxisIndex": 1}, 1: {"targetAxisIndex": 2}}
-  chartOptions["vAxes"] = {0: {"title": 'value'}, 1: {"title": 'sequence/ID'}}    
+  chartOptions["series"] = {0: {"targetAxisIndex": 0},1: {"targetAxisIndex": 0}, 2: {"targetAxisIndex": 1}}
+  chartOptions["vAxes"] = {0: {"title": 'value'}, 1: {"title": 'sequence'}}    
   data = dataHeader + onlyWantedData
   data_source = SimpleDataSource(data=data)
   chart = LineChart(data_source, options=chartOptions) # Creating a line chart
