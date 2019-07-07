@@ -17,6 +17,7 @@ from .graphs.vertical    import vertical
 from .graphs.compass     import compass
 from .graphs.cep       import cep
 from .graphs.gps       import gps
+from .graphs.gpsAltitude       import gpsAltitude
 from .graphs.iridium       import iridium
 from .graphs.termStatus import termStatus
 from .graphs.supervision import supervision
