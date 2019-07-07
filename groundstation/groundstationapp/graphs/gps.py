@@ -34,7 +34,7 @@ def gps(getParams):
 	chartOptions = {'title': chartTitle}
 	onlyWantedData = []
 	dataHeader = [
-		[{'type': 'datetime', 'label': 'Time'}, 'CEP', 'Mins. since packet']	 # create a list to hold the column names and data for the axis names
+		[{'type': 'datetime', 'label': 'Time'}, 'Longitude', 'Latitude']	 # create a list to hold the column names and data for the axis names
 	]
 			
 	
