@@ -191,3 +191,47 @@ def newGraph(request):
   # context['minTime'] = request.GET.get('minTime',None)
 
   return render(request, 'groundstation/newGraph.html', context)
+  
+def googleMap(request):
+  
+  
+  
+  points = [] #FORMAT OF '[Lat(float), Long(float), Name(String)],'
+  
+  ordered_gpsmeasurements = models.SlowMeasurement.objects.order_by('-global_id__global_id__transmit_time')[:60]
+  
+  for x in ordered_gpsmeasurements:
+    tempDateTime = x.global_id.global_id.transmit_time
+    tDTS = tempDateTime.strftime("Date(%Y, %m, %d, %H, %M, %S, %f)")
+    tempDateString = tDTS[:11] + '{0:02d}'.format(int(tDTS[11:13])-1) + tDTS[13:31] + '{0:03d}'.format(int(tDTS[31:37])//1000) + tDTS[37:]
+    
+    realLong = x.gps_longitude
+    longSign = 1.0
+    realLat = x.gps_latitude
+    latSign = 1.0
+    
+    if (x.gps_longitude > 0x80000000):
+      realLong = x.gps_longitude - 0x80000000
+      longSign = -1.0
+    
+    if (x.gps_latitude > 0x80000000):
+      realLat = x.gps_latitude - 0x80000000
+      latSign = -1.0
+      
+    realLongString = str(int(realLong)).zfill(9)
+    realLatString = str(int(realLat)).zfill(9)
+    
+    print(realLongString)
+    print(realLatString)
+    
+    realLong = longSign * (float(realLongString[0:3]) + (float(realLongString[3:5]) + float(realLongString[5:9])/10000.0 )/60.0)
+    realLat = latSign * (float(realLatString[0:3]) + (float(realLatString[3:5]) + float(realLatString[5:9])/10000.0 )/60.0)
+    
+    
+    
+    points.append([realLong, realLat, tempDateString])
+  
+  context = {
+    'points': points,
+  }
+  return render(request, 'groundstation/googleMap.html', context)

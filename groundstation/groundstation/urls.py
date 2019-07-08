@@ -17,7 +17,7 @@ from django.conf.urls import url
 from django.contrib import admin
 
 from groundstationapp.views import homepage, gps, postfunc, horizontal, vertical, conductivity, submitfunc, dumpfunc, scrapefunc, utf8js
-from groundstationapp.newGraph import newGraph
+from groundstationapp.newGraph import newGraph, googleMap
 
 urlpatterns = [
     url(r'^$', homepage, name='homepage'),
@@ -34,4 +34,5 @@ urlpatterns = [
 	url(r'^dump.hex$', dumpfunc, name='dumpfunc'),
 	url(r'^dump.json$', dumpfunc, name='dumpfunc'),
 	url(r'^scrape/$', scrapefunc, name='scrapefunc'),
+	url(r'^googleMap/$', googleMap, name='googleMap'),
 ]
