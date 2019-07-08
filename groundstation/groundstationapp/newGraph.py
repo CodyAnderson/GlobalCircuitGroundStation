@@ -202,8 +202,9 @@ def googleMap(request):
   
   for x in ordered_gpsmeasurements:
     tempDateTime = x.global_id.global_id.transmit_time
-    tDTS = tempDateTime.strftime("Date.UTC(%Y, %m, %d, %H, %M, %S, %f)")
-    tempDateString = tDTS[:15] + '{0:02d}'.format(int(tDTS[15:17])-1) + tDTS[17:35] + '{0:03d}'.format(int(tDTS[35:41])//1000) + tDTS[41:]
+    tDTS = tempDateTime.strftime("Date(%Y, %m, %d, %H, %M, %S, %f)")
+    tempDateString = tDTS[:11] + '{0:02d}'.format(int(tDTS[11:13])-1) + tDTS[13:31] + '{0:03d}'.format(int(tDTS[31:37])//1000) + tDTS[37:]
+    tempDateString = "new Date("tempDateString[:4] + ".UTC" + tempDateString[4:] + ")"
     
     realLong = x.gps_longitude
     longSign = 1.0
