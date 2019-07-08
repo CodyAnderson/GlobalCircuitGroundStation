@@ -229,7 +229,7 @@ def googleMap(request):
     
     
     
-    points.append([realLat, realLong, str(realLat) + ', ' + str(realLong) + ', '+ tempDateString])#tempDateString])
+    points.append([realLat, realLong, tempDateString])#str(realLat) + ', ' + str(realLong) + ', '+ tempDateString])#tempDateString])
   
   context = {
     'points': points,
