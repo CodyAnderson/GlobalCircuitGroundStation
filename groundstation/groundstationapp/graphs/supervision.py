@@ -59,7 +59,7 @@ def supervision(getParams):
         tempDateString = tDTS[:11] + '{0:02d}'.format(int(tDTS[11:13])-1) + tDTS[13:31] + '{0:03d}'.format(int(tDTS[31:37])//1000) + tDTS[37:]
         onlyWantedData.append([tempDateString, x.value, x.global_id.packet_id%10, 1])
   
-  chartOptions["pointSize"]=100
+  chartOptions["pointSize"]=10
   chartOptions["series"] = {0: {"targetAxisIndex": 0},1: {"targetAxisIndex": 1}, 2: {"targetAxisIndex": 1}}
   chartOptions["vAxes"] = {0: {"title": 'value'}, 1: {"title": 'sequence'}}    
   data = dataHeader + onlyWantedData
