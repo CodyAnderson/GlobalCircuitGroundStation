@@ -68,19 +68,19 @@ def newGraph(request):
     minVal = None
   #filtering volts
   if not volts:
-    volts = False
+    volts = 'False'
   elif volts == 'False':
-    volts = False
+    volts = 'False'
   elif volts == 'false':
-    volts = False
+    volts = 'False'
   elif volts == '0':
-    volts = False
+    volts = 'False'
   elif volts == 'f':
-    volts = False
+    volts = 'False'
   elif volts == 'F':
-    volts = False
+    volts = 'False'
   else:
-    volts = True
+    volts = 'True'
     
   #minTime filtering
   try:#second

@@ -48,7 +48,7 @@ def conductivity(getParams):
 	if(imei in imeiNames):
 		wantedimei = imeiNames[imei]
 	for x in ordered_condmeasurements:
-		if(wantedimei == '*' or wantedimei == str(x.global_id.global_id.imei)):
+		if(wantedimei == '*' or wantedimei == str(x.global_id.global_id.global_id.imei)):
 			tempDateTime = x.global_id.cond_gps_time+x.sub_id*timedelta(seconds=0.1)
 			tDTS = tempDateTime.strftime("Date(%Y, %m, %d, %H, %M, %S, %f)")
 			tempDateString = tDTS[:11] + '{0:02d}'.format(int(tDTS[11:13])-1) + tDTS[13:31] + '{0:03d}'.format(int(tDTS[31:37])//1000) + tDTS[37:]
