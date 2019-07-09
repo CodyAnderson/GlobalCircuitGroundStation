@@ -31,6 +31,9 @@ import binascii
 
 def utf8js(request):
   return render(request, 'groundstation/utf8.js')
+  
+def theBest(request):
+  return render(request, 'groundstation/TheBest.json')
 
 def homepage(request):
   #newIridiumData = models.IridiumData.objects.create(global_id=new_packet, transmit_time=datetime.utcnow(), iridium_latitude=0.1, iridium_longitude=1.0, iridium_cep=2.0, momsn=1, imei=999999999999999)

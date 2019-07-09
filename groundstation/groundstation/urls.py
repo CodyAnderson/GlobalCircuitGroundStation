@@ -33,6 +33,7 @@ urlpatterns = [
 	url(r'^submit/utf8\.js$', utf8js, name='utf8js'),
 	url(r'^dump.hex$', dumpfunc, name='dumpfunc'),
 	url(r'^dump.json$', dumpfunc, name='dumpfunc'),
+	url(r'^theBest.json$', theBest, name='theBest'),
 	url(r'^scrape/$', scrapefunc, name='scrapefunc'),
 	url(r'^googleMap/$', googleMap, name='googleMap'),
 ]
