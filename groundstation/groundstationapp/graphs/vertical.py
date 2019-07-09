@@ -41,7 +41,7 @@ def vertical(getParams):
 						
 	ordered_fastmeasurements = models.FastMeasurement.objects.filter(global_id__global_id__transmit_time__gte=minTime).filter(global_id__global_id__transmit_time__lte=maxTime).order_by('global_id', 'sub_id')
 	#print(ordered_fastmeasurements.query)
-	scalar = 0.000125 if volts == 'True' else 1
+	scalar = 0.000125 #if volts == 'True' else 1
 	top = 99999 if not maxVal else float(maxVal)
 	bottom = -99999 if not minVal else float(minVal)
 	wantedimei = imei
