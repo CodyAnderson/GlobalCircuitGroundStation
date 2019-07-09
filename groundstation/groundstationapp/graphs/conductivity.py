@@ -53,15 +53,15 @@ def conductivity(getParams):
 			ammendedVert1 = x.vert1*scalar
 			ammendedVert2 = x.vert2*scalar
 			
-			if(ammendedVert1 > maxVal):
-				ammendedVert1 = maxVal
-			if(ammendedVert1 < minVal):
-				ammendedVert1 = minVal
+			if(ammendedVert1 > float(maxVal)):
+				ammendedVert1 = float(maxVal)
+			if(ammendedVert1 < float(minVal)):
+				ammendedVert1 = float(minVal)
 				
-			if(ammendedVert2 < minVal):
-				ammendedVert2 = minVal
-			if(ammendedVert2 < minVal):
-				ammendedVert2 = minVal
+			if(ammendedVert2 > float(maxVal)):
+				ammendedVert2 = float(maxVal)
+			if(ammendedVert2 < float(minVal)):
+				ammendedVert2 = float(minVal)
 		
 			tempDateTime = x.global_id.cond_gps_time+x.sub_id*timedelta(seconds=0.1)
 			tDTS = tempDateTime.strftime("Date(%Y, %m, %d, %H, %M, %S, %f)")
