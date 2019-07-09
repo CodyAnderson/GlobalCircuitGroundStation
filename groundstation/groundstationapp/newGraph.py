@@ -6,6 +6,7 @@ from graphos.renderers.gchart import LineChart
 
 from . import models
 from .imeiNames import imeiNames
+import super_secrets as secrets
 
 import datetime as dt
 from datetime import datetime
@@ -234,5 +235,6 @@ def googleMap(request):
   
   context = {
     'points': points,
+    'MAPS_API_KEY': secrets.MAPS_API_KEY,
   }
   return render(request, 'groundstation/googleMap.html', context)
