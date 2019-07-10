@@ -22,6 +22,7 @@ from .graphs.gpsAltitude       import gpsAltitude
 from .graphs.iridium       import iridium
 from .graphs.termStatus import termStatus
 from .graphs.supervision import supervision
+from .graphs.supervisionPressure import supervisionPressure
 
 signalFunctions = {
   'conductivity': conductivity,
@@ -33,7 +34,8 @@ signalFunctions = {
   'gpsAltitude' : gpsAltitude,
   'iridium'      : iridium,
   'termStatus': termStatus,
-  'supervision': supervision
+  'supervision': supervision,
+  'supervisionPressure': supervisionPressure
   }
 
 
@@ -184,7 +186,8 @@ def newGraph(request):
     'iridium': iridium,
     'cep': cep,
     'termStatus': termStatus,
-    'supervision': supervision
+    'supervision': supervision,
+    'supervisionPressure': supervisionPressure
     }
   #if request.GET.get('maxTime',None):
   # context['maxTime'] = request.GET.get('maxTime',None)
