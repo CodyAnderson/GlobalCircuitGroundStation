@@ -22,7 +22,7 @@
             // Define the chart to be drawn.
             var data = google.visualization.arrayToDataTable([
                ['Lat', 'Long', 'Name', 'Marker'],
-               {% for point in points %}[{{ point.0 }}, {{ point.1 }}, '{{ point.2 }}<br>{{point.0}}, {{point.1}}<br>{{ point.3 }}', {% if points.0 == point %}'green'{% else %}'default'{% endif %}],{% endfor %}
+               {% for point in points %}[{{ point.0 }}, {{ point.1 }}, '{{ point.2 }}<br>{{point.0}}, {{point.1}}<br>{{ point.3 }}', {% if points.0 == point %}'grey'{% else %}'red'{% endif %}],{% endfor %}
             ]);
             
             var url = 'https://icons.iconarchive.com/icons/icons-land/vista-map-markers/48/';
@@ -38,17 +38,13 @@
               useMapTypeControl: true,
               zoomControl: true,
               icons: {
-                blue: {
-                  normal:   url + 'Map-Marker-Ball-Azure-icon.png',
-                  selected: url + 'Map-Marker-Ball-Right-Azure-icon.png'
+                red: {
+                  normal:   url + 'RedBalloon.png',
+                  selected: url + 'RedBalloonClicked.png'
                 },
-                green: {
-                  normal:   url + 'Map-Marker-Push-Pin-1-Chartreuse-icon.png',
-                  selected: url + 'Map-Marker-Push-Pin-1-Right-Chartreuse-icon.png'
-                },
-                pink: {
-                  normal:   url + 'Map-Marker-Ball-Pink-icon.png',
-                  selected: url + 'Map-Marker-Ball-Right-Pink-icon.png'
+                grey: {
+                  normal:   url + 'GreyBalloon.png',
+                  selected: url + 'GreyBalloonClicked.png'
                 }
               }
             };				

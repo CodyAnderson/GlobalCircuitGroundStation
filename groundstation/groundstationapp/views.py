@@ -29,6 +29,15 @@ import binascii
 
 # Create your views here.
 
+def greyBalloon(request):
+  return render(request, 'groundstation/GreyBalloon.png')
+def redBalloon(request):
+  return render(request, 'groundstation/RedBalloon.png')
+def greyBalloonClicked(request):
+  return render(request, 'groundstation/GreyBalloonClicked.png')
+def redBalloonClicked(request):
+  return render(request, 'groundstation/RedBalloonClicked.png')
+
 def utf8js(request):
   return render(request, 'groundstation/utf8.js')
   
