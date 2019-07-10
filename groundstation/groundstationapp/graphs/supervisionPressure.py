@@ -51,7 +51,7 @@ def supervisionPressure(getParams):
       tempDateTime = x.global_id.global_id.transmit_time
       if(tempDateTime not in dataDict):
         dataDict[tempDateTime] = {}
-      if(x.type not in dataDict[x.global_id]):
+      if(x.type not in dataDict[tempDateTime]):
         dataDict[tempDateTime][x.type] = 0
       dataDict[tempDateTime][x.type] = dataDict[tempDateTime][x.type] + (((x.sub_id*0xFFFF)+1)*x.value)
       #if(x.type=='Pressure' and x.sub_id==0):
