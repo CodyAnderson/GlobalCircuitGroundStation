@@ -42,8 +42,8 @@ def conductivity(getParams):
 	ordered_condmeasurements = models.ConductivityData.objects.filter(global_id__cond_gps_time__gte=minTime).filter(global_id__cond_gps_time__lte=maxTime).order_by('global_id__cond_gps_time', 'sub_id')
 	#print(ordered_fastmeasurements.query)
 	scalar = 0.000125 if volts == 'True' else 1
-	top = 99999 if not maxVal else float(maxVal)
-	bottom = -99999 if not minVal else float(minVal)
+	top = 9999999999 if not maxVal else float(maxVal)
+	bottom = -9999999999 if not minVal else float(minVal)
 	wantedimei = imei
 	if(imei in imeiNames):
 		wantedimei = imeiNames[imei]
