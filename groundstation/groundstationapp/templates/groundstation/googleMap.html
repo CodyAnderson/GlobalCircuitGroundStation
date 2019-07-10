@@ -21,8 +21,8 @@
         <a href=""><button>Refresh Map</button></a>
         <h2>Most recent:</h2>
         <h3>Time: {{ points.0.2 }}</h3>
-        <h3>Lat,Lon: {{points.0.0}}, {{points.0.1}}</h3>
-        <h3>Alt: {{points.0.3}}</h3>
+        <h3>Lat,Lon: {{ points.0.0 }}, {{ points.0.1 }}</h3>
+        <h3>Alt: {{ points.0.3 }}</h3>
       </div>
       <script language = "JavaScript">
          function drawChart() {
@@ -36,15 +36,11 @@
               
             // Set chart options
             var options = {
-              zoomLevel: 12,
               showTooltip: true,
               showInfoWindow: true,
-              showLine: true,
-              lineColor: '#000000',
-              lineWidth: 10,
               useMapTypeControl: true,
-              zoomControl: true,
-              center: {lat: {{points.0.0}}, lng: {{points.0.1}} },
+              center: new google.maps.LatLng({{ points.0.0 }}, {{ points.0.1 }}),
+              zoomLevel: 12,
               icons: {
                 red: {
                   normal:   'https://i.imgur.com/KV4Eh0c.png',
