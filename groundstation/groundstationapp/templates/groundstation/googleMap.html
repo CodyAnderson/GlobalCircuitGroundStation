@@ -40,7 +40,7 @@
               showTooltip: true,
               showInfoWindow: true,
               useMapTypeControl: true,
-              zoomLevel: {% if point.0 < 0.00000001 and point.0 > -0.00000001 %}{% if point.1 < 0.00000001 and point.1 > -0.00000001 %}3{% else %}12{% endif %}{% else %}12{% endif %},
+              zoomLevel: {% if points.0.0 < 0.00000001 and points.0.0 > -0.00000001 %}{% if points.0.1 < 0.00000001 and points.0.1 > -0.00000001 %}3{% else %}12{% endif %}{% else %}12{% endif %},
               icons: {
                 red: {
                   normal:   'https://i.imgur.com/KV4Eh0c.png',
