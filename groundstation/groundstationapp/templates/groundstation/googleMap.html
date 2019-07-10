@@ -21,8 +21,8 @@
          function drawChart() {
             // Define the chart to be drawn.
             var data = google.visualization.arrayToDataTable([
-               ['Lat', 'Long', 'Name'],
-               {% for point in points %}[{{ point.0 }}, {{ point.1 }}, "{{ point.2 }}<br>{{point.0}}, {{point.1}}<br>{{ point.3 }}"],{% endfor %}
+               ['Lat', 'Long', 'Name', 'Marker'],
+               {% for point in points %}[{{ point.0 }}, {{ point.1 }}, '{{ point.2 }}<br>{{point.0}}, {{point.1}}<br>{{ point.3 }}', {% if points.0 == point %}'pink'{% else %}'green'{% endif %}],{% endfor %}
             ]);
               
             // Set chart options
@@ -34,7 +34,21 @@
               lineColor: '#000000',
               lineWidth: 10,
               useMapTypeControl: true,
-              zoomControl: true
+              zoomControl: true,
+              icons: {
+                blue: {
+                  normal:   url + 'Map-Marker-Ball-Azure-icon.png',
+                  selected: url + 'Map-Marker-Ball-Right-Azure-icon.png'
+                },
+                green: {
+                  normal:   url + 'Map-Marker-Push-Pin-1-Chartreuse-icon.png',
+                  selected: url + 'Map-Marker-Push-Pin-1-Right-Chartreuse-icon.png'
+                },
+                pink: {
+                  normal:   url + 'Map-Marker-Ball-Pink-icon.png',
+                  selected: url + 'Map-Marker-Ball-Right-Pink-icon.png'
+                }
+              }
             };				
 
             // Instantiate and draw the chart.
