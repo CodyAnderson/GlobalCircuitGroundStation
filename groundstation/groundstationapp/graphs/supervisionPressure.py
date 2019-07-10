@@ -70,7 +70,7 @@ def supervisionPressure(getParams):
     tDTS = tempDateTime.strftime("Date(%Y, %m, %d, %H, %M, %S, %f)")
     tempDateString = tDTS[:11] + '{0:02d}'.format(int(tDTS[11:13])-1) + tDTS[13:31] + '{0:03d}'.format(int(tDTS[31:37])//1000) + tDTS[37:]
     if('Pressure' in dataDict[x]):
-      onlyWantedData.append([tempDateString, dataDict[x]['Pressure']])
+      onlyWantedData.append([tempDateString, dataDict[x]['Pressure']]/100.0)
   
   chartOptions["pointSize"]=5
   data = dataHeader + onlyWantedData
