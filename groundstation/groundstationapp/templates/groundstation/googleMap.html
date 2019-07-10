@@ -24,6 +24,8 @@
                ['Lat', 'Long', 'Name', 'Marker'],
                {% for point in points %}[{{ point.0 }}, {{ point.1 }}, '{{ point.2 }}<br>{{point.0}}, {{point.1}}<br>{{ point.3 }}', {% if points.0 == point %}'pink'{% else %}'green'{% endif %}],{% endfor %}
             ]);
+            
+            var url = 'https://icons.iconarchive.com/icons/icons-land/vista-map-markers/48/';
               
             // Set chart options
             var options = {
