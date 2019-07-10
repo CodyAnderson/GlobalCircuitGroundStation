@@ -18,7 +18,7 @@
             // Define the chart to be drawn.
             var data = google.visualization.arrayToDataTable([
                ['Lat', 'Long', 'Name'],
-               {% for point in points %}[{{ point.0 }}, {{ point.1 }}, {{ point.2 }}],{% endfor %}
+               {% for point in points %}[{{ point.0 }}, {{ point.1 }}, "{{ point.2 }}"],{% endfor %}
             ]);
               
             // Set chart options
