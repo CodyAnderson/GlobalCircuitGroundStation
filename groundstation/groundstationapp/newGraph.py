@@ -199,7 +199,7 @@ def googleMap(request):
   
   points = [] #FORMAT OF '[Lat(float), Long(float), Name(String)],'
   
-  ordered_gpsmeasurements = models.SlowMeasurement.objects.order_by('-global_id__global_id__transmit_time')[:100]
+  ordered_gpsmeasurements = models.SlowMeasurement.objects.order_by('-global_id__global_id__transmit_time')[:401]
   
   for x in ordered_gpsmeasurements:
     tempDateTime = x.global_id.global_id.transmit_time
@@ -248,7 +248,7 @@ def badGoogleMap(request):
   
   points = [] #FORMAT OF '[Lat(float), Long(float), Name(String)],'
   
-  ordered_gpsmeasurements = models.SlowMeasurement.objects.order_by('-global_id__global_id__transmit_time')[:402]
+  ordered_gpsmeasurements = models.SlowMeasurement.objects.order_by('-global_id__global_id__transmit_time')[:401]
   
   for x in ordered_gpsmeasurements:
     tempDateTime = x.global_id.global_id.transmit_time
