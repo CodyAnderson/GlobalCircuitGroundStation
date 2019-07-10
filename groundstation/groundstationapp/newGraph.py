@@ -232,9 +232,9 @@ def googleMap(request):
     
     altString = "Altitude: " + str(x.gps_altitude/10.0) + 'm'
     
-    descString = tempDateString + "<br>" + altString
+    #descString = tempDateString + "<br>" + altString
     
-    points.append([realLat, realLong, descString])#str(realLat) + ', ' + str(realLong) + ', '+ tempDateString])#tempDateString])
+    points.append([realLat, realLong, tempDateString, altString])#descString])#str(realLat) + ', ' + str(realLong) + ', '+ tempDateString])#tempDateString])
   
   context = {
     'points': points,
