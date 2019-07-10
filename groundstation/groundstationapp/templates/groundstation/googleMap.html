@@ -25,7 +25,7 @@
                {% for point in points %}[{{ point.0 }}, {{ point.1 }}, '{{ point.2 }}<br>{{point.0}}, {{point.1}}<br>{{ point.3 }}', {% if points.0 == point %}'grey'{% else %}'red'{% endif %}],{% endfor %}
             ]);
             
-            var url = 'https://icons.iconarchive.com/icons/icons-land/vista-map-markers/48/';
+            var url = 'https://gec.calamityconductor.com/';
               
             // Set chart options
             var options = {
@@ -39,12 +39,12 @@
               zoomControl: true,
               icons: {
                 red: {
-                  normal:   '/RedBalloon.png',
-                  selected: '/RedBalloonClicked.png'
+                  normal:   url + 'RedBalloon.png',
+                  selected: url + 'RedBalloonClicked.png'
                 },
                 grey: {
-                  normal:   '/GreyBalloon.png',
-                  selected: '/GreyBalloonClicked.png'
+                  normal:   url + 'GreyBalloon.png',
+                  selected: url + 'GreyBalloonClicked.png'
                 }
               }
             };				
