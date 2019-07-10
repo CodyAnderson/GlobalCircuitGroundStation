@@ -242,7 +242,7 @@ def googleMap(request):
   }
   return render(request, 'groundstation/googleMap.html', context)
   
-  def badGoogleMap(request):
+def badGoogleMap(request):
   
   
   
