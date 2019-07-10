@@ -23,7 +23,7 @@
             // Define the chart to be drawn.
             var data = google.visualization.arrayToDataTable([
                ['Lat', 'Long', 'Name', 'Marker'],
-               {% for point in points %}[{{ point.0 }}, {{ point.1 }}, '{{ point.2 }}<br>{{point.0}}, {{point.1}}<br>{{ point.3 }}', {% if points.0 == point %}'grey'{% else %}'red'{% endif %}],{% endfor %}
+               {% for point in points %}[{{ point.0 }}, {{ point.1 }}, '{{ point.2 }}<br>{{point.0}}, {{point.1}}<br>{{ point.3 }}', {% if points.0 == point %}'red'{% else %}'grey'{% endif %}],{% endfor %}
             ]);
             
             var url = 'https://gec.calamityconductor.com/';
