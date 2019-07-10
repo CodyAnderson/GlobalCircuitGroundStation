@@ -25,7 +25,8 @@
         <h3>Alt: {{ points.0.3 }}</h3>
       </div>
       <script language = "JavaScript">
-         function drawChart() {
+          var chart = 0;
+          function drawChart() {
             // Define the chart to be drawn.
             var data = google.visualization.arrayToDataTable([
                ['Lat', 'Long', 'Name', 'Marker'],
@@ -39,8 +40,8 @@
               showTooltip: true,
               showInfoWindow: true,
               useMapTypeControl: true,
-              center: new google.maps.LatLng({{ points.0.0 }}, {{ points.0.1 }}),
-              zoomLevel: 12,
+              center: {'lat': {{ points.0.0 }}, 'lng': {{ points.0.1 }} },
+              zoomLevel: 18,
               icons: {
                 red: {
                   normal:   'https://i.imgur.com/KV4Eh0c.png',
@@ -54,7 +55,7 @@
             };				
 
             // Instantiate and draw the chart.
-            var chart = new google.visualization.Map(document.getElementById
+            chart = new google.visualization.Map(document.getElementById
             ('container'));
             chart.draw(data, options);
          }
