@@ -64,7 +64,7 @@ def newGraph(request):
   if not imei:
     imei = '*'
   if not minTime:
-    minTime = '2019-07-11T00:00:00'
+    minTime = (datetime.utcnow()-timedelta(hours=2)).strftime("%Y-%m-%dT%H:%M:%S")
   if not maxTime:
     maxTime = '2020-07-11T00:00:00'
   if not maxVal:
