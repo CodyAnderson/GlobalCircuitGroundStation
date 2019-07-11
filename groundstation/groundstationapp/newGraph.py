@@ -23,6 +23,7 @@ from .graphs.iridium       import iridium
 from .graphs.termStatus import termStatus
 from .graphs.supervision import supervision
 from .graphs.supervisionPressure import supervisionPressure
+from .graphs.supervisionTemp import supervisionTemp
 
 signalFunctions = {
   'conductivity': conductivity,
@@ -35,7 +36,8 @@ signalFunctions = {
   'iridium'      : iridium,
   'termStatus': termStatus,
   'supervision': supervision,
-  'supervisionPressure': supervisionPressure
+  'supervisionPressure': supervisionPressure,
+  'supervisionTemp': supervisionTemp,
   }
 
 
@@ -165,6 +167,8 @@ def newGraph(request):
   cep =      True if signalString == 'cep'      else False
   termStatus = True if signalString == 'termStatus' else False
   supervision = True if signalString == 'supervision' else False
+  supervisionPressure = True if signalString == 'supervisionPressure' else False
+  supervisionTemp = True if signalString == 'supervisionTemp' else False
   
   
   context = {
@@ -187,7 +191,8 @@ def newGraph(request):
     'cep': cep,
     'termStatus': termStatus,
     'supervision': supervision,
-    'supervisionPressure': supervisionPressure
+    'supervisionPressure': supervisionPressure,
+    'supervisionTemp': supervisionTemp,
     }
   #if request.GET.get('maxTime',None):
   # context['maxTime'] = request.GET.get('maxTime',None)
