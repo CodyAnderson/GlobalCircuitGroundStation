@@ -64,9 +64,9 @@ def newGraph(request):
   if not imei:
     imei = '*'
   if not minTime:
-    minTime = '2000-04-01T10:00:00'
+    minTime = '2019-07-11T00:00:00'
   if not maxTime:
-    maxTime = '2000-05-16T10:00:00'
+    maxTime = '2020-07-11T00:00:00'
   if not maxVal:
     maxVal = None
   if not minVal:
