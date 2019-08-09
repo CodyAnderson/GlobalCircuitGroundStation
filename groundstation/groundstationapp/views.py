@@ -193,10 +193,11 @@ def postfunc(request):
         #time_now = datetimeString.replace(hour=hour_now,minute=minute_now,second=second_now,microsecond=0)
         time_now = datetime.fromtimestamp(packet_fields['time'])
 		
-        cond_hour_now = packet_fields['cond_time']//10000
-        cond_minute_now = (packet_fields['cond_time']-cond_hour_now*10000)//100
-        cond_second_now = packet_fields['cond_time']-cond_hour_now*10000-cond_minute_now*100
-        cond_time_now = datetimeString.replace(hour=cond_hour_now,minute=cond_minute_now,second=cond_second_now,microsecond=0)
+        #cond_hour_now = packet_fields['cond_time']//10000
+        #cond_minute_now = (packet_fields['cond_time']-cond_hour_now*10000)//100
+        #cond_second_now = packet_fields['cond_time']-cond_hour_now*10000-cond_minute_now*100
+        #cond_time_now = datetimeString.replace(hour=cond_hour_now,minute=cond_minute_now,second=cond_second_now,microsecond=0)
+        cond_time_now = datetime.fromtimestamp(packet_fields['cond_time'])
 
 
 
