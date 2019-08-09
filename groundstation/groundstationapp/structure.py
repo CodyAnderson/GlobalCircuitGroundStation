@@ -82,7 +82,7 @@ def unpack_new(fstring):
 
     ###BAD BAD NOT GOOD
     ###BAD BAD NOT GOOD
-    values['sup'] = 0
+    values['sup'] = [0]*20
     ###BAD BAD NOT GOOD
     ###BAD BAD NOT GOOD
     
