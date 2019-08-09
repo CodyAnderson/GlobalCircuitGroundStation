@@ -80,11 +80,11 @@ def unpack_new(fstring):
     values['cutdown']=struct.unpack('<B',fstring[297:298])[0]
     values['cond_time']=struct.unpack('<I',fstring[298:302])[0]
 
-	###BAD BAD NOT GOOD
-	###BAD BAD NOT GOOD
-	values['sup'] = 0
-	###BAD BAD NOT GOOD
-	###BAD BAD NOT GOOD
-	
-	
+    ###BAD BAD NOT GOOD
+    ###BAD BAD NOT GOOD
+    values['sup'] = 0
+    ###BAD BAD NOT GOOD
+    ###BAD BAD NOT GOOD
+    
+    
     return values
