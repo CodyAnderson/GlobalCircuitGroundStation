@@ -170,7 +170,7 @@ def postfunc(request):
     packet_data = request.POST.get('data')
     #if data exists
     if (packet_data is not None):
-      if (packet_data[0:2].upper() in ['00','01','02','03','04','05','06','FF','FE','FD','FC','FB','FA','F9']):
+      if (packet_data[0:2].upper() in ['00','01','02','03','04','05','06','07','08','FF','FE','FD','FC','FB','FA','F9','F8','F7']):
         #packet_sio=io.StringIO(binascii.unhexlify(packet_data).decode(errors='ignore'))
         #packet_fields = structure.unpack(packet_sio)
         binary_packet_data = binascii.unhexlify(packet_data)
@@ -187,11 +187,12 @@ def postfunc(request):
         new_Packet = models.Packet.objects.create(global_id=new_IridiumData,packet_id=packet_fields['seq'],version=packet_fields['version'])
         new_RawData = models.RawData.objects.create(global_id=new_Packet,data=binary_packet_data,hexdata=packet_data)
         
-        hour_now = packet_fields['time']//10000
-        minute_now = (packet_fields['time']-hour_now*10000)//100
-        second_now = packet_fields['time']-hour_now*10000-minute_now*100
-        time_now = datetimeString.replace(hour=hour_now,minute=minute_now,second=second_now,microsecond=0)
-        
+        #hour_now = packet_fields['time']//10000
+        #minute_now = (packet_fields['time']-hour_now*10000)//100
+        #second_now = packet_fields['time']-hour_now*10000-minute_now*100
+        #time_now = datetimeString.replace(hour=hour_now,minute=minute_now,second=second_now,microsecond=0)
+        time_now = datetime.fromtimestamp(packet_fields['time'])
+		
         cond_hour_now = packet_fields['cond_time']//10000
         cond_minute_now = (packet_fields['cond_time']-cond_hour_now*10000)//100
         cond_second_now = packet_fields['cond_time']-cond_hour_now*10000-cond_minute_now*100
