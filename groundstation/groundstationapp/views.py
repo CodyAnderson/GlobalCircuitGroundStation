@@ -165,7 +165,7 @@ def postfunc(request):
   #print(dir(request))
   print('HTTP_X_FORWADED_FOR: ' + str(request.META.get('HTTP_X_FORWARDED_FOR')))
   print('REMOTE_ADDR:         ' + str(request.META.get('REMOTE_ADDR')))
-  return render(request, 'groundstation/post.html', context)
+  #return render(request, 'groundstation/post.html', context)
   if (request.POST):
     packet_data = request.POST.get('data')
     #if data exists
