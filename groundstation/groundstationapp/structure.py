@@ -50,8 +50,16 @@ def unpack_old_new(fstring):
     values['cond_time']=struct.unpack('<I',fstring[302:306])[0]
 
     return values
-
-  
+  ##UNSIGNED
+    ## 1 BYTE = '<B'
+    ## 2 BYTES = '<H'
+    ##
+    ## 4 BYTES = '<I'
+  ##SIGNED
+    ##
+    ## 2 BYTES = '<h'
+    ##
+    ##
 def unpack_new(fstring):
     values={}
     values['version']=struct.unpack('<B',fstring[0:1])[0]
@@ -82,9 +90,31 @@ def unpack_new(fstring):
 
     ###BAD BAD NOT GOOD
     ###BAD BAD NOT GOOD
-    values['sup'] = [0]*20
+    ###values['sup'] = [0]*20
     ###BAD BAD NOT GOOD
     ###BAD BAD NOT GOOD
+    
+    values['sup']['GPSSats']=struct.unpack('<B',fstring[302:303])[0]
+    values['sup']['RBSig']=struct.unpack('<B',fstring[303:304])[0]
+    values['sup']['Commands']=struct.unpack('<B',fstring[304:305])[0]
+    values['sup']['AltTemp']=struct.unpack('<I',fstring[305:309])[0]
+    values['sup']['AltPress']=struct.unpack('<I',fstring[309:313])[0]
+    values['sup']['Vbat+']=struct.unpack('<H',fstring[313:315])[0]
+    values['sup']['Vbat-']=struct.unpack('<H',fstring[315:317])[0]
+    values['sup']['3V6batV']=struct.unpack('<H',fstring[317:319])[0]
+    values['sup']['7V_I']=struct.unpack('<H',fstring[319:321])[0]
+    values['sup']['3.3V_I']=struct.unpack('<H',fstring[321:323])[0]
+    values['sup']['Tbat']=struct.unpack('<H',fstring[323:325])[0]
+    values['sup']['Tcomp']=struct.unpack('<H',fstring[325:327])[0]
+    values['sup']['Tmag']=struct.unpack('<h',fstring[327:329])[0]
+    values['sup']['Tadc1']=struct.unpack('<h',fstring[329:331])[0]
+    values['sup']['Tadc2']=struct.unpack('<h',fstring[331:333])[0]
+    values['sup']['Text']=struct.unpack('<H',fstring[333:335])[0]
+    values['sup']['Trock']=struct.unpack('<H',fstring[335:337])[0]
+    
+    
+    
+    
     
     
     return values
