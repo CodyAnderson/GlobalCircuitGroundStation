@@ -93,7 +93,7 @@ def unpack_new(fstring):
     ###values['sup'] = [0]*20
     ###BAD BAD NOT GOOD
     ###BAD BAD NOT GOOD
-    
+    values['sup'] = {}
     values['sup']['GPSSats']=struct.unpack('<B',fstring[302:303])[0]
     values['sup']['RBSig']=struct.unpack('<B',fstring[303:304])[0]
     values['sup']['Commands']=struct.unpack('<B',fstring[304:305])[0]
