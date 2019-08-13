@@ -211,8 +211,8 @@ def postfunc(request):
         #newSupDataH= models.SupData.objects.create(global_id=new_Packet,sub_id=0 if (packet_fields['seq']%10 > 1) else 1,type=labelList[((packet_fields['seq']%10)*2)+1], value=packet_fields['sup'][1])
         newSupDataList = []
         for fieldName in packet_fields['sup']:
-          print('Fieldname: ' + fieldName)
-          print('Value    : ' + packet_fields['sup'][fieldName])
+          print('Fieldname: ' + str(fieldName))
+          print('Value    : ' + str(packet_fields['sup'][fieldName]))
           newSupData = models.SupData.objects.create(global_id=new_Packet,sub_id=0 ,type=fieldName, value=packet_fields['sup'][fieldName])
           newSupDataList.append(newSupData)
         newTermstatData= models.Status.objects.create(global_id=new_Packet,yikes=packet_fields['yikes'],ballast=packet_fields['ballast'],cutdown=packet_fields['cutdown'])
