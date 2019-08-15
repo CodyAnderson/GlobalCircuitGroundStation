@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from django.db.models import DateTimeField, F
+from django.db.models import DateTimeField, ExpressionWrapper, F
 
 from graphos.sources.simple import SimpleDataSource
 from graphos.sources.model import ModelDataSource
@@ -41,7 +41,7 @@ def horizontal(getParams):
 			
 	
 						
-	ordered_fastmeasurements = models.FastMeasurement.objects.annotate(time=F('global_id__global_id__transmit_time')+F('sub_id')*timedelta(seconds=5), output_field=DateTimeField()).filter(global_id__global_id__transmit_time__gte=minTime).filter(global_id__global_id__transmit_time__lte=maxTime).order_by('global_id', 'sub_id')
+	ordered_fastmeasurements = models.FastMeasurement.objects.annotate(time=ExpressionWrapper(F('global_id__global_id__transmit_time')+F('sub_id')*timedelta(seconds=5), output_field=DateTimeField())).filter(global_id__global_id__transmit_time__gte=minTime).filter(global_id__global_id__transmit_time__lte=maxTime).order_by('global_id', 'sub_id')
 	print('Annotated time: ' + str(ordered_fastmeasurements[0].time))
 	x = ordered_fastmeasurements[0]
 	print('     Real time: ' + str(x.global_id.global_id.transmit_time+x.sub_id*timedelta(seconds=5)))
