@@ -41,7 +41,7 @@ def horizontal(getParams):
 			
 	
 						
-	ordered_fastmeasurements = models.FastMeasurement.objects.annotate(transmit_time='global_id__global_id__transmit_time').annotate(sample_time=ExpressionWrapper(F('transmit_time')+ExpressionWrapper(F('sub_id')*timedelta(seconds=5), output_field=DurationField()), output_field=DateTimeField())).filter(transmit_time__gte=minTime).filter(transmit_time__lte=maxTime).order_by('global_id', 'sub_id')
+	ordered_fastmeasurements = models.FastMeasurement.objects.annotate(transmit_time=F('global_id__global_id__transmit_time')).annotate(sample_time=ExpressionWrapper(F('transmit_time')+ExpressionWrapper(F('sub_id')*timedelta(seconds=5), output_field=DurationField()), output_field=DateTimeField())).filter(transmit_time__gte=minTime).filter(transmit_time__lte=maxTime).order_by('global_id', 'sub_id')
 	print(ordered_fastmeasurements.query)
 	print('Annotated time: ' + str(ordered_fastmeasurements[0].sample_time))
 	x = ordered_fastmeasurements[0]
