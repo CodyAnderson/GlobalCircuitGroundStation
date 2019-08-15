@@ -12,6 +12,8 @@ from groundstationapp.imeiNames import imeiNames
 import datetime as dt
 from datetime import datetime
 from datetime import timedelta
+
+import time
 	
 def horizontal(getParams):
 	
@@ -46,8 +48,20 @@ def horizontal(getParams):
 	#print('Annotated time: ' + str(ordered_fastmeasurements[0].sample_time))
 	#x = ordered_fastmeasurements[0]
 	#print('     Real time: ' + str(x.global_id.global_id.transmit_time+x.sub_id*timedelta(seconds=5)))
+	beforeTime = time.time()
+	ordered_fastmeasurements = models.FastMeasurement.objects.filter(global_id__global_id__transmit_time__gte=minTime).filter(global_id__global_id__transmit_time__lte=maxTime).order_by('global_id', 'sub_id').select_related('global_id').select_related('global_id__global_id')
+	x = ordered_fastmeasurements[0]
+	print('~~select_related~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+	print('     Real time: ' + str(x.global_id.global_id.transmit_time+x.sub_id*timedelta(seconds=5)))
+	print('  Elapsed time: ' + str(time.time()-beforeTime))
+	
+	
 	ordered_fastmeasurements = models.FastMeasurement.objects.filter(global_id__global_id__transmit_time__gte=minTime).filter(global_id__global_id__transmit_time__lte=maxTime).order_by('global_id', 'sub_id')
-	print(ordered_fastmeasurements.query)
+	x = ordered_fastmeasurements[0]
+	print('~~without select_related~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+	print('     Real time: ' + str(x.global_id.global_id.transmit_time+x.sub_id*timedelta(seconds=5)))
+	print('  Elapsed time: ' + str(time.time()-beforeTime))
+	#print(ordered_fastmeasurements.query)
 	#print()
 	#print(ordered_fastmeasurements.query)
 	scalar = 0.000125 if volts == 'True' else 1
