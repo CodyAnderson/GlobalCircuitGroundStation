@@ -1,5 +1,7 @@
 from django.shortcuts import render
 
+from django.db.models import F
+
 from graphos.sources.simple import SimpleDataSource
 from graphos.sources.model import ModelDataSource
 from graphos.renderers.gchart import LineChart
