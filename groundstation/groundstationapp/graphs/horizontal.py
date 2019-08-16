@@ -49,7 +49,7 @@ def horizontal(getParams):
 	#x = ordered_fastmeasurements[0]
 	#print('     Real time: ' + str(x.global_id.global_id.transmit_time+x.sub_id*timedelta(seconds=5)))
 	#beforeTime = time.time()
-	ordered_fastmeasurements = models.FastMeasurement.objects.filter(global_id__global_id__transmit_time__gte=minTime).filter(global_id__global_id__transmit_time__lte=maxTime).order_by('global_id__global_id__', 'sub_id').select_related('global_id').select_related('global_id__global_id')
+	ordered_fastmeasurements = models.FastMeasurement.objects.filter(global_id__global_id__transmit_time__gte=minTime).filter(global_id__global_id__transmit_time__lte=maxTime).order_by('global_id__global_id__transmit_time', 'sub_id').select_related('global_id').select_related('global_id__global_id')
 	#x = ordered_fastmeasurements[0]
 	#for x in ordered_fastmeasurements:
 	#	realTime = x.global_id.global_id.transmit_time+x.sub_id*timedelta(seconds=5)
