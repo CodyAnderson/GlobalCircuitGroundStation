@@ -167,6 +167,7 @@ def postfunc(request):
   print('REMOTE_ADDR:         ' + str(request.META.get('REMOTE_ADDR')))
   #return render(request, 'groundstation/post.html', context)
   if (request.POST):
+    print(request.POST.keys())
     packet_data = request.POST.get('data')
     #if data exists
     if (packet_data is not None):
