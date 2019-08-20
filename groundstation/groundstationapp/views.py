@@ -50,7 +50,7 @@ def dashboard(request):
   
   modifiedSupData = {}
   for each in mostRecentSupData:
-	modifiedSupData[each.type] = each
+    modifiedSupData[each.type] = each
   
   context={'Packet': mostRecentPacket, 'SupData': modifiedSupData}
   
@@ -219,7 +219,7 @@ def postfunc(request):
         #second_now = packet_fields['time']-hour_now*10000-minute_now*100
         #time_now = datetimeString.replace(hour=hour_now,minute=minute_now,second=second_now,microsecond=0)
         time_now = datetime.fromtimestamp(packet_fields['time'])
-		
+        
         #cond_hour_now = packet_fields['cond_time']//10000
         #cond_minute_now = (packet_fields['cond_time']-cond_hour_now*10000)//100
         #cond_second_now = packet_fields['cond_time']-cond_hour_now*10000-cond_minute_now*100
