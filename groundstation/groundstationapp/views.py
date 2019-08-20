@@ -193,7 +193,7 @@ def postfunc(request):
     packet_data = request.POST.get('data')
     #if data exists
     if (packet_data is not None):
-      if (packet_data[0:2].upper() in ['00','01','02','03','04','05','06','07','08','FF','FE','FD','FC','FB','FA','F9','F8','F7']):
+      if (True or (packet_data[0:2].upper() in ['00','01','02','03','04','05','06','07','08','FF','FE','FD','FC','FB','FA','F9','F8','F7'])):
         #packet_sio=io.StringIO(binascii.unhexlify(packet_data).decode(errors='ignore'))
         #packet_fields = structure.unpack(packet_sio)
         binary_packet_data = binascii.unhexlify(packet_data)
