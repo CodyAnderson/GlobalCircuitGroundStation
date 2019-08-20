@@ -42,8 +42,8 @@ def dashboard(request):
   
   print("Packet Transmit Time: " + str(mostRecentIridiumData.transmit_time))
   
-  print("         Packet Length: " + str(len(mostRecentPacket)))
-  print("    IridiumData Length: " + str(len(mostRecentIridiumData)))
+  #print("         Packet Length: " + str(len(mostRecentPacket)))
+  #print("    IridiumData Length: " + str(len(mostRecentIridiumData)))
   print("         Status Length: " + str(len(mostRecentStatus)))
   print("SlowMeasurement Length: " + str(len(mostRecentSlowMeasurement)))
   print("        SupData Length: " + str(len(mostRecentSupData)))
