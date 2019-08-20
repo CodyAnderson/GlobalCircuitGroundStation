@@ -52,9 +52,9 @@ def dashboard(request):
   for each in mostRecentSupData:
     newTypeString = each.type
     if newTypeString == 'Vbat+':
-		newTypeString = 'VbatPlus'
+      newTypeString = 'VbatPlus'
     if newTypeString == 'Vbat-':
-		newTypeString = 'VbatMinus'
+      newTypeString = 'VbatMinus'
     modifiedSupData[newTypeString] = each
   
   context={'Packet': mostRecentPacket, 'SupData': modifiedSupData}
