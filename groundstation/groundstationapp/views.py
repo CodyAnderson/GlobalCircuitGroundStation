@@ -52,7 +52,7 @@ def dashboard(request):
   for each in mostRecentSupData:
 	modifiedSupData[each.type] = each
   
-  context={'Packet': mostRecentPacket, 'SupData': mostRecentSupData}
+  context={'Packet': mostRecentPacket, 'SupData': modifiedSupData}
   
   return render(request, 'groundstation/dashboard.html', context)
 
