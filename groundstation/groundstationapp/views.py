@@ -30,6 +30,28 @@ import binascii
 
 # Create your views here.
 
+def dashboard(request):
+  
+  mostRecentPacket = models.Packet.objects.order_by('global_id__transmit_time').select_related('global_id')[0]
+  mostRecentIridiumData = most_recent_packet.global_id
+  
+  
+  mostRecentStatus = models.Status.objects.filter(global_id=mostRecentPacket)
+  mostRecentSlowMeasurement = models.SlowMeasurement.objects.filter(global_id=mostRecentPacket)
+  mostRecentSupData = models.SupData.objects.filter(global_id=mostRecentPacket)
+  
+  print("Packet Transmit Time: " + str(mostRecentIridiumData.transmit_time))
+  
+  print("         Packet Length: " + str(len(mostRecentPacket)))
+  print("    IridiumData Length: " + str(len(mostRecentIridiumData)))
+  print("         Status Length: " + str(len(mostRecentStatus)))
+  print("SlowMeasurement Length: " + str(len(mostRecentSlowMeasurement)))
+  print("        SupData Length: " + str(len(mostRecentSupData)))
+  
+  context={'Packet': mostRecentPacket}
+  
+  return render(request, 'groundstation/dashboard.html', context)
+
 def greyBalloon(request):
   return render(request, 'groundstation/GreyBalloon.png', content_type='image/png')
 def redBalloon(request):
@@ -57,7 +79,7 @@ def homepage(request):
     
   
   context = {'serverType': secrets.serverType}
-  return render(request, 'groundstation/homepage.html',context)
+  return render(request, 'groundstation/homepage.html', context)
 
 def gps(request):    # Change to google maps
   data = [
@@ -165,9 +187,9 @@ def postfunc(request):
   #print(dir(request))
   print('HTTP_X_FORWADED_FOR: ' + str(request.META.get('HTTP_X_FORWARDED_FOR')))
   print('REMOTE_ADDR:         ' + str(request.META.get('REMOTE_ADDR')))
+  print(request.POST.keys())
   #return render(request, 'groundstation/post.html', context)
   if (request.POST):
-    print(request.POST.keys())
     packet_data = request.POST.get('data')
     #if data exists
     if (packet_data is not None):
