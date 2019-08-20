@@ -36,17 +36,11 @@ def dashboard(request):
   mostRecentIridiumData = mostRecentPacket.global_id
   
   
-  mostRecentStatus = models.Status.objects.filter(global_id=mostRecentPacket)
-  mostRecentSlowMeasurement = models.SlowMeasurement.objects.filter(global_id=mostRecentPacket)
+  mostRecentStatus = models.Status.objects.filter(global_id=mostRecentPacket)[0]
+  mostRecentSlowMeasurement = models.SlowMeasurement.objects.filter(global_id=mostRecentPacket)[0]
   mostRecentSupData = models.SupData.objects.filter(global_id=mostRecentPacket)
   
   print("Packet Transmit Time: " + str(mostRecentIridiumData.transmit_time))
-  
-  #print("         Packet Length: " + str(len(mostRecentPacket)))
-  #print("    IridiumData Length: " + str(len(mostRecentIridiumData)))
-  print("         Status Length: " + str(len(mostRecentStatus)))
-  print("SlowMeasurement Length: " + str(len(mostRecentSlowMeasurement)))
-  print("        SupData Length: " + str(len(mostRecentSupData)))
   
   modifiedSupData = {}
   for each in mostRecentSupData:
