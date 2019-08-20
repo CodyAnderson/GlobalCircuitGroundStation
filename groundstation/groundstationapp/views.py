@@ -59,7 +59,7 @@ def dashboard(request):
       newTypeString = '3V3_I'
     modifiedSupData[newTypeString] = each
   
-  context={'Packet': mostRecentPacket, 'SupData': modifiedSupData}
+  context={'IridiumData': mostRecentPacket, 'Packet': mostRecentPacket, 'SupData': modifiedSupData}
   
   return render(request, 'groundstation/dashboard.html', context)
 

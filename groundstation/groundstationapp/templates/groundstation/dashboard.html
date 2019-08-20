@@ -7,26 +7,34 @@
 
 		<h1>Dashboard: </h1>
 		
-		Packet Version: {{ Packet.version }}  <br>
-		Packet ID: {{ Packet.packet_id }}     <br>
+		<br>IridiumData transmit_time: {{ IridiumData.transmit_time }} <br>
+		IridiumData iridium_latitude: {{ IridiumData.iridium_latitude }} <br>
+		IridiumData iridium_longitude: {{ IridiumData.iridium_longitude }} <br>
+		IridiumData iridium_cep: {{ IridiumData.iridium_cep }} <br>
+		IridiumData momsn: {{ IridiumData.momsn }} <br>
+		IridiumData imei: {{ IridiumData.imei }} <br>
+		IridiumData transmitted_via_satellite: {{ IridiumData.transmitted_via_satellite }} <br>
 		
-		GPSSats: {{ SupData.GPSSats.value }}  <br>
-		RBSig: {{ SupData.RBSig.value }}      <br>
-		Commands: {{ SupData.Commands.value }}<br>
-		AltTemp: {{ SupData.AltTemp.value }}  <br>
-		AltPress: {{ SupData.AltPress.value }}<br>
-		VbatPlus: {{ SupData.VbatPlus.value }}   <br>
-		VbatMinus: {{ SupData.VbatMinus.value }}  <br>
-		3V6batV: {{ SupData.3V6batV.value }}  <br>
-		7V_I: {{ SupData.7V_I.value }}        <br>
-		3V3_I: {{ SupData.3V3_I.value }}    <br>
-		Tbat: {{ SupData.Tbat.value }}        <br>
-		Tcomp: {{ SupData.Tcomp.value }}      <br>
-		Tmag: {{ SupData.Tmag.value }}        <br>
-		Tadc1: {{ SupData.Tadc1.value }}      <br>
-		Tadc2: {{ SupData.Tadc2.value }}      <br>
-		Text: {{ SupData.Text.value }}        <br>
-		Trock: {{ SupData.Trock.value }}      <br>
+		<br>Packet Version: {{ Packet.version }} <br>
+		Packet ID: {{ Packet.packet_id }} <br>
+		
+		<br>Supervision GPSSats: {{ SupData.GPSSats.value }} <br>
+		Supervision RBSig: {{ SupData.RBSig.value }} <br>
+		Supervision Commands: {{ SupData.Commands.value }} <br>
+		Supervision AltTemp: {{ SupData.AltTemp.value }} <br>
+		Supervision AltPress: {{ SupData.AltPress.value }} <br>
+		Supervision VbatPlus: {{ SupData.VbatPlus.value }} <br>
+		Supervision VbatMinus: {{ SupData.VbatMinus.value }} <br>
+		Supervision 3V6batV: {{ SupData.3V6batV.value }} <br>
+		Supervision 7V_I: {{ SupData.7V_I.value }} <br>
+		Supervision 3V3_I: {{ SupData.3V3_I.value }} <br>
+		Supervision Tbat: {{ SupData.Tbat.value }} <br>
+		Supervision Tcomp: {{ SupData.Tcomp.value }} <br>
+		Supervision Tmag: {{ SupData.Tmag.value }} <br>
+		Supervision Tadc1: {{ SupData.Tadc1.value }} <br>
+		Supervision Tadc2: {{ SupData.Tadc2.value }} <br>
+		Supervision Text: {{ SupData.Text.value }} <br>
+		Supervision Trock: {{ SupData.Trock.value }} <br>
 		
 	</body>
 
