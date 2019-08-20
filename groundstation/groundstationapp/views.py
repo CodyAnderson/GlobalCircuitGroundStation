@@ -50,7 +50,12 @@ def dashboard(request):
   
   modifiedSupData = {}
   for each in mostRecentSupData:
-    modifiedSupData[each.type] = each
+    newTypeString = each.type
+	if newTypeString == 'Vbat+'
+		newTypeString = 'VbatPlus'
+	if newTypeString == 'Vbat-'
+		newTypeString = 'VbatMinus'
+    modifiedSupData[newTypeString] = each
   
   context={'Packet': mostRecentPacket, 'SupData': modifiedSupData}
   
