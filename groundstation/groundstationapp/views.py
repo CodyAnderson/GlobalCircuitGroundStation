@@ -51,9 +51,9 @@ def dashboard(request):
   modifiedSupData = {}
   for each in mostRecentSupData:
     newTypeString = each.type
-	if newTypeString == 'Vbat+'
+    if newTypeString == 'Vbat+':
 		newTypeString = 'VbatPlus'
-	if newTypeString == 'Vbat-'
+    if newTypeString == 'Vbat-':
 		newTypeString = 'VbatMinus'
     modifiedSupData[newTypeString] = each
   
