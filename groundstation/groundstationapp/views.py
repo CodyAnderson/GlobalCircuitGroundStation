@@ -48,7 +48,11 @@ def dashboard(request):
   print("SlowMeasurement Length: " + str(len(mostRecentSlowMeasurement)))
   print("        SupData Length: " + str(len(mostRecentSupData)))
   
-  context={'Packet': mostRecentPacket}
+  modifiedSupData = {}
+  for each in mostRecentSupData:
+	modifiedSupData[each.type] = each
+  
+  context={'Packet': mostRecentPacket, 'SupData': mostRecentSupData}
   
   return render(request, 'groundstation/dashboard.html', context)
 
