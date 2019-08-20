@@ -32,7 +32,7 @@ import binascii
 
 def dashboard(request):
   
-  mostRecentPacket = models.Packet.objects.order_by('global_id__transmit_time').select_related('global_id')[0]
+  mostRecentPacket = models.Packet.objects.order_by('-global_id__transmit_time').select_related('global_id')[0]
   mostRecentIridiumData = mostRecentPacket.global_id
   
   
