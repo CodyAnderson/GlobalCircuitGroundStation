@@ -47,7 +47,7 @@ class RawData(models.Model):
 
 class SupData(models.Model):
   global_id = models.ForeignKey(Packet, on_delete=models.CASCADE)
-  sub_id = models.IntegerField()
+  sub_id = models.BigIntegerField()
   type = models.TextField()
   value = models.IntegerField()
 
@@ -110,4 +110,77 @@ class RawPacket(models.Model):
   
   data = models.BinaryField()
   hexdata = models.TextField()
+  
+class PacketV6(models.Model):
+  parent_transmission = models.OneToOneField(IridiumTransmission, related_name='child_packet', on_delete=models.CASCADE, primary_key=True)
+  
+  yikes_status = models.IntegerField()
+  
+  mcu_id = models.IntegerField()
+  version = models.IntegerField()
+  
+  sequence_id = models.IntegerField()
+  
+  time = models.DateTimeField()
+  
+  latitude = models.FloatField()
+  longitude = models.FloatField()
+  
+  altitude = models.FloatField()
+  
+  ballast_status = models.IntegerField()
+  cutdown_status = models.IntegerField()
+  
+  conductivity_time = models.DateTimeField()
+  
+  satellites_count = models.IntegerField()
+  
+  rockblock_signal_strength = models.IntegerField()
+  
+  commands_count = models.IntegerField()
+  
+  altimeter_temp = models.IntegerField()
+  altimeter_pressure = models.IntegerField()
+  
+  positive_7v_battery_voltage = models.IntegerField()
+  negative_7v_battery_voltage = models.IntegerField()
+  
+  positive_3v6_battery_voltage = models.IntegerField()
+  
+  current_draw_7v_rail = models.IntegerField()
+  current_draw_3v3_rail = models.IntegerField()
+  
+  battery_temp = models.IntegerField()
+  mcu_temp = models.IntegerField()
+  compass_temp = models.IntegerField()
+  adc1_temp = models.IntegerField()
+  adc2_temp = models.IntegerField()
+  external_temp = models.IntegerField()
+  rockblock_temp = models.IntegerField()
+  
+class Measurements(models.Model):
+  parent_packet = models.ForeignKey(Packet, on_delete=models.CASCADE, primary_key=True)
+  
+  time = models.DateTimeField()
+  
+  vert1 = models.IntegerField()
+  vert2 = models.IntegerField()
+  vertD = models.IntegerField()
+  
+  compassX = models.IntegerField()
+  compassY = models.IntegerField()
+  compassZ = models.IntegerField()
+  
+  horiz1 = models.IntegerField()
+  horiz2 = models.IntegerField()
+  horizD = models.IntegerField()
+  
+class ConductivityMeasurements(models.Model):
+  parent_packet = models.ForeignKey(Packet, on_delete=models.CASCADE, primary_key=True)
+  #parent_conductivity_packet = models.ForeignKey(Packet, on_delete=models.CASCADE)
+  
+  time = models.DateTimeField()
+  
+  vert1 = models.IntegerField()
+  vert2 = models.IntegerField()
   
