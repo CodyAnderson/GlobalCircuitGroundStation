@@ -61,10 +61,11 @@ def unpack_old_new(fstring):
     ##
     ##
 def unpack_new(fstring):
-    values={}
-    values['version']=struct.unpack('<B',fstring[0:1])[0]
-    values['yikes']=struct.unpack('<B',fstring[1:2])[0]
-    values['seq']=struct.unpack('<H',fstring[2:4])[0]
+  values={}
+  values['version']=struct.unpack('<B',fstring[0:1])[0]
+  values['yikes']=struct.unpack('<B',fstring[1:2])[0]
+  values['seq']=struct.unpack('<H',fstring[2:4])[0]
+  try:
     values['time']=struct.unpack('<I',fstring[4:8])[0]
     values['lat']=struct.unpack('<I',fstring[8:12])[0]
     values['lon']=struct.unpack('<I',fstring[12:16])[0]
@@ -87,7 +88,7 @@ def unpack_new(fstring):
     values['ballast']=struct.unpack('<B',fstring[296:297])[0]
     values['cutdown']=struct.unpack('<B',fstring[297:298])[0]
     values['cond_time']=struct.unpack('<I',fstring[298:302])[0]
-
+    
     ###BAD BAD NOT GOOD
     ###BAD BAD NOT GOOD
     ###values['sup'] = [0]*20
@@ -111,10 +112,12 @@ def unpack_new(fstring):
     values['sup']['Tadc2']=struct.unpack('<h',fstring[331:333])[0]
     values['sup']['Text']=struct.unpack('<H',fstring[333:335])[0]
     values['sup']['Trock']=struct.unpack('<H',fstring[335:337])[0]
-    
-    
-    
-    
-    
-    
-    return values
+  except:
+    print("\n\nTHERE WAS AN ERROR READING IN THE PACKET\n\n")
+  
+  
+  
+  
+  
+  
+  return values

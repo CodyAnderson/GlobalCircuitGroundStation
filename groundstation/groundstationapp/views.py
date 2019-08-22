@@ -214,36 +214,38 @@ def postfunc(request):
         print(new_IridiumData.transmit_time)
         new_Packet = models.Packet.objects.create(global_id=new_IridiumData,packet_id=packet_fields['seq'],version=packet_fields['version'])
         new_RawData = models.RawData.objects.create(global_id=new_Packet,data=binary_packet_data,hexdata=packet_data)
-        
-        #hour_now = packet_fields['time']//10000
-        #minute_now = (packet_fields['time']-hour_now*10000)//100
-        #second_now = packet_fields['time']-hour_now*10000-minute_now*100
-        #time_now = datetimeString.replace(hour=hour_now,minute=minute_now,second=second_now,microsecond=0)
-        time_now = datetime.fromtimestamp(packet_fields['time'])
-        
-        #cond_hour_now = packet_fields['cond_time']//10000
-        #cond_minute_now = (packet_fields['cond_time']-cond_hour_now*10000)//100
-        #cond_second_now = packet_fields['cond_time']-cond_hour_now*10000-cond_minute_now*100
-        #cond_time_now = datetimeString.replace(hour=cond_hour_now,minute=cond_minute_now,second=cond_second_now,microsecond=0)
-        cond_time_now = datetime.fromtimestamp(packet_fields['cond_time'])
-
-
-
-        new_SlowMeasurement = models.SlowMeasurement.objects.create(global_id=new_Packet,gps_latitude=packet_fields['lat'],gps_longitude=packet_fields['lon'],gps_altitude=packet_fields['alt'],gps_time=time_now,cond_gps_time=cond_time_now)
-        for i in range(0,12):
-          new_FastMeasurement = models.FastMeasurement.objects.create(global_id=new_Packet,sub_id=i,vert1=packet_fields['vert1'][i],vert2=packet_fields['vert2'][i],vertD=packet_fields['vertD'][i],compassX=packet_fields['compassX'][i],compassY=packet_fields['compassY'][i],compassZ=packet_fields['compassZ'][i],horiz1=packet_fields['horiz1'][i],horiz2=packet_fields['horiz2'][i],horizD=packet_fields['horizD'][i])
-        for i in range(0,15):
-          new_ConductivityData = models.ConductivityData.objects.create(global_id=new_SlowMeasurement,sub_id=i*10+(packet_fields['seq']%10),vert1=packet_fields['cVert1'][i],vert2=packet_fields['cVert2'][i])
-        labelList=["Temperature","Temperature","Pressure","Pressure","IL0","IL1","IL2","IH0","IH1","IH2","T0","T1","T2","Tmag","Tadc1","Tadc2","Text","TRB","UNUSED0","UNUSED1"]
-        #newSupDataL= models.SupData.objects.create(global_id=new_Packet,sub_id=0,type=labelList[(packet_fields['seq']%10)*2], value=packet_fields['sup'][0])
-        #newSupDataH= models.SupData.objects.create(global_id=new_Packet,sub_id=0 if (packet_fields['seq']%10 > 1) else 1,type=labelList[((packet_fields['seq']%10)*2)+1], value=packet_fields['sup'][1])
-        newSupDataList = []
-        for fieldName in packet_fields['sup']:
-          print('Fieldname: ' + str(fieldName))
-          print('Value    : ' + str(packet_fields['sup'][fieldName]))
-          newSupData = models.SupData.objects.create(global_id=new_Packet,sub_id=0 ,type=fieldName, value=packet_fields['sup'][fieldName])
-          newSupDataList.append(newSupData)
-        newTermstatData= models.Status.objects.create(global_id=new_Packet,yikes=packet_fields['yikes'],ballast=packet_fields['ballast'],cutdown=packet_fields['cutdown'])
+        try:
+          #hour_now = packet_fields['time']//10000
+          #minute_now = (packet_fields['time']-hour_now*10000)//100
+          #second_now = packet_fields['time']-hour_now*10000-minute_now*100
+          #time_now = datetimeString.replace(hour=hour_now,minute=minute_now,second=second_now,microsecond=0)
+          time_now = datetime.fromtimestamp(packet_fields['time'])
+          
+          #cond_hour_now = packet_fields['cond_time']//10000
+          #cond_minute_now = (packet_fields['cond_time']-cond_hour_now*10000)//100
+          #cond_second_now = packet_fields['cond_time']-cond_hour_now*10000-cond_minute_now*100
+          #cond_time_now = datetimeString.replace(hour=cond_hour_now,minute=cond_minute_now,second=cond_second_now,microsecond=0)
+          cond_time_now = datetime.fromtimestamp(packet_fields['cond_time'])
+          
+          
+          
+          new_SlowMeasurement = models.SlowMeasurement.objects.create(global_id=new_Packet,gps_latitude=packet_fields['lat'],gps_longitude=packet_fields['lon'],gps_altitude=packet_fields['alt'],gps_time=time_now,cond_gps_time=cond_time_now)
+          for i in range(0,12):
+            new_FastMeasurement = models.FastMeasurement.objects.create(global_id=new_Packet,sub_id=i,vert1=packet_fields['vert1'][i],vert2=packet_fields['vert2'][i],vertD=packet_fields['vertD'][i],compassX=packet_fields['compassX'][i],compassY=packet_fields['compassY'][i],compassZ=packet_fields['compassZ'][i],horiz1=packet_fields['horiz1'][i],horiz2=packet_fields['horiz2'][i],horizD=packet_fields['horizD'][i])
+          for i in range(0,15):
+            new_ConductivityData = models.ConductivityData.objects.create(global_id=new_SlowMeasurement,sub_id=i*10+(packet_fields['seq']%10),vert1=packet_fields['cVert1'][i],vert2=packet_fields['cVert2'][i])
+          labelList=["Temperature","Temperature","Pressure","Pressure","IL0","IL1","IL2","IH0","IH1","IH2","T0","T1","T2","Tmag","Tadc1","Tadc2","Text","TRB","UNUSED0","UNUSED1"]
+          #newSupDataL= models.SupData.objects.create(global_id=new_Packet,sub_id=0,type=labelList[(packet_fields['seq']%10)*2], value=packet_fields['sup'][0])
+          #newSupDataH= models.SupData.objects.create(global_id=new_Packet,sub_id=0 if (packet_fields['seq']%10 > 1) else 1,type=labelList[((packet_fields['seq']%10)*2)+1], value=packet_fields['sup'][1])
+          newSupDataList = []
+          for fieldName in packet_fields['sup']:
+            print('Fieldname: ' + str(fieldName))
+            print('Value    : ' + str(packet_fields['sup'][fieldName]))
+            newSupData = models.SupData.objects.create(global_id=new_Packet,sub_id=0 ,type=fieldName, value=packet_fields['sup'][fieldName])
+            newSupDataList.append(newSupData)
+          newTermstatData= models.Status.objects.create(global_id=new_Packet,yikes=packet_fields['yikes'],ballast=packet_fields['ballast'],cutdown=packet_fields['cutdown'])
+        except:
+          print("\n\nTHERE WAS AN ERROR READING IN THE PACKET\n\n")
         
 
       else:
