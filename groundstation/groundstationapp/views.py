@@ -298,7 +298,6 @@ def postfunc(request):
     postfuncV6(request)
   except:
     print("Whoops, looks like the new parsing function malfunctioned.")
-    raise
   return render(request, 'groundstation/post.html', context)
   
 @csrf_exempt
@@ -314,7 +313,7 @@ def postfuncV6(request):
     # print("iridium_session_status: " + request.POST.get('iridium_session_status', 'NONE'))
     
     #Build request object
-    requestObject = models.Request.create(time = datetime.utcnow(), forwarded_for_address = str(request.META.get('HTTP_X_FORWARDED_FOR')), forwarded_host_address = str(request.META.get('HTTP_X_FORWARDED_HOST')), forwarded_server_address = str(request.META.get('HTTP_X_FORWARDED_SERVER')), remote_address = str(request.META.get('REMOTE_ADDR')))
+    requestObject = models.Request.objects.create(time = datetime.utcnow(), forwarded_for_address = str(request.META.get('HTTP_X_FORWARDED_FOR')), forwarded_host_address = str(request.META.get('HTTP_X_FORWARDED_HOST')), forwarded_server_address = str(request.META.get('HTTP_X_FORWARDED_SERVER')), remote_address = str(request.META.get('REMOTE_ADDR')))
     print('Successfully created the request object')
     #Build transmission object
     
