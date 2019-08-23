@@ -288,6 +288,8 @@ def postfunc(request):
       context = {'text': 'get'}
     else:
       context = {'text': 'none'}
+  except:
+    print("THERE WAS AN UH_OH ON A PRETTY BIG SCALE IN THIS CASE...")
   return render(request, 'groundstation/post.html', context)
   
 @csrf_exempt
