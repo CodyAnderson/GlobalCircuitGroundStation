@@ -252,8 +252,8 @@ def postfunc(request):
               newSupDataList.append(newSupData)
             newTermstatData= models.Status.objects.create(global_id=new_Packet,yikes=packet_fields['yikes'],ballast=packet_fields['ballast'],cutdown=packet_fields['cutdown'])
           except Exception as err:
-            print("\n\nTHERE WAS AN ERROR READING IN THE PACKET\n\n")
-            print(str(err))
+            print("\n\nTHERE WAS AN ERROR READING IN THE PACKET")
+            print(str(err) + "\n\n")
           
   
         else:
