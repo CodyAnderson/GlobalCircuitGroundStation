@@ -78,18 +78,18 @@ class Request(models.Model):
   
   time = models.DateTimeField()
   
-  processing_duration = models.DurationField()
+  processing_duration = models.DurationField(null=True)
   
   forwarded_for_address = models.TextField()
   forwarded_host_address = models.TextField()
   forwarded_server_address = models.TextField()
   remote_address = models.TextField()
   
-  raw_request_data = models.TextField()
+  raw_request_data = models.TextField(null=True)
 
-  response_duration = models.DurationField()
-  response_errors = models.TextField()
-  response_status_code = models.TextField()
+  response_duration = models.DurationField(null=True)
+  response_errors = models.TextField(null=True)
+  response_status_code = models.TextField(null=True)
   
 class IridiumTransmission(models.Model):
   parent_request = models.OneToOneField(Request, related_name='child_transmission', on_delete=models.CASCADE, primary_key=True)
@@ -103,13 +103,17 @@ class IridiumTransmission(models.Model):
   momsn = models.IntegerField()
   imei = models.BigIntegerField()
   
+  device_type = models.TextField(null=True)
+  serial = models.IntegerField(null=True)
+  iridium_session_status = models.TextField(null=True)
+  
   transmitted_via_satellite = models.BooleanField(default=True)
   
 class RawPacket(models.Model):
   parent_transmission = models.OneToOneField(IridiumTransmission, related_name='child_raw_packet', on_delete=models.CASCADE, primary_key=True)
   
-  data = models.BinaryField()
-  hexdata = models.TextField()
+  data = models.BinaryField(null=True)
+  hexdata = models.TextField(null=True)
   
 class PacketV6(models.Model):
   parent_transmission = models.OneToOneField(IridiumTransmission, related_name='child_packet', on_delete=models.CASCADE, primary_key=True)
