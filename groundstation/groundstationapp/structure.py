@@ -112,9 +112,9 @@ def unpack_new(fstring):
     values['sup']['Tadc2']=struct.unpack('<h',fstring[331:333])[0]
     values['sup']['Text']=struct.unpack('<H',fstring[333:335])[0]
     values['sup']['Trock']=struct.unpack('<H',fstring[335:337])[0]
-  except:
-    print("\n\nTHERE WAS AN ERROR READING IN THE PACKET\n\n")
-  
+  except Exception as err:
+    print("\n\nTHERE WAS AN ERROR READING IN THE PACKET")
+    print(str(err) + "\n\n")
   
   
   
