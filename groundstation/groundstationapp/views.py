@@ -296,8 +296,9 @@ def postfunc(request):
   try:
     print('Proccessing the packet with the V6 parser.')
     postfuncV6(request)
-  except:
+  except Exception as err:
     print("Whoops, looks like the new parsing function malfunctioned.")
+    print(str(err))
   return render(request, 'groundstation/post.html', context)
   
 @csrf_exempt
