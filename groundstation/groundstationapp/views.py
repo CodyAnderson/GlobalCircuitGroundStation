@@ -189,104 +189,105 @@ def submitfunc(request):
 @csrf_exempt
 def postfunc(request):
   context = {'text': 'none'}
-  #print(dir(request))
-  print('HTTP_X_FORWADED_FOR: ' + str(request.META.get('HTTP_X_FORWARDED_FOR')))
-  print('REMOTE_ADDR:         ' + str(request.META.get('REMOTE_ADDR')))
-  print(request.POST.keys())
-  print("device_type: " + request.POST.get('device_type'))
-  print("serial: " + request.POST.get('serial'))
-  print("iridium_session_status: " + request.POST.get('iridium_session_status'))
-  #return render(request, 'groundstation/post.html', context)
-  if (request.POST):
-    packet_data = request.POST.get('data')
-    #if data exists
-    if (packet_data is not None):
-      if (True or (packet_data[0:2].upper() in ['00','01','02','03','04','05','06','07','08','FF','FE','FD','FC','FB','FA','F9','F8','F7'])):
-        #packet_sio=io.StringIO(binascii.unhexlify(packet_data).decode(errors='ignore'))
-        #packet_fields = structure.unpack(packet_sio)
-        binary_packet_data = binascii.unhexlify(packet_data)
-        packet_fields = structure.unpack_new(binary_packet_data)
-        print(packet_fields['seq'])
-        print(packet_fields['version'])
-        #timestring = '20' + request.POST.get('transmit_time')
-        datetimeString = datetime.strptime(request.POST.get('transmit_time'),"%y-%m-%d %H:%M:%S")
-        filteredImei = request.POST.get('imei')
-        if(filteredImei == "CollinsLaptop"):
-          filteredImei = "888888888888888"
-        new_IridiumData = models.IridiumData.objects.create(transmit_time = datetimeString, iridium_latitude = request.POST.get('iridium_latitude'), iridium_longitude = request.POST.get('iridium_longitude'), iridium_cep = request.POST.get('iridium_cep'), momsn = request.POST.get('momsn'), imei = filteredImei, transmitted_via_satellite = True if request.POST.get('transmitted_via_satellite') is None else request.POST.get('transmitted_via_satellite'))
-        print(new_IridiumData.transmit_time)
-        new_Packet = models.Packet.objects.create(global_id=new_IridiumData,packet_id=packet_fields['seq'],version=packet_fields['version'])
-        new_RawData = models.RawData.objects.create(global_id=new_Packet,data=binary_packet_data,hexdata=packet_data)
-        try:
-          #hour_now = packet_fields['time']//10000
-          #minute_now = (packet_fields['time']-hour_now*10000)//100
-          #second_now = packet_fields['time']-hour_now*10000-minute_now*100
-          #time_now = datetimeString.replace(hour=hour_now,minute=minute_now,second=second_now,microsecond=0)
-          time_now = datetime.fromtimestamp(packet_fields['time'])
+  try:
+    #print(dir(request))
+    print('HTTP_X_FORWADED_FOR: ' + str(request.META.get('HTTP_X_FORWARDED_FOR')))
+    print('REMOTE_ADDR:         ' + str(request.META.get('REMOTE_ADDR')))
+    print(request.POST.keys())
+    print("device_type: " + request.POST.get('device_type'))
+    print("serial: " + request.POST.get('serial'))
+    print("iridium_session_status: " + request.POST.get('iridium_session_status'))
+    #return render(request, 'groundstation/post.html', context)
+    if (request.POST):
+      packet_data = request.POST.get('data')
+      #if data exists
+      if (packet_data is not None):
+        if (True or (packet_data[0:2].upper() in ['00','01','02','03','04','05','06','07','08','FF','FE','FD','FC','FB','FA','F9','F8','F7'])):
+          #packet_sio=io.StringIO(binascii.unhexlify(packet_data).decode(errors='ignore'))
+          #packet_fields = structure.unpack(packet_sio)
+          binary_packet_data = binascii.unhexlify(packet_data)
+          packet_fields = structure.unpack_new(binary_packet_data)
+          print(packet_fields['seq'])
+          print(packet_fields['version'])
+          #timestring = '20' + request.POST.get('transmit_time')
+          datetimeString = datetime.strptime(request.POST.get('transmit_time'),"%y-%m-%d %H:%M:%S")
+          filteredImei = request.POST.get('imei')
+          if(filteredImei == "CollinsLaptop"):
+            filteredImei = "888888888888888"
+          new_IridiumData = models.IridiumData.objects.create(transmit_time = datetimeString, iridium_latitude = request.POST.get('iridium_latitude'), iridium_longitude = request.POST.get('iridium_longitude'), iridium_cep = request.POST.get('iridium_cep'), momsn = request.POST.get('momsn'), imei = filteredImei, transmitted_via_satellite = True if request.POST.get('transmitted_via_satellite') is None else request.POST.get('transmitted_via_satellite'))
+          print(new_IridiumData.transmit_time)
+          new_Packet = models.Packet.objects.create(global_id=new_IridiumData,packet_id=packet_fields['seq'],version=packet_fields['version'])
+          new_RawData = models.RawData.objects.create(global_id=new_Packet,data=binary_packet_data,hexdata=packet_data)
+          try:
+            #hour_now = packet_fields['time']//10000
+            #minute_now = (packet_fields['time']-hour_now*10000)//100
+            #second_now = packet_fields['time']-hour_now*10000-minute_now*100
+            #time_now = datetimeString.replace(hour=hour_now,minute=minute_now,second=second_now,microsecond=0)
+            time_now = datetime.fromtimestamp(packet_fields['time'])
+            
+            #cond_hour_now = packet_fields['cond_time']//10000
+            #cond_minute_now = (packet_fields['cond_time']-cond_hour_now*10000)//100
+            #cond_second_now = packet_fields['cond_time']-cond_hour_now*10000-cond_minute_now*100
+            #cond_time_now = datetimeString.replace(hour=cond_hour_now,minute=cond_minute_now,second=cond_second_now,microsecond=0)
+            cond_time_now = datetime.fromtimestamp(packet_fields['cond_time'])
+            
+            
+            
+            new_SlowMeasurement = models.SlowMeasurement.objects.create(global_id=new_Packet,gps_latitude=packet_fields['lat'],gps_longitude=packet_fields['lon'],gps_altitude=packet_fields['alt'],gps_time=time_now,cond_gps_time=cond_time_now)
+            for i in range(0,12):
+              new_FastMeasurement = models.FastMeasurement.objects.create(global_id=new_Packet,sub_id=i,vert1=packet_fields['vert1'][i],vert2=packet_fields['vert2'][i],vertD=packet_fields['vertD'][i],compassX=packet_fields['compassX'][i],compassY=packet_fields['compassY'][i],compassZ=packet_fields['compassZ'][i],horiz1=packet_fields['horiz1'][i],horiz2=packet_fields['horiz2'][i],horizD=packet_fields['horizD'][i])
+            for i in range(0,15):
+              new_ConductivityData = models.ConductivityData.objects.create(global_id=new_SlowMeasurement,sub_id=i*10+(packet_fields['seq']%10),vert1=packet_fields['cVert1'][i],vert2=packet_fields['cVert2'][i])
+            labelList=["Temperature","Temperature","Pressure","Pressure","IL0","IL1","IL2","IH0","IH1","IH2","T0","T1","T2","Tmag","Tadc1","Tadc2","Text","TRB","UNUSED0","UNUSED1"]
+            #newSupDataL= models.SupData.objects.create(global_id=new_Packet,sub_id=0,type=labelList[(packet_fields['seq']%10)*2], value=packet_fields['sup'][0])
+            #newSupDataH= models.SupData.objects.create(global_id=new_Packet,sub_id=0 if (packet_fields['seq']%10 > 1) else 1,type=labelList[((packet_fields['seq']%10)*2)+1], value=packet_fields['sup'][1])
+            newSupDataList = []
+            for fieldName in packet_fields['sup']:
+              print('Fieldname: ' + str(fieldName))
+              print('Value    : ' + str(packet_fields['sup'][fieldName]))
+              newSupData = models.SupData.objects.create(global_id=new_Packet,sub_id=0 ,type=fieldName, value=packet_fields['sup'][fieldName])
+              newSupDataList.append(newSupData)
+            newTermstatData= models.Status.objects.create(global_id=new_Packet,yikes=packet_fields['yikes'],ballast=packet_fields['ballast'],cutdown=packet_fields['cutdown'])
+          except:
+            print("\n\nTHERE WAS AN ERROR READING IN THE PACKET\n\n")
           
-          #cond_hour_now = packet_fields['cond_time']//10000
-          #cond_minute_now = (packet_fields['cond_time']-cond_hour_now*10000)//100
-          #cond_second_now = packet_fields['cond_time']-cond_hour_now*10000-cond_minute_now*100
-          #cond_time_now = datetimeString.replace(hour=cond_hour_now,minute=cond_minute_now,second=cond_second_now,microsecond=0)
-          cond_time_now = datetime.fromtimestamp(packet_fields['cond_time'])
-          
-          
-          
-          new_SlowMeasurement = models.SlowMeasurement.objects.create(global_id=new_Packet,gps_latitude=packet_fields['lat'],gps_longitude=packet_fields['lon'],gps_altitude=packet_fields['alt'],gps_time=time_now,cond_gps_time=cond_time_now)
-          for i in range(0,12):
-            new_FastMeasurement = models.FastMeasurement.objects.create(global_id=new_Packet,sub_id=i,vert1=packet_fields['vert1'][i],vert2=packet_fields['vert2'][i],vertD=packet_fields['vertD'][i],compassX=packet_fields['compassX'][i],compassY=packet_fields['compassY'][i],compassZ=packet_fields['compassZ'][i],horiz1=packet_fields['horiz1'][i],horiz2=packet_fields['horiz2'][i],horizD=packet_fields['horizD'][i])
-          for i in range(0,15):
-            new_ConductivityData = models.ConductivityData.objects.create(global_id=new_SlowMeasurement,sub_id=i*10+(packet_fields['seq']%10),vert1=packet_fields['cVert1'][i],vert2=packet_fields['cVert2'][i])
-          labelList=["Temperature","Temperature","Pressure","Pressure","IL0","IL1","IL2","IH0","IH1","IH2","T0","T1","T2","Tmag","Tadc1","Tadc2","Text","TRB","UNUSED0","UNUSED1"]
-          #newSupDataL= models.SupData.objects.create(global_id=new_Packet,sub_id=0,type=labelList[(packet_fields['seq']%10)*2], value=packet_fields['sup'][0])
-          #newSupDataH= models.SupData.objects.create(global_id=new_Packet,sub_id=0 if (packet_fields['seq']%10 > 1) else 1,type=labelList[((packet_fields['seq']%10)*2)+1], value=packet_fields['sup'][1])
-          newSupDataList = []
-          for fieldName in packet_fields['sup']:
-            print('Fieldname: ' + str(fieldName))
-            print('Value    : ' + str(packet_fields['sup'][fieldName]))
-            newSupData = models.SupData.objects.create(global_id=new_Packet,sub_id=0 ,type=fieldName, value=packet_fields['sup'][fieldName])
-            newSupDataList.append(newSupData)
-          newTermstatData= models.Status.objects.create(global_id=new_Packet,yikes=packet_fields['yikes'],ballast=packet_fields['ballast'],cutdown=packet_fields['cutdown'])
-        except:
-          print("\n\nTHERE WAS AN ERROR READING IN THE PACKET\n\n")
-        
-
+  
+        else:
+          binary_packet_data = binascii.unhexlify(packet_data)
+          packet_fields = structure.unpack_new(binary_packet_data)
+          print(packet_fields['seq'])
+          print(packet_fields['version'])
+          #timestring = '20' + request.POST.get('transmit_time')
+          datetimeString = datetime.strptime(request.POST.get('transmit_time'),"%y-%m-%d %H:%M:%S")
+          filteredImei = request.POST.get('imei')
+          if(filteredImei == "CollinsLaptop"):
+            filteredImei = "888888888888888"
+          new_IridiumData = models.IridiumData.objects.create(transmit_time = datetimeString, iridium_latitude = request.POST.get('iridium_latitude'), iridium_longitude = request.POST.get('iridium_longitude'), iridium_cep = request.POST.get('iridium_cep'), momsn = request.POST.get('momsn'), imei = filteredImei, transmitted_via_satellite = True if request.POST.get('transmitted_via_satellite') is None else request.POST.get('transmitted_via_satellite'))
+          print(new_IridiumData.transmit_time)
+          new_Packet = models.Packet.objects.create(global_id=new_IridiumData,packet_id=packet_fields['seq'],version=packet_fields['version'])
+          new_RawData = models.RawData.objects.create(global_id=new_Packet,data=binary_packet_data,hexdata=packet_data)
       else:
-        binary_packet_data = binascii.unhexlify(packet_data)
-        packet_fields = structure.unpack_new(binary_packet_data)
-        print(packet_fields['seq'])
-        print(packet_fields['version'])
-        #timestring = '20' + request.POST.get('transmit_time')
-        datetimeString = datetime.strptime(request.POST.get('transmit_time'),"%y-%m-%d %H:%M:%S")
-        filteredImei = request.POST.get('imei')
-        if(filteredImei == "CollinsLaptop"):
-          filteredImei = "888888888888888"
         new_IridiumData = models.IridiumData.objects.create(transmit_time = datetimeString, iridium_latitude = request.POST.get('iridium_latitude'), iridium_longitude = request.POST.get('iridium_longitude'), iridium_cep = request.POST.get('iridium_cep'), momsn = request.POST.get('momsn'), imei = filteredImei, transmitted_via_satellite = True if request.POST.get('transmitted_via_satellite') is None else request.POST.get('transmitted_via_satellite'))
         print(new_IridiumData.transmit_time)
-        new_Packet = models.Packet.objects.create(global_id=new_IridiumData,packet_id=packet_fields['seq'],version=packet_fields['version'])
-        new_RawData = models.RawData.objects.create(global_id=new_Packet,data=binary_packet_data,hexdata=packet_data)
-    else:
-      new_IridiumData = models.IridiumData.objects.create(transmit_time = datetimeString, iridium_latitude = request.POST.get('iridium_latitude'), iridium_longitude = request.POST.get('iridium_longitude'), iridium_cep = request.POST.get('iridium_cep'), momsn = request.POST.get('momsn'), imei = filteredImei, transmitted_via_satellite = True if request.POST.get('transmitted_via_satellite') is None else request.POST.get('transmitted_via_satellite'))
-      print(new_IridiumData.transmit_time)
+          
         
+      #else
+      #iridium_txtime = request.POST.get('transmit_time',time.strftime("%Y-%m-%dT%H:%M:%SZ UTC",time.gmtime()))
+      iridium_txtime = request.POST.get('transmit_time')
+      iridium_imei = request.POST.get('imei')
+      iridium_momsn = request.POST.get('momsn')
+      iridium_latitude = request.POST.get('iridium_latitude')
+      iridium_longitude = request.POST.get('iridium_longitude')
+      iridium_cep = request.POST.get('iridium_cep')
+      Data={'data':packet_data,'txtime':iridium_txtime,'imei':iridium_imei,'momsn':iridium_momsn,'lat':iridium_latitude,'lon':iridium_longitude,'cep':iridium_cep}
+      #print(Data)
       
-    #else
-    #iridium_txtime = request.POST.get('transmit_time',time.strftime("%Y-%m-%dT%H:%M:%SZ UTC",time.gmtime()))
-    iridium_txtime = request.POST.get('transmit_time')
-    iridium_imei = request.POST.get('imei')
-    iridium_momsn = request.POST.get('momsn')
-    iridium_latitude = request.POST.get('iridium_latitude')
-    iridium_longitude = request.POST.get('iridium_longitude')
-    iridium_cep = request.POST.get('iridium_cep')
-    Data={'data':packet_data,'txtime':iridium_txtime,'imei':iridium_imei,'momsn':iridium_momsn,'lat':iridium_latitude,'lon':iridium_longitude,'cep':iridium_cep}
-    #print(Data)
-    
-    print(packet_fields)
-    context = {'text': Data}
-  elif (request.GET):
-    context = {'text': 'get'}
-  else:
-    context = {'text': 'none'}
+      print(packet_fields)
+      context = {'text': Data}
+    elif (request.GET):
+      context = {'text': 'get'}
+    else:
+      context = {'text': 'none'}
   return render(request, 'groundstation/post.html', context)
   
 def postfuncV6(request):
