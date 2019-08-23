@@ -191,14 +191,15 @@ def postfunc(request):
   context = {'text': 'none'}
   try:
     #print(dir(request))
-    print('HTTP_X_FORWADED_FOR: ' + str(request.META.get('HTTP_X_FORWARDED_FOR')))
-    print('HTTP_X_FORWADED_HOST: ' + str(request.META.get('HTTP_X_FORWARDED_HOST')))
-    print('HTTP_X_FORWADED_SERVER: ' + str(request.META.get('HTTP_X_FORWARDED_SERVER')))
-    print('REMOTE_ADDR:         ' + str(request.META.get('REMOTE_ADDR')))
-    print(request.POST.keys())
-    print("device_type: " + request.POST.get('device_type', 'NONE'))
-    print("serial: " + request.POST.get('serial', 'NONE'))
-    print("iridium_session_status: " + request.POST.get('iridium_session_status', 'NONE'))
+    
+    # print('HTTP_X_FORWADED_FOR: ' + str(request.META.get('HTTP_X_FORWARDED_FOR')))
+    # print('HTTP_X_FORWADED_HOST: ' + str(request.META.get('HTTP_X_FORWARDED_HOST')))
+    # print('HTTP_X_FORWADED_SERVER: ' + str(request.META.get('HTTP_X_FORWARDED_SERVER')))
+    # print('REMOTE_ADDR:         ' + str(request.META.get('REMOTE_ADDR')))
+    # print(request.POST.keys())
+    # print("device_type: " + request.POST.get('device_type', 'NONE'))
+    # print("serial: " + request.POST.get('serial', 'NONE'))
+    # print("iridium_session_status: " + request.POST.get('iridium_session_status', 'NONE'))
     #return render(request, 'groundstation/post.html', context)
     if (request.POST):
       packet_data = request.POST.get('data')
@@ -292,22 +293,30 @@ def postfunc(request):
       context = {'text': 'none'}
   except:
     print("THERE WAS AN UH_OH ON A PRETTY BIG SCALE IN THIS CASE...")
+  try:
+    print('Proccessing the packet with the V6 parser.')
+    postfuncV6(request)
+  except:
+    print("Whoops, looks like the new parsing function malfunctioned.")
   return render(request, 'groundstation/post.html', context)
   
 @csrf_exempt
 def postfuncV6(request):
   if (request.POST):
-    print('HTTP_X_FORWADED_FOR: ' + str(request.META.get('HTTP_X_FORWARDED_FOR')))
-    print('HTTP_X_FORWADED_HOST: ' + str(request.META.get('HTTP_X_FORWARDED_HOST')))
-    print('HTTP_X_FORWADED_SERVER: ' + str(request.META.get('HTTP_X_FORWARDED_SERVER')))
-    print('REMOTE_ADDR:         ' + str(request.META.get('REMOTE_ADDR')))
-    print(request.POST.keys())
-    print("device_type: " + request.POST.get('device_type', 'NONE'))
-    print("serial: " + request.POST.get('serial', 'NONE'))
-    print("iridium_session_status: " + request.POST.get('iridium_session_status', 'NONE'))
+    # print('HTTP_X_FORWADED_FOR: ' + str(request.META.get('HTTP_X_FORWARDED_FOR')))
+    # print('HTTP_X_FORWADED_HOST: ' + str(request.META.get('HTTP_X_FORWARDED_HOST')))
+    # print('HTTP_X_FORWADED_SERVER: ' + str(request.META.get('HTTP_X_FORWARDED_SERVER')))
+    # print('REMOTE_ADDR:         ' + str(request.META.get('REMOTE_ADDR')))
+    # print(request.POST.keys())
+    # print("device_type: " + request.POST.get('device_type', 'NONE'))
+    # print("serial: " + request.POST.get('serial', 'NONE'))
+    # print("iridium_session_status: " + request.POST.get('iridium_session_status', 'NONE'))
     
     #Build request object
+    requestObject = models.Request.create(time = datetime.utcnow(), forwarded_for_address = str(request.META.get('HTTP_X_FORWARDED_FOR')), forwarded_host_address = str(request.META.get('HTTP_X_FORWARDED_HOST')), forwarded_server_address = str(request.META.get('HTTP_X_FORWARDED_SERVER')), remote_address = str(request.META.get('REMOTE_ADDR')))
+    print('Successfully created the request object')
     #Build transmission object
+    
     #Build raw packet object
     #Build packet object
     #Build measurement objects
