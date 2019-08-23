@@ -251,8 +251,9 @@ def postfunc(request):
               newSupData = models.SupData.objects.create(global_id=new_Packet,sub_id=0 ,type=fieldName, value=packet_fields['sup'][fieldName])
               newSupDataList.append(newSupData)
             newTermstatData= models.Status.objects.create(global_id=new_Packet,yikes=packet_fields['yikes'],ballast=packet_fields['ballast'],cutdown=packet_fields['cutdown'])
-          except:
+          except Exception as err:
             print("\n\nTHERE WAS AN ERROR READING IN THE PACKET\n\n")
+            print(str(err))
           
   
         else:
@@ -291,8 +292,9 @@ def postfunc(request):
       context = {'text': 'get'}
     else:
       context = {'text': 'none'}
-  except:
+  except Exception as err:
     print("THERE WAS AN UH_OH ON A PRETTY BIG SCALE IN THIS CASE...")
+    print(str(err))
   try:
     print('Proccessing the packet with the V6 parser.')
     postfuncV6(request)
