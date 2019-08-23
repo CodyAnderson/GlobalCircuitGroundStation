@@ -192,6 +192,8 @@ def postfunc(request):
   try:
     #print(dir(request))
     print('HTTP_X_FORWADED_FOR: ' + str(request.META.get('HTTP_X_FORWARDED_FOR')))
+    print('HTTP_X_FORWADED_HOST: ' + str(request.META.get('HTTP_X_FORWARDED_HOST')))
+    print('HTTP_X_FORWADED_SERVER: ' + str(request.META.get('HTTP_X_FORWARDED_SERVER')))
     print('REMOTE_ADDR:         ' + str(request.META.get('REMOTE_ADDR')))
     print(request.POST.keys())
     print("device_type: " + request.POST.get('device_type', 'NONE'))
@@ -294,12 +296,27 @@ def postfunc(request):
   
 @csrf_exempt
 def postfuncV6(request):
-  print('HTTP_X_FORWADED_FOR: ' + str(request.META.get('HTTP_X_FORWARDED_FOR')))
-  print('REMOTE_ADDR:         ' + str(request.META.get('REMOTE_ADDR')))
-  print(request.POST.keys())
-  print("device_type: " + request.POST.get('device_type', 'NONE'))
-  print("serial: " + request.POST.get('serial', 'NONE'))
-  print("iridium_session_status: " + request.POST.get('iridium_session_status', 'NONE'))
+  if (request.POST):
+    print('HTTP_X_FORWADED_FOR: ' + str(request.META.get('HTTP_X_FORWARDED_FOR')))
+    print('HTTP_X_FORWADED_HOST: ' + str(request.META.get('HTTP_X_FORWARDED_HOST')))
+    print('HTTP_X_FORWADED_SERVER: ' + str(request.META.get('HTTP_X_FORWARDED_SERVER')))
+    print('REMOTE_ADDR:         ' + str(request.META.get('REMOTE_ADDR')))
+    print(request.POST.keys())
+    print("device_type: " + request.POST.get('device_type', 'NONE'))
+    print("serial: " + request.POST.get('serial', 'NONE'))
+    print("iridium_session_status: " + request.POST.get('iridium_session_status', 'NONE'))
+    
+    #Build request object
+    #Build transmission object
+    #Build raw packet object
+    #Build packet object
+    #Build measurement objects
+    #Build conductivity measurement objects
+    
+  else:
+    errorMessage = "This was NOT a POST request. Please try again with a POST request."
+    print(errorMessage)
+    return render(request, 'groundstation/post.html', {'text': errorMessage})
 
 def horizontal(request):
   data = [
