@@ -326,6 +326,8 @@ def postfuncV6(request):
     iridiumCep = request.POST.get('iridium_cep')
     iridiumMomsn = request.POST.get('momsn')
     iridiumImei = request.POST.get('imei')
+    if(iridiumImei == "CollinsLaptop"):
+      iridiumImei = "888888888888888"
     transViaSat = True if request.POST.get('transmitted_via_satellite') is None else request.POST.get('transmitted_via_satellite')
     transmissonObject = models.IridiumTransmission.objects.create( parent_request = requestObject, time = iridiumTime, latitude = iridiumLatitude, longitude = iridiumLongitude, cep = iridiumCep, momsn = iridiumMomsn, imei = iridiumImei, transmitted_via_satellite = transViaSat)
     print('Successfully created the transmission object.')
