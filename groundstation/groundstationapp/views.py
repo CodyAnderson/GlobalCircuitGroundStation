@@ -298,6 +298,7 @@ def postfunc(request):
     postfuncV6(request)
   except:
     print("Whoops, looks like the new parsing function malfunctioned.")
+    raise
   return render(request, 'groundstation/post.html', context)
   
 @csrf_exempt
