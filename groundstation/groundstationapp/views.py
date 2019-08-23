@@ -314,8 +314,18 @@ def postfuncV6(request):
     
     #Build request object
     requestObject = models.Request.objects.create(time = datetime.utcnow(), forwarded_for_address = str(request.META.get('HTTP_X_FORWARDED_FOR')), forwarded_host_address = str(request.META.get('HTTP_X_FORWARDED_HOST')), forwarded_server_address = str(request.META.get('HTTP_X_FORWARDED_SERVER')), remote_address = str(request.META.get('REMOTE_ADDR')))
-    print('Successfully created the request object')
+    print('Successfully created the request object.')
+    
     #Build transmission object
+    iridiumTime = datetime.strptime(request.POST.get('transmit_time'),"%y-%m-%d %H:%M:%S")
+    iridiumLatitude = request.POST.get('iridium_latitude')
+    iridiumLongitude = request.POST.get('iridium_longitude')
+    iridiumCep = request.POST.get('iridium_cep')
+    iridiumMomsn = request.POST.get('momsn')
+    iridiumImei = request.POST.get('imei')
+    transViaSat = True if request.POST.get('transmitted_via_satellite') is None else request.POST.get('transmitted_via_satellite')
+    transmissonObject = models.IridiumTransmission.object.create( parent_request = requestObject, time = iridiumTime, latitude = iridiumLatitude, longitude = iridiumLongitude, cep = iridiumCep, momsn = iridiumMomsn, imei = iridiumImei, transmitted_via_satellite = transViaSat)
+    print('Successfully created the transmission object.')
     
     #Build raw packet object
     #Build packet object
