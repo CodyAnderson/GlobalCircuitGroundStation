@@ -339,38 +339,39 @@ def postfuncV6(request):
     print('Successfully created the raw packet object.')
     
     #Build packet object
-    #packetValues = structure.unpackV6(binRawPacketData)
-    pV = {}#packetValues
+    hexRawPacketData = request.POST.get('data')
+    binRawPacketData = binascii.unhexlify(hexRawPacketData)
+    packetValues = structure.unpackV6(binRawPacketData)
     packetObject = models.PacketV6.objects.create(
                                                   parent_transmission = transmissonObject,
-                                                  yikes_status = pV["yikes_status"],
-                                                  mcu_id = pV["mcu_id"],
-                                                  version = pV["version"],
-                                                  sequence_id = pV["sequence_id"],
-                                                  time = pV["time"],
-                                                  latitude = pV["latitude"],
-                                                  longitude = pV["longitude"],
-                                                  altitude = pV["altitude"],
-                                                  ballast_status = pV["ballast_status"],
-                                                  cutdown_status = pV["cutdown_status"],
-                                                  conductivity_time = pV["conductivity_time"],
-                                                  satellites_count = pV["satellites_count"],
-                                                  rockblock_signal_strength = pV["rockblock_signal_strength"],
-                                                  commands_count = pV["commands_count"],
-                                                  altimeter_temp = pV["altimeter_temp"],
-                                                  altimeter_pressure = pV["altimeter_pressure"],
-                                                  positive_7v_battery_voltage = pV["positive_7v_battery_voltage"],
-                                                  negative_7v_battery_voltage = pV["negative_7v_battery_voltage"],
-                                                  positive_3v6_battery_voltage = pV["positive_3v6_battery_voltage"],
-                                                  current_draw_7v_rail = pV["current_draw_7v_rail"],
-                                                  current_draw_3v3_rail = pV["current_draw_3v3_rail"],
-                                                  battery_temp = pV["battery_temp"],
-                                                  mcu_temp = pV["mcu_temp"],
-                                                  compass_temp = pV["compass_temp"],
-                                                  adc1_temp = pV["adc1_temp"],
-                                                  adc2_temp = pV["adc2_temp"],
-                                                  external_temp = pV["external_temp"],
-                                                  rockblock_temp = pV["rockblock_temp"]
+                                                  yikes_status = packetValues["yikes_status"],
+                                                  mcu_id = packetValues["mcu_id"],
+                                                  version = packetValues["version"],
+                                                  sequence_id = packetValues["sequence_id"],
+                                                  time = packetValues["time"],
+                                                  latitude = packetValues["latitude"],
+                                                  longitude = packetValues["longitude"],
+                                                  altitude = packetValues["altitude"],
+                                                  ballast_status = packetValues["ballast_status"],
+                                                  cutdown_status = packetValues["cutdown_status"],
+                                                  conductivity_time = packetValues["conductivity_time"],
+                                                  satellites_count = packetValues["satellites_count"],
+                                                  rockblock_signal_strength = packetValues["rockblock_signal_strength"],
+                                                  commands_count = packetValues["commands_count"],
+                                                  altimeter_temp = packetValues["altimeter_temp"],
+                                                  altimeter_pressure = packetValues["altimeter_pressure"],
+                                                  positive_7v_battery_voltage = packetValues["positive_7v_battery_voltage"],
+                                                  negative_7v_battery_voltage = packetValues["negative_7v_battery_voltage"],
+                                                  positive_3v6_battery_voltage = packetValues["positive_3v6_battery_voltage"],
+                                                  current_draw_7v_rail = packetValues["current_draw_7v_rail"],
+                                                  current_draw_3v3_rail = packetValues["current_draw_3v3_rail"],
+                                                  battery_temp = packetValues["battery_temp"],
+                                                  mcu_temp = packetValues["mcu_temp"],
+                                                  compass_temp = packetValues["compass_temp"],
+                                                  adc1_temp = packetValues["adc1_temp"],
+                                                  adc2_temp = packetValues["adc2_temp"],
+                                                  external_temp = packetValues["external_temp"],
+                                                  rockblock_temp = packetValues["rockblock_temp"]
                                                   )
     #Build measurement objects
     #Build conductivity measurement objects

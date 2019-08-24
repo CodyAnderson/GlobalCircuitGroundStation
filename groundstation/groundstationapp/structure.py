@@ -162,7 +162,7 @@ def unpackV6(fstring):
   #vert1 = models.IntegerField()
   #vert2 = models.IntegerField()
   
-  
+  print(fstring)
   
   
   tempVersion=struct.unpack('<B',fstring[0:1])[0]
