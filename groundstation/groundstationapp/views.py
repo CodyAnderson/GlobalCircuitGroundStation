@@ -339,8 +339,8 @@ def postfuncV6(request):
     print('Successfully created the raw packet object.')
     
     #Build packet object
-    packetValues = structure.unpackV6(binRawPacketData)
-    pV = packetValues
+    #packetValues = structure.unpackV6(binRawPacketData)
+    pV = {}#packetValues
     packetObject = models.PacketV6.objects.create(
                                                   parent_transmission = transmissonObject,
                                                   yikes_status = pV["yikes_status"],
