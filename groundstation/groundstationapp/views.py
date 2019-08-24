@@ -376,7 +376,7 @@ def postfuncV6(request):
     #Build measurement objects
     measurementObjectList = []
     for each in range(12):
-      parent_packet = transmissonObject
+      parent_packet = packetObject
       measurementTime = datetime.fromtimestamp(packetValues["time"]) + (each*timedelta(seconds=5))
       measurementVert1 = packetValues["vert1"][each]
       measurementVert2 = packetValues["vert2"][each]
@@ -395,7 +395,7 @@ def postfuncV6(request):
     #Build conductivity measurement objects
     conductivityMeasurementObjectList = []
     for each in range(15):
-      parent_packet = transmissonObject
+      parent_packet = packetObject
       conductivityMeasurementTime = datetime.fromtimestamp(packetValues["conductivity_time"]) + ((each*10)+(packetValues["sequence_id"]%10))*timedelta(seconds=0.1)
       conductivityMeasurementVert1 = packetValues["conductivity_vert1"][each]
       conductivityMeasurementVert2 = packetValues["conductivity_vert2"][each]
