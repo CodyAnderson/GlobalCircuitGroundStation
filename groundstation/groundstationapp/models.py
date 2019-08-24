@@ -144,7 +144,7 @@ class PacketV6(models.Model):
   commands_count = models.IntegerField()
   
   altimeter_temp = models.IntegerField()
-  altimeter_pressure = models.IntegerField()
+  altimeter_pressure = models.BigIntegerField()
   
   positive_7v_battery_voltage = models.IntegerField()
   negative_7v_battery_voltage = models.IntegerField()
