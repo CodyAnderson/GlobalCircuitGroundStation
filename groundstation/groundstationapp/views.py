@@ -296,8 +296,10 @@ def postfunc(request):
     print("THERE WAS AN UH_OH ON A PRETTY BIG SCALE IN THIS CASE...")
     print(str(err))
   #try:
-    print('Proccessing the packet with the V6 parser.')
-    postfuncV6(request)
+  #  print('Proccessing the packet with the V6 parser.')
+  #  postfuncV6(request)
+  print('Proccessing the packet with the V6 parser.')
+  postfuncV6(request)
   #except Exception as err:
   #  print("Whoops, looks like the new parsing function malfunctioned.")
   #  print(str(err))
