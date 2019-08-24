@@ -250,5 +250,6 @@ def unpackV6(fstring):
     print(lineno())
   except Exception as err:
     print("\n\nTHERE WAS AN ERROR READING IN THE V6 PACKET")
-    print(str(err) + "\n\n")
+    print(str(err) + "\n\n")                
+  print(lineno())
   return values

@@ -338,10 +338,18 @@ def postfuncV6(request):
     rawPacketObject = models.RawPacket.objects.create(parent_transmission = transmissonObject, data = binRawPacketData, hexdata = hexRawPacketData)
     print('Successfully created the raw packet object.')
     
+    import inspect
+    
+    def lineno():
+      return inspect.currentframe().f_back.f_lineno
+    
     #Build packet object
     hexRawPacketData = request.POST.get('data')
+    print(lineno())
     binRawPacketData = binascii.unhexlify(hexRawPacketData)
+    print(lineno())
     packetValues = structure.unpackV6(binRawPacketData)
+    print(lineno())
     packetObject = models.PacketV6.objects.create(
                                                   parent_transmission = transmissonObject,
                                                   yikes_status = packetValues["yikes_status"],
@@ -373,6 +381,7 @@ def postfuncV6(request):
                                                   external_temp = packetValues["external_temp"],
                                                   rockblock_temp = packetValues["rockblock_temp"]
                                                   )
+    print(lineno())
     #Build measurement objects
     #Build conductivity measurement objects
     
@@ -380,6 +389,7 @@ def postfuncV6(request):
     errorMessage = "This was NOT a POST request. Please try again with a POST request."
     print(errorMessage)
     return render(request, 'groundstation/post.html', {'text': errorMessage})
+  return render(request, 'groundstation/post.html', {'text': 'None'})
 
 def horizontal(request):
   data = [
