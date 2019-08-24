@@ -295,12 +295,12 @@ def postfunc(request):
   except Exception as err:
     print("THERE WAS AN UH_OH ON A PRETTY BIG SCALE IN THIS CASE...")
     print(str(err))
-  try:
+  #try:
     print('Proccessing the packet with the V6 parser.')
     postfuncV6(request)
-  except Exception as err:
-    print("Whoops, looks like the new parsing function malfunctioned.")
-    print(str(err))
+  #except Exception as err:
+  #  print("Whoops, looks like the new parsing function malfunctioned.")
+  #  print(str(err))
   return render(request, 'groundstation/post.html', context)
   
 @csrf_exempt
