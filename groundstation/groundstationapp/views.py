@@ -339,28 +339,7 @@ def postfuncV6(request):
     print('Successfully created the raw packet object.')
     
     #Build packet object
-    hexRawPacketData = request.POST.get('data')
-    binRawPacketData = binascii.unhexlify(hexRawPacketData)
-    packetValues = structure.unpackV6(binRawPacketData)              
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    packetValues = structure.unpackV6(binRawPacketData)
     packetObject = models.PacketV6.objects.create(
                                                   parent_transmission = transmissonObject,
                                                   yikes_status = packetValues["yikes_status"],
@@ -392,8 +371,38 @@ def postfuncV6(request):
                                                   external_temp = packetValues["external_temp"],
                                                   rockblock_temp = packetValues["rockblock_temp"]
                                                   )
+    print('Successfully created the packet object.')
+                                                  
     #Build measurement objects
+    measurementObjectList = []
+    for each in range(12):
+      parent_packet = transmissonObject
+      measurementTime = datetime.fromtimestamp(packetValues["time"]) + (each*timedelta(seconds=5))
+      measurementVert1 = packetValues["vert1"][each]
+      measurementVert2 = packetValues["vert2"][each]
+      measurementVertD = packetValues["vertD"][each]
+      measurementCompassX = packetValues["compassX"][each]
+      measurementCompassY = packetValues["compassY"][each]
+      measurementCompassZ = packetValues["compassZ"][each]
+      measurementHoriz1 = packetValues["horiz1"][each]
+      measurementHoriz2 = packetValues["horiz2"][each]
+      measurementHorizD = packetValues["horizD"][each]
+      measurementObject = models.Measurements.objects.create(parent_packet = parent_packet, time = measurementTime, vert1 = measurementVert1, vert2 = measurementVert2, vertD = measurementVertD, horiz1 = measurementHoriz1, horiz2 = measurementHoriz2, horizD = measurementHorizD, compassX = measurementCompassX, compassY = measurementCompassY, compassZ = measurementCompassZ)
+      measurementObjectList.append(measurementObject)
+      print('Successfully created ' + str(each+1) + '/12 measurement object(s).')
+    print('Successfully created ALL measurement object(s).')
+    
     #Build conductivity measurement objects
+    conductivityMeasurementObjectList = []
+    for each in range(15):
+      parent_packet = transmissonObject
+      conductivityMeasurementTime = datetime.fromtimestamp(packetValues["conductivity_time"]) + ((each*10)+(packetValues["sequence_id"]%10))*timedelta(seconds=0.1)
+      conductivityMeasurementVert1 = packetValues["conductivity_vert1"][each]
+      conductivityMeasurementVert2 = packetValues["conductivity_vert2"][each]
+      measurementObject = models.ConductivityMeasurements.objects.create(parent_packet = parent_packet, time = conductivityMeasurementTime, vert1 = conductivityMeasurementVert1, vert2 = conductivityMeasurementVert2)
+      measurementObjectList.append(measurementObject)
+      print('Successfully created ' + str(each+1) + '/15 conductivity measurement object(s).')
+    print('Successfully created ALL conductivity measurement object(s).')
     
   else:
     errorMessage = "This was NOT a POST request. Please try again with a POST request."
