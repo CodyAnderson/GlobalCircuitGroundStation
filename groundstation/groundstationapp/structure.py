@@ -162,12 +162,16 @@ def unpackV6(fstring):
   #vert1 = models.IntegerField()
   #vert2 = models.IntegerField()
   
-  print(fstring)
+  print(fstring.__class__)
   
   
   tempVersion=struct.unpack('<B',fstring[0:1])[0]
   values['version'] = tempVersion & 0b00001111
   values['mcu_id'] = (tempVersion & 0b11110000) >> 4
+  
+  print(values['version'])
+  print(values['mcu_id'])
+  
   values['yikes_status']=struct.unpack('<B',fstring[1:2])[0]
   values['sequence_id']=struct.unpack('<H',fstring[2:4])[0]
   try:
