@@ -295,14 +295,12 @@ def postfunc(request):
   except Exception as err:
     print("THERE WAS AN UH_OH ON A PRETTY BIG SCALE IN THIS CASE...")
     print(str(err))
-  #try:
-  #  print('Proccessing the packet with the V6 parser.')
-  #  postfuncV6(request)
-  print('Proccessing the packet with the V6 parser.')
-  postfuncV6(request)
-  #except Exception as err:
-  #  print("Whoops, looks like the new parsing function malfunctioned.")
-  #  print(str(err))
+  try:
+    print('Proccessing the packet with the V6 parser.')
+    postfuncV6(request)
+  except Exception as err:
+    print("Whoops, looks like the new parsing function malfunctioned.")
+    print(str(err))
   return render(request, 'groundstation/post.html', context)
   
 @csrf_exempt
@@ -340,92 +338,10 @@ def postfuncV6(request):
     rawPacketObject = models.RawPacket.objects.create(parent_transmission = transmissonObject, data = binRawPacketData, hexdata = hexRawPacketData)
     print('Successfully created the raw packet object.')
     
-    import inspect
-    
-    def lineno():
-      return inspect.currentframe().f_back.f_lineno
-    
     #Build packet object
     hexRawPacketData = request.POST.get('data')
-    print(lineno())
     binRawPacketData = binascii.unhexlify(hexRawPacketData)
-    print(lineno())
-    packetValues = structure.unpackV6(binRawPacketData)
-    print(lineno())
-    print(lineno())
-    print(lineno())
-    print(lineno())
-    print(lineno())
-    print(lineno())
-    print(lineno())
-    print(lineno())
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    print(lineno())
-    packetValues["yikes_status"]                   
-    print(lineno())
-    packetValues["mcu_id"]                         
-    print(lineno())
-    packetValues["version"]                        
-    print(lineno())
-    packetValues["sequence_id"]                    
-    print(lineno())
-    packetValues["time"]                           
-    print(lineno())
-    packetValues["latitude"]                       
-    print(lineno())
-    packetValues["longitude"]                      
-    print(lineno())
-    packetValues["altitude"]                       
-    print(lineno())
-    packetValues["ballast_status"]                 
-    print(lineno())
-    packetValues["cutdown_status"]                 
-    print(lineno())
-    packetValues["conductivity_time"]              
-    print(lineno())
-    packetValues["satellites_count"]               
-    print(lineno())
-    packetValues["rockblock_signal_strength"]      
-    print(lineno())
-    packetValues["commands_count"]                 
-    print(lineno())
-    packetValues["altimeter_temp"]                 
-    print(lineno())
-    packetValues["altimeter_pressure"]             
-    print(lineno())
-    packetValues["positive_7v_battery_voltage"]    
-    print(lineno())
-    packetValues["negative_7v_battery_voltage"]    
-    print(lineno())
-    packetValues["positive_3v6_battery_voltage"]   
-    print(lineno())
-    packetValues["current_draw_7v_rail"]           
-    print(lineno())
-    packetValues["current_draw_3v3_rail"]          
-    print(lineno())
-    packetValues["battery_temp"]                   
-    print(lineno())
-    packetValues["mcu_temp"]                       
-    print(lineno())
-    packetValues["compass_temp"]                   
-    print(lineno())
-    packetValues["adc1_temp"]                      
-    print(lineno())
-    packetValues["adc2_temp"]                      
-    print(lineno())
-    packetValues["external_temp"]                  
-    print(lineno())
-    packetValues["rockblock_temp"]                 
-    print(lineno())
+    packetValues = structure.unpackV6(binRawPacketData)              
     
     
     
@@ -445,8 +361,37 @@ def postfuncV6(request):
     
     
     
-    packetObject = models.PacketV6.objects.create(parent_transmission = transmissonObject, yikes_status = packetValues["yikes_status"], mcu_id = packetValues["mcu_id"], version = packetValues["version"], sequence_id = packetValues["sequence_id"], time = packetValues["time"], latitude = packetValues["latitude"], longitude = packetValues["longitude"], altitude = packetValues["altitude"], ballast_status = packetValues["ballast_status"], cutdown_status = packetValues["cutdown_status"], conductivity_time = packetValues["conductivity_time"], satellites_count = packetValues["satellites_count"], rockblock_signal_strength = packetValues["rockblock_signal_strength"], commands_count = packetValues["commands_count"], altimeter_temp = packetValues["altimeter_temp"], altimeter_pressure = packetValues["altimeter_pressure"], positive_7v_battery_voltage = packetValues["positive_7v_battery_voltage"], negative_7v_battery_voltage = packetValues["negative_7v_battery_voltage"], positive_3v6_battery_voltage = packetValues["positive_3v6_battery_voltage"], current_draw_7v_rail = packetValues["current_draw_7v_rail"], current_draw_3v3_rail = packetValues["current_draw_3v3_rail"], battery_temp = packetValues["battery_temp"], mcu_temp = packetValues["mcu_temp"], compass_temp = packetValues["compass_temp"], adc1_temp = packetValues["adc1_temp"], adc2_temp = packetValues["adc2_temp"], external_temp = packetValues["external_temp"], rockblock_temp = packetValues["rockblock_temp"])
-    print(lineno())
+    packetObject = models.PacketV6.objects.create(
+                                                  parent_transmission = transmissonObject,
+                                                  yikes_status = packetValues["yikes_status"],
+                                                  mcu_id = packetValues["mcu_id"],
+                                                  version = packetValues["version"],
+                                                  sequence_id = packetValues["sequence_id"],
+                                                  time = datetime.fromtimestamp(packetValues["time"]),
+                                                  latitude = packetValues["latitude"],
+                                                  longitude = packetValues["longitude"],
+                                                  altitude = packetValues["altitude"],
+                                                  ballast_status = packetValues["ballast_status"],
+                                                  cutdown_status = packetValues["cutdown_status"],
+                                                  conductivity_time = datetime.fromtimestamp(packetValues["conductivity_time"]),
+                                                  satellites_count = packetValues["satellites_count"],
+                                                  rockblock_signal_strength = packetValues["rockblock_signal_strength"],
+                                                  commands_count = packetValues["commands_count"],
+                                                  altimeter_temp = packetValues["altimeter_temp"],
+                                                  altimeter_pressure = packetValues["altimeter_pressure"],
+                                                  positive_7v_battery_voltage = packetValues["positive_7v_battery_voltage"],
+                                                  negative_7v_battery_voltage = packetValues["negative_7v_battery_voltage"],
+                                                  positive_3v6_battery_voltage = packetValues["positive_3v6_battery_voltage"],
+                                                  current_draw_7v_rail = packetValues["current_draw_7v_rail"],
+                                                  current_draw_3v3_rail = packetValues["current_draw_3v3_rail"],
+                                                  battery_temp = packetValues["battery_temp"],
+                                                  mcu_temp = packetValues["mcu_temp"],
+                                                  compass_temp = packetValues["compass_temp"],
+                                                  adc1_temp = packetValues["adc1_temp"],
+                                                  adc2_temp = packetValues["adc2_temp"],
+                                                  external_temp = packetValues["external_temp"],
+                                                  rockblock_temp = packetValues["rockblock_temp"]
+                                                  )
     #Build measurement objects
     #Build conductivity measurement objects
     

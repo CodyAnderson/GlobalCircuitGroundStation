@@ -162,8 +162,6 @@ def unpackV6(fstring):
   #vert1 = models.IntegerField()
   #vert2 = models.IntegerField()
   
-  print(fstring.__class__)
-  
   
   tempVersion=struct.unpack('<B',fstring[0:1])[0]
   values['version'] = tempVersion & 0b00001111
@@ -173,83 +171,42 @@ def unpackV6(fstring):
   values['sequence_id']=struct.unpack('<H',fstring[2:4])[0]
   try:
   
-    import inspect
-    
-    def lineno():
-      return inspect.currentframe().f_back.f_lineno
-  
     values['time']=struct.unpack('<I',fstring[4:8])[0]
-    print(lineno())
     values['latitude']=struct.unpack('<I',fstring[8:12])[0]
-    print(lineno())
     values['longitude']=struct.unpack('<I',fstring[12:16])[0]                          
-    print(lineno())
     values['altitude']=struct.unpack('<I',fstring[16:20])[0]                           
-    print(lineno())
     values['horiz1']=struct.unpack('<12h',fstring[20:44])                              
-    print(lineno())
     values['horiz2']=struct.unpack('<12h',fstring[44:68])                              
-    print(lineno())
     values['horizD']=struct.unpack('<12h',fstring[68:92])                              
-    print(lineno())
     values['vert1']=struct.unpack('<12h',fstring[92:116])                              
-    print(lineno())
     values['vert2']=struct.unpack('<12h',fstring[116:140])                             
-    print(lineno())
     values['vertD']=struct.unpack('<12h',fstring[140:164])                             
-    print(lineno())
     values['compassX']=struct.unpack('<12h',fstring[164:188])                          
-    print(lineno())
     values['compassY']=struct.unpack('<12h',fstring[188:212])                          
-    print(lineno())
     values['compassZ']=struct.unpack('<12h',fstring[212:236])                          
-    print(lineno())
     values['conductivity_vert1']=struct.unpack('<15h',fstring[236:266])                
-    print(lineno())
     values['conductivity_vert2']=struct.unpack('<15h',fstring[266:296])                
-    print(lineno())
     values['ballast_status']=struct.unpack('<B',fstring[296:297])[0]                   
-    print(lineno())
     values['cutdown_status']=struct.unpack('<B',fstring[297:298])[0]                   
-    print(lineno())
     values['conductivity_time']=struct.unpack('<I',fstring[298:302])[0]                
-    print(lineno())
     values['satellites_count']=struct.unpack('<B',fstring[302:303])[0]                 
-    print(lineno())
     values['rockblock_signal_strength']=struct.unpack('<B',fstring[303:304])[0]        
-    print(lineno())
     values['commands_count']=struct.unpack('<B',fstring[304:305])[0]                   
-    print(lineno())
     values['altimeter_temp']=struct.unpack('<I',fstring[305:309])[0]                   
-    print(lineno())
     values['altimeter_pressure']=struct.unpack('<I',fstring[309:313])[0]               
-    print(lineno())
     values['positive_7v_battery_voltage']=struct.unpack('<H',fstring[313:315])[0]      
-    print(lineno())
     values['negative_7v_battery_voltage']=struct.unpack('<H',fstring[315:317])[0]      
-    print(lineno())
     values['positive_3v6_battery_voltage']=struct.unpack('<H',fstring[317:319])[0]     
-    print(lineno())
     values['current_draw_7v_rail']=struct.unpack('<H',fstring[319:321])[0]          
-    print(lineno())
     values['current_draw_3v3_rail']=struct.unpack('<H',fstring[321:323])[0]         
-    print(lineno())
     values['battery_temp']=struct.unpack('<H',fstring[323:325])[0]                  
-    print(lineno())
     values['mcu_temp']=struct.unpack('<H',fstring[325:327])[0]                      
-    print(lineno())
     values['compass_temp']=struct.unpack('<h',fstring[327:329])[0]                  
-    print(lineno())
     values['adc1_temp']=struct.unpack('<h',fstring[329:331])[0]                     
-    print(lineno())
     values['adc2_temp']=struct.unpack('<h',fstring[331:333])[0]                     
-    print(lineno())
     values['external_temp']=struct.unpack('<H',fstring[333:335])[0]                 
-    print(lineno())
     values['rockblock_temp']=struct.unpack('<H',fstring[335:337])[0]                
-    print(lineno())
   except Exception as err:
     print("\n\nTHERE WAS AN ERROR READING IN THE V6 PACKET")
-    print(str(err) + "\n\n")                
-  print(lineno())
+    print(str(err) + "\n\n")
   return values
