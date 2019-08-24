@@ -180,7 +180,7 @@ class Measurements(models.Model):
   horizD = models.IntegerField()
   
 class ConductivityMeasurements(models.Model):
-  parent_packet = models.ForeignKey(PacketV9, on_delete=models.CASCADE)
+  parent_packet = models.ForeignKey(PacketV6, on_delete=models.CASCADE)
   #parent_conductivity_packet = models.ForeignKey(Packet, on_delete=models.CASCADE)
   
   time = models.DateTimeField()
