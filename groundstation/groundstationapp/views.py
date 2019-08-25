@@ -14,7 +14,7 @@ from graphos.sources.simple import SimpleDataSource
 from graphos.sources.model import ModelDataSource
 from graphos.renderers.gchart import LineChart
 
-from django.db.models import IntegerField, DateTimeField, ExpressionWrapper, F
+from django.db.models import IntegerField, DateTimeField, ExpressionWrapper, F, Avg, Max, Min
 
 from django.views.decorators.csrf import csrf_exempt
 
@@ -56,6 +56,62 @@ def dashboard(request):
   context={'IridiumData': mostRecentIridiumData, 'Packet': mostRecentPacket, 'Status': mostRecentStatus, 'SlowMeasurement': mostRecentSlowMeasurement, 'SupData': modifiedSupData}
   
   return render(request, 'groundstation/dashboard.html', context)
+  
+def dashboardV6(request):
+  
+  mostRecentPacketList = models.PacketV6.objects.order_by('-time').prefetch_related('measurements_set').select_related('parent_transmission').select_related('parent_transmission__parent_request')
+  filteredMostRecentPacketList = mostRecentPacketList.filter(parent_transmission__='imei')
+  mostRecentPacket = filteredMostRecentPacketList[0]
+  
+  mostRecentIridiumTransmission = mostRecentPacket.parent_transmission
+  
+  mostRecentRequest = mostRecentIridiumTransmission.parent_request
+  
+  mostRecentMeasurementsList = mostRecentPacket.measurements_set
+  mostRecentMeasurementsMin = mostRecentMeasurementsList.aggregate(Min('vert1'),Min('vert2'),Min('vertD'),
+                                                                   Min('compassX'),Min('compassY'),Min('compassZ'),
+                                                                   Min('horiz1'),Min('horiz2'),Min('horizD')
+                                                                   )
+  mostRecentMeasurementsAvg = mostRecentMeasurementsList.aggregate(Avg('vert1'),Avg('vert2'),Avg('vertD'),
+                                                                   Avg('compassX'),Avg('compassY'),Avg('compassZ'),
+                                                                   Avg('horiz1'),Avg('horiz2'),Avg('horizD')
+                                                                   )
+  mostRecentMeasurementsMax = mostRecentMeasurementsList.aggregate(Max('vert1'),Max('vert2'),Max('vertD'),
+                                                                   Max('compassX'),Max('compassY'),Max('compassZ'),
+                                                                   Max('horiz1'),Max('horiz2'),Max('horizD')
+                                                                   )
+  #mostRecentIridiumData = mostRecentPacket.global_id
+  
+  
+  #mostRecentStatus = models.Status.objects.filter(global_id=mostRecentPacket)[0]
+  #mostRecentSlowMeasurement = models.SlowMeasurement.objects.filter(global_id=mostRecentPacket)[0]
+  #mostRecentSupData = models.SupData.objects.filter(global_id=mostRecentPacket)
+  
+  #print("Packet Transmit Time: " + str(mostRecentIridiumData.transmit_time))
+  
+  #modifiedSupData = {}
+  #for each in mostRecentSupData:
+  #  newTypeString = each.type
+  #  if newTypeString == 'Vbat+':
+  #    newTypeString = 'VbatPlus'
+  #  if newTypeString == 'Vbat-':
+  #    newTypeString = 'VbatMinus'
+  #  if newTypeString == '3.3V_I':
+  #    newTypeString = '3V3_I'
+  #  modifiedSupData[newTypeString] = each
+  
+  context={
+           'Request': mostRecentRequest,
+           'IridiumTransmission': mostRecentIridiumTransmission,
+           'Packet': mostRecentPacket,
+           'Measurements': {
+                            'Min': mostRecentMeasurementsMin,
+                            'Avg': mostRecentMeasurementsAvg,
+                            'Max': mostRecentMeasurementsMax
+                            }
+           }
+  
+  return render(request, 'groundstation/dashboardV6.html', context)
 
 def greyBalloon(request):
   return render(request, 'groundstation/GreyBalloon.png', content_type='image/png')
@@ -409,7 +465,7 @@ def postfuncV6(request):
     print(errorMessage)
     return render(request, 'groundstation/post.html', {'text': errorMessage})
   return render(request, 'groundstation/post.html', {'text': 'None'})
-
+  
 def horizontal(request):
   data = [
         ['Time', 'H1', 'H2', 'HD']   # create a list to hold the column names and data for the axis names

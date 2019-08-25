@@ -1,0 +1,158 @@
+<!doctype html>
+<html>
+	<head>
+		
+	</head>
+	<body>
+
+		<h1>Dashboard: </h1>
+    
+		<h2>Web Request</h2>
+      Request Time: {{ Request.time }} <br>
+      Request Processing Duration: {{ Request.processing_duration }} <br>
+      
+      Forwarded For Address: {{ Request.forwarded_for_address }} <br>
+      Forwarded Host Address: {{ Request.forwarded_host_address }} <br>
+      Forwarded Server Address: {{ Request.forwarded_server_address }} <br>
+      Remote Address: {{ Request.remote_address }} <br>
+      
+      Raw Request Data: {{ Request.raw_request_data }} <br>
+      
+      Response Duration: {{ Request.response_duration }} <br>
+      Response Errors: {{ Request.response_errors }} <br>
+      Response Status Code: {{ Request.response_status_code }} <br>
+    
+    
+    <h2>Iridium Transmission</h2>
+      Transmission Time: {{ Transmission.time }} <br>
+      
+      Iridium Latitude: {{ Transmission.latitude }} <br>
+      Iridium Longitude: {{ Transmission.longitude }} <br>
+      
+      Iridium CEP: {{ Transmission.cep }} <br>
+      Iridium MOMSN: {{ Transmission.momsn }} <br>
+      Iridium IMEI: {{ Transmission.imei }} <br>
+      
+      Iridium Device Type: {{ Transmission.device_type }} <br>
+      Iridium Serial Number: {{ Transmission.serial }} <br>
+      Iridium Session Status: {{ Transmission.iridium_session_status }} <br>
+      
+      Transmitted Via Satellite: {{ Transmission.transmitted_via_satellite }} <br>
+    
+    
+    <h2>Payload Packet</h2>
+      Payload Yikes: {{ Packet.yikes_status }} <br>
+      
+      Payload MCU ID: {{ Packet.mcu_id }} <br>
+      Packet Version: {{ Packet.version }} <br>
+      
+      Packet Sequence ID: {{ Packet.sequence_id }} <br>
+      
+      Packet Time: {{ Packet.time }} <br>
+      
+      GPS Latitude: {{ Packet.latitude }} <br>
+      GPS Longitude: {{ Packet.longitude }} <br>
+      GPS Altitude: {{ Packet.altitude }} <br>
+      
+      Ballast Status: {{ Packet.ballast_status }} <br>
+      Cutdown Status: {{ Packet.cutdown_status }} <br>
+      
+      Conductivity Time: {{ Packet.conductivity_time }} <br>
+      
+      GPS Satellite Count: {{ Packet.satellites_count }} <br>
+      
+      RockBlock Signal Strength: {{ Packet.rockblock_signal_strength }} <br>
+      
+      Packet Commands Count: {{ Packet.commands_count }} <br>
+      
+      Altimeter Temperature: {{ Packet.altimeter_temp }} <br>
+      Altimeter Pressure: {{ Packet.altimeter_pressure }} <br>
+      
+      +7V Battery Voltage: {{ Packet.positive_7v_battery_voltage }} <br>
+      -7V Battery Voltage: {{ Packet.negative_7v_battery_voltage }} <br>
+      
+      +3.6V Battery Voltage:: {{ Packet.positive_3v6_battery_voltage }} <br>
+      
+      7V Rail Current Draw: {{ Packet.current_draw_7v_rail }} <br>
+      3.3V Rail Current Draw: {{ Packet.current_draw_3v3_rail }} <br>
+      
+      Battery Temperature: {{ Packet.battery_temp }} <br>
+      MCU Temperature: {{ Packet.mcu_temp }} <br>
+      Compass Temperature: {{ Packet.compass_temp }} <br>
+      ADC1 Temperature: {{ Packet.adc1_temp }} <br>
+      ADC2 Temperature: {{ Packet.adc2_temp }} <br>
+      External Temperature: {{ Packet.external_temp }} <br>
+      RockBlock Temperature: {{ Packet.rockblock_temp }} <br>
+  
+  
+    <h2>Probe and Compass Measurements</h2>
+      <table>
+        <tr>
+          <th>Signal</th>
+          <th>Min</th>
+          <th>Avg</th>
+          <th>Max</th>
+        </tr>
+        
+        <tr>
+          <td>vert1</td>
+          <td>{{ Measurements.Min.vert1 }}</td>
+          <td>{{ Measurements.Avg.vert1 }}</td>
+          <td>{{ Measurements.Max.vert1 }}</td>
+        </tr>
+        <tr>
+          <td>vert2</td>
+          <td>{{ Measurements.Min.vert2 }}</td>
+          <td>{{ Measurements.Avg.vert2 }}</td>
+          <td>{{ Measurements.Max.vert2 }}</td>
+        </tr>
+        <tr>
+          <td>vertD</td>
+          <td>{{ Measurements.Min.vertD }}</td>
+          <td>{{ Measurements.Avg.vertD }}</td>
+          <td>{{ Measurements.Max.vertD }}</td>
+        </tr>
+        
+        <tr>
+          <td>horiz1</td>
+          <td>{{ Measurements.Min.horiz1 }}</td>
+          <td>{{ Measurements.Avg.horiz1 }}</td>
+          <td>{{ Measurements.Max.horiz1 }}</td>
+        </tr>
+        <tr>
+          <td>horiz2</td>
+          <td>{{ Measurements.Min.horiz2 }}</td>
+          <td>{{ Measurements.Avg.horiz2 }}</td>
+          <td>{{ Measurements.Max.horiz2 }}</td>
+        </tr>
+        <tr>
+          <td>horizD</td>
+          <td>{{ Measurements.Min.horizD }}</td>
+          <td>{{ Measurements.Avg.horizD }}</td>
+          <td>{{ Measurements.Max.horizD }}</td>
+        </tr>
+        
+        <tr>
+          <td>CompassX</td>
+          <td>{{ Measurements.Min.compassX }}</td>
+          <td>{{ Measurements.Avg.compassX }}</td>
+          <td>{{ Measurements.Max.compassX }}</td>
+        </tr>
+        <tr>
+          <td>CompassY</td>
+          <td>{{ Measurements.Min.compassY }}</td>
+          <td>{{ Measurements.Avg.compassY }}</td>
+          <td>{{ Measurements.Max.compassY }}</td>
+        </tr>
+        <tr>
+          <td>CompassZ</td>
+          <td>{{ Measurements.Min.compassZ }}</td>
+          <td>{{ Measurements.Avg.compassZ }}</td>
+          <td>{{ Measurements.Max.compassZ }}</td>
+        </tr>
+      </table>
+      
+		
+	</body>
+
+</html>
