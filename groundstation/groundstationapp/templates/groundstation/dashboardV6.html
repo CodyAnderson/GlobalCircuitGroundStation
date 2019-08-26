@@ -9,7 +9,7 @@
     <form>
       Selected Packet MCU ID: 
       <select name="mcuID">
-        <% for option in FormOptions.mcuID %><option value="{{ option }}"{% if SelectedFilters.mcuID == option%} selected{% endif %}>{{ option }}</option><% endfor %>
+        {% for option in FormOptions.mcuID %}<option value="{{ option }}"{% if SelectedFilters.mcuID == option %} selected{% endif %}>{{ option }}</option>{% endfor %}
       </select>
       <input type="submit" value="Apply Filters">
     </form>
