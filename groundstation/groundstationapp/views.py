@@ -67,7 +67,7 @@ def dashboardV6(request):
   mostRecentPacketList = models.PacketV6.objects.order_by('-time').prefetch_related('measurements_set').select_related('parent_transmission').select_related('parent_transmission__parent_request')
   filteredMostRecentPacketList = mostRecentPacketList
   if(selectedFilters['mcuID'] != 'ANY'):
-    filteredMostRecentPacketList = mostRecentPacketList.filter(mcu_id=int(mcuID))
+    filteredMostRecentPacketList = mostRecentPacketList.filter(mcu_id=int(selectedFilters['mcuID']))
   #filteredMostRecentPacketList = mostRecentPacketList.filter(parent_transmission__imei=imei_constraint)
   mostRecentPacket = filteredMostRecentPacketList[0]
   
