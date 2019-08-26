@@ -7,7 +7,7 @@
 
 		<h1>Dashboard: </h1>
     <form>
-      {% for name, value in FormFields %}
+      {% for name, value in FormFields.items %}
       {{ value.label }}: 
       <select name="{{ name }}">
         {% for option in value.options %}<option value="{{ option }}"{% if value.selected == option %} selected{% endif %}>{{ option }}</option>{% endfor %}
