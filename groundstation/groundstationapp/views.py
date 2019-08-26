@@ -65,6 +65,13 @@ def dashboardV6(request):
   formFields['mcuID']['options'] = ['ANY','0','1','2','3','4','5','6','7','8','9','10']
   formFields['mcuID']['selected'] = request.GET.get('mcuID', 'ANY')
   
+  formFields['IMEI'] = {}
+  formFields['IMEI']['label'] = 'Selected Iridium IMEI'
+  formFields['IMEI']['options'] = ['300234065252710', '300434063219840', '300434063839690', '300434063766960', '300434063560100', '300434063184090', '300434063383330', '300434063185070', '300434063382350', '300234063778640', '888888888888888']
+  formFields['IMEI']['selected'] = request.GET.get('IMEI', 'ANY')
+
+
+  
   mostRecentPacketList = models.PacketV6.objects.order_by('-time').prefetch_related('measurements_set').select_related('parent_transmission').select_related('parent_transmission__parent_request')
   filteredMostRecentPacketList = mostRecentPacketList
   if(formFields['mcuID']['selected'] != 'ANY'):
