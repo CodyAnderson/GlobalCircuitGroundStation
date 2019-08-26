@@ -7,10 +7,12 @@
 
 		<h1>Dashboard: </h1>
     <form>
-      Selected Packet MCU ID: 
-      <select name="mcuID">
-        {% for option in FormOptions.mcuID %}<option value="{{ option }}"{% if SelectedFilters.mcuID == option %} selected{% endif %}>{{ option }}</option>{% endfor %}
-      </select>
+      {% for field in FormFields %}
+      {{ field.label }}: 
+      <select name="{{ field.name }}">
+        {% for option in FormOptions[field.name] %}<option value="{{ option }}"{% if SelectedFilters[field.name] == option %} selected{% endif %}>{{ option }}</option>{% endfor %}
+      </select><br>
+      {% endfor %}
       <input type="submit" value="Apply Filters">
     </form>
     

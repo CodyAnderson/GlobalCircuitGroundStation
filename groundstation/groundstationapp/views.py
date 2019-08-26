@@ -60,7 +60,9 @@ def dashboard(request):
 def dashboardV6(request):
   formOptions = {}
   selectedFilters = {}
+  formFields = []
   
+  formFields.append({'name': 'mcuID', 'label': 'Selected Packet MCU ID'})
   formOptions['mcuID'] = ['ANY','0','1','2','3','4','5','6','7','8','9','10']
   selectedFilters['mcuID'] = request.GET.get('mcuID', 'ANY')
   
@@ -90,6 +92,7 @@ def dashboardV6(request):
                                                                    )
 
   context={
+           'FormFields': formFields,
            'FormOptions': formOptions,
            'SelectedFilters': selectedFilters,
            'Request': mostRecentRequest,
