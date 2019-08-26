@@ -7,10 +7,10 @@
 
 		<h1>Dashboard: </h1>
     <form>
-      {% for field in FormFields %}
-      {{ field.label }}: 
-      <select name="{{ field.name }}">
-        {% for option in FormOptions[field.name] %}<option value="{{ option }}"{% if SelectedFilters[field.name] == option %} selected{% endif %}>{{ option }}</option>{% endfor %}
+      {% for name, value in FormFields %}
+      {{ value.label }}: 
+      <select name="{{ name }}">
+        {% for option in value.options %}<option value="{{ option }}"{% if value.selected == option %} selected{% endif %}>{{ option }}</option>{% endfor %}
       </select><br>
       {% endfor %}
       <input type="submit" value="Apply Filters">
