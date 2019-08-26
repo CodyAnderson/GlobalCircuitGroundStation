@@ -58,8 +58,11 @@ def dashboard(request):
   return render(request, 'groundstation/dashboard.html', context)
   
 def dashboardV6(request):
+  formOptions = {}
+  selectedFilters = {}
   
-  mcuID = request.GET.get('mcuID', 'ANY')
+  formOptions['mcuID'] = ['ANY','0','1','2','3','4','5','6','7','8','9','10']
+  selectedFilters['mcuID'] = request.GET.get('mcuID', 'ANY')
   
   mostRecentPacketList = models.PacketV6.objects.order_by('-time').prefetch_related('measurements_set').select_related('parent_transmission').select_related('parent_transmission__parent_request')
   filteredMostRecentPacketList = mostRecentPacketList
@@ -87,6 +90,8 @@ def dashboardV6(request):
                                                                    )
 
   context={
+           'FormOptions': formOptions,
+           'SelectedFilters': selectedFilters,
            'Request': mostRecentRequest,
            'Transmission': mostRecentIridiumTransmission,
            'Packet': mostRecentPacket,

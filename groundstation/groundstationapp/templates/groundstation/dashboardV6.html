@@ -7,18 +7,9 @@
 
 		<h1>Dashboard: </h1>
     <form>
-      Selected Packet MCU ID: <select name="mcuID">
-        <option value="ANY">ANY</option>
-        <option value="0">0</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
+      Selected Packet MCU ID: 
+      <select name="mcuID">
+        <% for option in FormOptions.mcuID %><option value="{{ option }}"{% if SelectedFilters.mcuID == option%} selected{% endif %}>{{ option }}</option><% endfor %>
       </select>
       <input type="submit" value="Apply Filters">
     </form>
