@@ -59,8 +59,12 @@ def dashboard(request):
   
 def dashboardV6(request):
   
+  mcuID = request.GET.get('mcuID', 'NONE')
+  
   mostRecentPacketList = models.PacketV6.objects.order_by('-time').prefetch_related('measurements_set').select_related('parent_transmission').select_related('parent_transmission__parent_request')
   filteredMostRecentPacketList = mostRecentPacketList
+  if(mcuID != 'NONE'):
+    filteredMostRecentPacketList = mostRecentPacketList.filter(mcu_id=int(mcuID))
   #filteredMostRecentPacketList = mostRecentPacketList.filter(parent_transmission__imei=imei_constraint)
   mostRecentPacket = filteredMostRecentPacketList[0]
   
@@ -81,26 +85,7 @@ def dashboardV6(request):
                                                                    Max('compassX'),Max('compassY'),Max('compassZ'),
                                                                    Max('horiz1'),Max('horiz2'),Max('horizD')
                                                                    )
-  #mostRecentIridiumData = mostRecentPacket.global_id
-  
-  
-  #mostRecentStatus = models.Status.objects.filter(global_id=mostRecentPacket)[0]
-  #mostRecentSlowMeasurement = models.SlowMeasurement.objects.filter(global_id=mostRecentPacket)[0]
-  #mostRecentSupData = models.SupData.objects.filter(global_id=mostRecentPacket)
-  
-  #print("Packet Transmit Time: " + str(mostRecentIridiumData.transmit_time))
-  
-  #modifiedSupData = {}
-  #for each in mostRecentSupData:
-  #  newTypeString = each.type
-  #  if newTypeString == 'Vbat+':
-  #    newTypeString = 'VbatPlus'
-  #  if newTypeString == 'Vbat-':
-  #    newTypeString = 'VbatMinus'
-  #  if newTypeString == '3.3V_I':
-  #    newTypeString = '3V3_I'
-  #  modifiedSupData[newTypeString] = each
-  
+
   context={
            'Request': mostRecentRequest,
            'Transmission': mostRecentIridiumTransmission,
