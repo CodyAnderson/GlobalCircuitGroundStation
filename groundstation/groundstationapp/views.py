@@ -20,7 +20,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from . import structure
 from . import models
-from . import unitConversions as uC
+#from . import unitConversions as uC
 import super_secrets as secrets
 
 import datetime as dt
