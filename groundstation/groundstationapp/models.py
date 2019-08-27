@@ -166,7 +166,7 @@ class PacketV6(models.Model):
   rockblock_temp = models.IntegerField()
   
 class PacketV6Units(models.Model):
-  parent_packet_v6 = models.OneToOneField(IridiumTransmission, related_name='child_packet_v6_units', on_delete=models.CASCADE, primary_key=True)
+  parent_packet_v6 = models.OneToOneField(PacketV6, related_name='child_packet_v6_units', on_delete=models.CASCADE, primary_key=True)
   
   yikes_status = models.TextField(null=True)
   mcu_id = models.TextField(null=True)
@@ -254,7 +254,7 @@ class ConductivityMeasurements(models.Model):
   vert2 = models.IntegerField()
   
 class ConductivityMeasurementsUnits(models.Model):
-  parent_conductivity_measurements = models.OneToOneField(Measurements, related_name='child_conductivity_measurements_units', on_delete=models.CASCADE, primary_key=True)
+  parent_conductivity_measurements = models.OneToOneField(ConductivityMeasurements, related_name='child_conductivity_measurements_units', on_delete=models.CASCADE, primary_key=True)
   
   time = models.DateTimeField()
   
