@@ -506,6 +506,25 @@ def postfuncV6(request):
       measurementObjectList.append(measurementObject)
       print('Successfully created ' + str(each+1) + '/12 measurement object(s).')
     print('Successfully created ALL measurement object(s).')
+                                                  
+    #Build measurement objects
+    measurementUnitsObjectList = []
+    for each in range(12):
+      parent_measurements = measurementObjectList[each]
+      measurementUnitsTime = datetime.fromtimestamp(packetValues["time"]) + (each*timedelta(seconds=5))
+      measurementUnitsVert1 = uC.adc_conv(packetValues["vert1"][each])
+      measurementUnitsVert2 = uC.adc_conv(packetValues["vert2"][each])
+      measurementUnitsVertD = uC.adc_conv(packetValues["vertD"][each])
+      measurementUnitsCompassX = packetValues["compassX"][each]
+      measurementUnitsCompassY = packetValues["compassY"][each]
+      measurementUnitsCompassZ = packetValues["compassZ"][each]
+      measurementUnitsHoriz1 = uC.adc_conv(packetValues["horiz1"][each])
+      measurementUnitsHoriz2 = uC.adc_conv(packetValues["horiz2"][each])
+      measurementUnitsHorizD = uC.adc_conv(packetValues["horizD"][each])
+      measurementUnitsObject = models.MeasurementsUnits.objects.create(parent_measurements = parent_measurements, time = measurementUnitsTime, vert1 = measurementUnitsVert1, vert2 = measurementUnitsVert2, vertD = measurementUnitsVertD, horiz1 = measurementUnitsHoriz1, horiz2 = measurementUnitsHoriz2, horizD = measurementUnitsHorizD, compassX = measurementUnitsCompassX, compassY = measurementUnitsCompassY, compassZ = measurementUnitsCompassZ)
+      measurementUnitsObjectList.append(measurementUnitsObject)
+      print('Successfully created ' + str(each+1) + '/12 measurement units object(s).')
+    print('Successfully created ALL measurement units object(s).')
     
     #Build conductivity measurement objects
     conductivityMeasurementObjectList = []
