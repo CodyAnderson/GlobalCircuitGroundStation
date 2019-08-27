@@ -20,7 +20,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from . import structure
 from . import models
-from unitConversions import *
+from . import unitConversions as uC
 import super_secrets as secrets
 
 import datetime as dt
@@ -456,9 +456,9 @@ def postfuncV6(request):
     
     packetUnitsObject = models.PacketV6.objects.create(
                                                   parent_packet_v6 = packetObject,
-                                                  yikes_status = yikes_status_conv(packetValues["yikes_status"]),
-                                                  mcu_id = mcu_id_conv(packetValues["mcu_id"]),
-                                                  version = version_conv(packetValues["version"]),
+                                                  yikes_status = uC.yikes_status_conv(packetValues["yikes_status"]),
+                                                  mcu_id = uC.mcu_id_conv(packetValues["mcu_id"]),
+                                                  version = uC.version_conv(packetValues["version"]),
                                                   sequence_id = sequence_id_conv(packetValues["sequence_id"]),
                                                   time = datetime.fromtimestamp(packetValues["time"]),
                                                   latitude = packetValues["latitude"],
