@@ -72,7 +72,7 @@ def dashboardV6(request):
 
 
   
-  mostRecentPacketList = models.PacketV6.objects.order_by('-time').prefetch_related('measurements_set').prefetch_related('measurements_set__child_measurements_units').select_related('child_packet_v6_units').select_related('parent_transmission').select_related('parent_transmission__parent_request').select_related('parent_transmission')
+  mostRecentPacketList = models.PacketV6.objects.order_by('-time').prefetch_related('measurements_set').prefetch_related('measurements_set__child_measurements_units').prefetch_related('child_packet_v6_units').select_related('parent_transmission').select_related('parent_transmission__parent_request').select_related('parent_transmission')
   filteredMostRecentPacketList = mostRecentPacketList
   if(formFields['mcuID']['selected'] != 'ANY'):
     filteredMostRecentPacketList = mostRecentPacketList.filter(mcu_id=int(formFields['mcuID']['selected']))
