@@ -80,7 +80,7 @@ def dashboardV6(request):
     filteredMostRecentPacketList = mostRecentPacketList.filter(parent_transmission__imei=int(formFields['IMEI']['selected']))
   #filteredMostRecentPacketList = mostRecentPacketList.filter(parent_transmission__imei=imei_constraint)
   mostRecentPacket = filteredMostRecentPacketList[0]
-  mostRecentPacketUnits = mostRecentPacket.child_packet_v6_units
+  mostRecentPacketUnits = models.PacketV6Units.objects.filter(parent_packet_v6=mostRecentPacket)[0]#mostRecentPacket.child_packet_v6_units
   
   mostRecentIridiumTransmission = mostRecentPacket.parent_transmission
   
