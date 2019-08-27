@@ -87,7 +87,7 @@ def yikes_status_conv(sig):
     message = message + "GPS signal not locked, "
   if sig&0b1000000:
     message = message + "Conductivity polarity: +V1/-V2"
-  else
+  else:
     message = message + "Conductivity polarity: -V1/+V2"
   return message
   
@@ -95,58 +95,58 @@ def yikes_status_conv(sig):
 def ballast_status_conv(sig):
   if sig==0x00:
     return "Idle"
-  else if sig==0x01:
+  elif sig==0x01:
     return "Successfully dropped"
-  else if sig==0x02:
+  elif sig==0x02:
     return "Failed to address"
-  else if sig==0x03:
+  elif sig==0x03:
     return "Failed to arm"
-  else if sig==0x04:
+  elif sig==0x04:
     return "Failed to fire"
-  else if sig==0xAC:
+  elif sig==0xAC:
     return "Request acknowledged; Send confirmation"
-  else
+  else:
     return "UNDEFINED"
     
 #cutdown_status
 def cutdown_status_conv(sig):
   if sig==0x00:
     return "Idle"
-  else if sig==0x01:
+  elif sig==0x01:
     return "Successfully cut down"
-  else if sig==0x02:
+  elif sig==0x02:
     return "XBee communication in progress"
-  else if sig==0x03:
+  elif sig==0x03:
     return "PIC16 error"
-  else if sig==0x04:
+  elif sig==0x04:
     return "XBee communication failure"
-  else if sig==0x05:
+  elif sig==0x05:
     return "Failure message received from cutdown module"
-  else if sig==0xAC:
+  elif sig==0xAC:
     return "Request acknowledged; Send confirmation"
-  else
+  else:
     return "UNDEFINED"
     
 def mcu_id_conv(sig):
   if sig==1:
     return "CollinPop0"
-  else if sig==2:
+  elif sig==2:
     return "CollinPop1"
-  else if sig==3:
+  elif sig==3:
     return "CollinPop2"
-  else if sig==4:
+  elif sig==4:
     return "CodyPop0"
-  else
+  else:
     return "UNDEFINED"
     
 def version_conv(sig):
   if sig==6:
     return "Flight ready"
-  else
+  else:
     return "You'd better program that board with the flight code RIGHT NOW"
     
 def sequence_id_conv(sig):
   if sig%10:
     return "Normal packet"
-  else
+  else:
     return "Conductivity packet"
