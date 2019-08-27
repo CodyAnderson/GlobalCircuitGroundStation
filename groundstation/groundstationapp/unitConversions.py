@@ -86,9 +86,9 @@ def yikes_status_conv(sig):
   if sig&0b100000:
     message = message + "GPS signal not locked, "
   if sig&0b1000000:
-    message = message + "Conductivity polarity: -V1/+V2"
-  else
     message = message + "Conductivity polarity: +V1/-V2"
+  else
+    message = message + "Conductivity polarity: -V1/+V2"
   return message
   
 #ballast status
