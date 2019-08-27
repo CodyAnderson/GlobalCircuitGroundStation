@@ -233,9 +233,12 @@
       <table>
         <tr>
           <th>Signal</th>
-          <th>Min</th>
-          <th>Avg</th>
-          <th>Max</th>
+          <th>Raw Min</th>
+          <th>Raw Avg</th>
+          <th>Raw Max</th>
+          <th>Conv Min</th>
+          <th>Conv Avg</th>
+          <th>Conv Max</th>
         </tr>
         
         <tr>
@@ -243,18 +246,27 @@
           <td>{{ Measurements.Min.vert1__min }}</td>
           <td>{{ Measurements.Avg.vert1__avg }}</td>
           <td>{{ Measurements.Max.vert1__max }}</td>
+          <td>{{ MeasurementsUnits.Min.vert1__min }}</td>
+          <td>{{ MeasurementsUnits.Avg.vert1__avg }}</td>
+          <td>{{ MeasurementsUnits.Max.vert1__max }}</td>
         </tr>
         <tr>
           <td>vert2</td>
           <td>{{ Measurements.Min.vert2__min }}</td>
           <td>{{ Measurements.Avg.vert2__avg }}</td>
           <td>{{ Measurements.Max.vert2__max }}</td>
+          <td>{{ MeasurementsUnits.Min.vert2__min }}</td>
+          <td>{{ MeasurementsUnits.Avg.vert2__avg }}</td>
+          <td>{{ MeasurementsUnits.Max.vert2__max }}</td>
         </tr>
         <tr>
           <td>vertD</td>
           <td>{{ Measurements.Min.vertD__min }}</td>
           <td>{{ Measurements.Avg.vertD__avg }}</td>
           <td>{{ Measurements.Max.vertD__max }}</td>
+          <td>{{ MeasurementsUnits.Min.vertD__min }}</td>
+          <td>{{ MeasurementsUnits.Avg.vertD__avg }}</td>
+          <td>{{ MeasurementsUnits.Max.vertD__max }}</td>
         </tr>
         
         <tr>
@@ -268,12 +280,18 @@
           <td>{{ Measurements.Min.horiz2__min }}</td>
           <td>{{ Measurements.Avg.horiz2__avg }}</td>
           <td>{{ Measurements.Max.horiz2__max }}</td>
+          <td>{{ MeasurementsUnits.Min.horiz2__min }}</td>
+          <td>{{ MeasurementsUnits.Avg.horiz2__avg }}</td>
+          <td>{{ MeasurementsUnits.Max.horiz2__max }}</td>
         </tr>
         <tr>
           <td>horizD</td>
           <td>{{ Measurements.Min.horizD__min }}</td>
           <td>{{ Measurements.Avg.horizD__avg }}</td>
           <td>{{ Measurements.Max.horizD__max }}</td>
+          <td>{{ MeasurementsUnits.Min.horizD__min }}</td>
+          <td>{{ MeasurementsUnits.Avg.horizD__avg }}</td>
+          <td>{{ MeasurementsUnits.Max.horizD__max }}</td>
         </tr>
         
         <tr>
@@ -281,18 +299,27 @@
           <td>{{ Measurements.Min.compassX__min }}</td>
           <td>{{ Measurements.Avg.compassX__avg }}</td>
           <td>{{ Measurements.Max.compassX__max }}</td>
+          <td>{{ MeasurementsUnits.Min.compassX__min }}</td>
+          <td>{{ MeasurementsUnits.Avg.compassX__avg }}</td>
+          <td>{{ MeasurementsUnits.Max.compassX__max }}</td>
         </tr>
         <tr>
           <td>CompassY</td>
           <td>{{ Measurements.Min.compassY__min }}</td>
           <td>{{ Measurements.Avg.compassY__avg }}</td>
           <td>{{ Measurements.Max.compassY__max }}</td>
+          <td>{{ MeasurementsUnits.Min.compassY__min }}</td>
+          <td>{{ MeasurementsUnits.Avg.compassY__avg }}</td>
+          <td>{{ MeasurementsUnits.Max.compassY__max }}</td>
         </tr>
         <tr>
           <td>CompassZ</td>
           <td>{{ Measurements.Min.compassZ__min }}</td>
           <td>{{ Measurements.Avg.compassZ__avg }}</td>
           <td>{{ Measurements.Max.compassZ__max }}</td>
+          <td>{{ MeasurementsUnits.Min.compassZ__min }}</td>
+          <td>{{ MeasurementsUnits.Avg.compassZ__avg }}</td>
+          <td>{{ MeasurementsUnits.Max.compassZ__max }}</td>
         </tr>
       </table>
       
