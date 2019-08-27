@@ -67,17 +67,20 @@ def dashboardV6(request):
   
   formFields['IMEI'] = {}
   formFields['IMEI']['label'] = 'Selected Iridium IMEI'
-  formFields['IMEI']['options'] = ['300234065252710', '300434063219840', '300434063839690', '300434063766960', '300434063560100', '300434063184090', '300434063383330', '300434063185070', '300434063382350', '300234063778640', '888888888888888']
+  formFields['IMEI']['options'] = ['ANY', '300234065252710', '300434063219840', '300434063839690', '300434063766960', '300434063560100', '300434063184090', '300434063383330', '300434063185070', '300434063382350', '300234063778640', '888888888888888']
   formFields['IMEI']['selected'] = request.GET.get('IMEI', 'ANY')
 
 
   
-  mostRecentPacketList = models.PacketV6.objects.order_by('-time').prefetch_related('measurements_set').select_related('parent_transmission').select_related('parent_transmission__parent_request')
+  mostRecentPacketList = models.PacketV6.objects.order_by('-time').prefetch_related('measurements_set').prefetch_related('measurements_set__child_measurements_units').select_related('child_packet_v6_units').select_related('parent_transmission').select_related('parent_transmission__parent_request').select_related('parent_transmission')
   filteredMostRecentPacketList = mostRecentPacketList
   if(formFields['mcuID']['selected'] != 'ANY'):
     filteredMostRecentPacketList = mostRecentPacketList.filter(mcu_id=int(formFields['mcuID']['selected']))
+  if(formFields['IMEI']['selected'] != 'ANY'):
+    filteredMostRecentPacketList = mostRecentPacketList.filter(parent_transmission__imei=int(formFields['IMEI']['selected']))
   #filteredMostRecentPacketList = mostRecentPacketList.filter(parent_transmission__imei=imei_constraint)
   mostRecentPacket = filteredMostRecentPacketList[0]
+  mostRecentPacketUnits = mostRecentPacket.child_packet_v6_units
   
   mostRecentIridiumTransmission = mostRecentPacket.parent_transmission
   
@@ -96,16 +99,35 @@ def dashboardV6(request):
                                                                    Max('compassX'),Max('compassY'),Max('compassZ'),
                                                                    Max('horiz1'),Max('horiz2'),Max('horizD')
                                                                    )
+  mostRecentMeasurementsUnitsList = [x.child_measurements_units for x in mostRecentPacket.measurements_set]
+  mostRecentMeasurementsUnitsMin = mostRecentMeasurementsList.aggregate(Min('vert1'),Min('vert2'),Min('vertD'),
+                                                                        Min('compassX'),Min('compassY'),Min('compassZ'),
+                                                                        Min('horiz1'),Min('horiz2'),Min('horizD')
+                                                                        )
+  mostRecentMeasurementsUnitsAvg = mostRecentMeasurementsList.aggregate(Avg('vert1'),Avg('vert2'),Avg('vertD'),
+                                                                        Avg('compassX'),Avg('compassY'),Avg('compassZ'),
+                                                                        Avg('horiz1'),Avg('horiz2'),Avg('horizD')
+                                                                        )
+  mostRecentMeasurementsUnitsMax = mostRecentMeasurementsList.aggregate(Max('vert1'),Max('vert2'),Max('vertD'),
+                                                                        Max('compassX'),Max('compassY'),Max('compassZ'),
+                                                                        Max('horiz1'),Max('horiz2'),Max('horizD')
+                                                                        )
 
   context={
            'FormFields': formFields,
            'Request': mostRecentRequest,
            'Transmission': mostRecentIridiumTransmission,
            'Packet': mostRecentPacket,
+           'PacketUnits': mostRecentPacketUnits,
            'Measurements': {
                             'Min': mostRecentMeasurementsMin,
                             'Avg': mostRecentMeasurementsAvg,
                             'Max': mostRecentMeasurementsMax
+                            }
+           'MeasurementsUnits': {
+                            'Min': mostRecentMeasurementsUnitsMin,
+                            'Avg': mostRecentMeasurementsUnitsAvg,
+                            'Max': mostRecentMeasurementsUnitsMax
                             }
            }
   
