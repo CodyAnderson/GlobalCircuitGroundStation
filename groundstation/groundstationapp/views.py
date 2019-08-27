@@ -103,7 +103,7 @@ def dashboardV6(request):
                                                                    Max('compassX'),Max('compassY'),Max('compassZ'),
                                                                    Max('horiz1'),Max('horiz2'),Max('horizD')
                                                                    )
-  mostRecentMeasurementsUnitsList = [x.child_measurements_units for x in mostRecentPacket.measurements_set]
+  mostRecentMeasurementsUnitsList = [x.child_measurements_units for x in mostRecentPacket.measurements_set.all()]
   mostRecentMeasurementsUnitsMin = mostRecentMeasurementsList.aggregate(Min('vert1'),Min('vert2'),Min('vertD'),
                                                                         Min('compassX'),Min('compassY'),Min('compassZ'),
                                                                         Min('horiz1'),Min('horiz2'),Min('horizD')
