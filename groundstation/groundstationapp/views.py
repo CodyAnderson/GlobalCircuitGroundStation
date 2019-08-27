@@ -454,7 +454,7 @@ def postfuncV6(request):
                                                   )
     print('Successfully created the packet object.')
     
-    packetUnitsObject = models.PacketV6.objects.create(
+    packetUnitsObject = models.PacketV6Units.objects.create(
                                                   parent_packet_v6 = packetObject,
                                                   yikes_status = uC.yikes_status_conv(packetValues["yikes_status"]),
                                                   mcu_id = uC.mcu_id_conv(packetValues["mcu_id"]),
