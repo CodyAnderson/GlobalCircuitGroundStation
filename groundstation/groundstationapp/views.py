@@ -123,7 +123,7 @@ def dashboardV6(request):
                             'Min': mostRecentMeasurementsMin,
                             'Avg': mostRecentMeasurementsAvg,
                             'Max': mostRecentMeasurementsMax
-                            }
+                            },
            'MeasurementsUnits': {
                             'Min': mostRecentMeasurementsUnitsMin,
                             'Avg': mostRecentMeasurementsUnitsAvg,
