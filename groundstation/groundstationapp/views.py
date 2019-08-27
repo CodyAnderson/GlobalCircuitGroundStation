@@ -106,18 +106,18 @@ def dashboardV6(request):
                                                                    Max('horiz1'),Max('horiz2'),Max('horizD')
                                                                    )
   mostRecentMeasurementsUnitsList = [x.child_measurements_units for x in mostRecentPacket.measurements_set.all()]
-  mostRecentMeasurementsUnitsMin = mostRecentMeasurementsList.aggregate(Min('vert1'),Min('vert2'),Min('vertD'),
-                                                                        Min('compassX'),Min('compassY'),Min('compassZ'),
-                                                                        Min('horiz1'),Min('horiz2'),Min('horizD')
-                                                                        )
-  mostRecentMeasurementsUnitsAvg = mostRecentMeasurementsList.aggregate(Avg('vert1'),Avg('vert2'),Avg('vertD'),
-                                                                        Avg('compassX'),Avg('compassY'),Avg('compassZ'),
-                                                                        Avg('horiz1'),Avg('horiz2'),Avg('horizD')
-                                                                        )
-  mostRecentMeasurementsUnitsMax = mostRecentMeasurementsList.aggregate(Max('vert1'),Max('vert2'),Max('vertD'),
-                                                                        Max('compassX'),Max('compassY'),Max('compassZ'),
-                                                                        Max('horiz1'),Max('horiz2'),Max('horizD')
-                                                                        )
+  mostRecentMeasurementsUnitsMin = mostRecentMeasurementsUnitsList.aggregate(Min('vert1'),Min('vert2'),Min('vertD'),
+                                                                             Min('compassX'),Min('compassY'),Min('compassZ'),
+                                                                             Min('horiz1'),Min('horiz2'),Min('horizD')
+                                                                             )
+  mostRecentMeasurementsUnitsAvg = mostRecentMeasurementsUnitsList.aggregate(Avg('vert1'),Avg('vert2'),Avg('vertD'),
+                                                                             Avg('compassX'),Avg('compassY'),Avg('compassZ'),
+                                                                             Avg('horiz1'),Avg('horiz2'),Avg('horizD')
+                                                                             )
+  mostRecentMeasurementsUnitsMax = mostRecentMeasurementsUnitsList.aggregate(Max('vert1'),Max('vert2'),Max('vertD'),
+                                                                             Max('compassX'),Max('compassY'),Max('compassZ'),
+                                                                             Max('horiz1'),Max('horiz2'),Max('horizD')
+                                                                             )
 
   context={
            'FormFields': formFields,
