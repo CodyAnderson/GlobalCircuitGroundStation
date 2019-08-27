@@ -169,6 +169,10 @@ class PacketV6Units(models.Model):
   parent_packet_v6 = models.OneToOneField(IridiumTransmission, related_name='child_packet_v6_units', on_delete=models.CASCADE, primary_key=True)
   
   yikes_status = models.TextField(null=True)
+  mcu_id = models.TextField(null=True)
+  
+  version = models.TextField(null=True)
+  sequence_id = models.TextField(null=True)
   
   time = models.DateTimeField()
   
@@ -179,8 +183,12 @@ class PacketV6Units(models.Model):
   ballast_status = models.TextField(null=True)
   cutdown_status = models.TextField(null=True)
   
+  conductivity_time = models.DateTimeField()
+  satellites_count = models.IntegerField()
   rockblock_signal_strength = models.FloatField()
   
+  commands_count = models.IntegerField()
+
   altimeter_temp = models.FloatField()
   altimeter_pressure = models.FloatField()
   

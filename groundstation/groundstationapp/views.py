@@ -426,6 +426,39 @@ def postfuncV6(request):
                                                   rockblock_temp = packetValues["rockblock_temp"]
                                                   )
     print('Successfully created the packet object.')
+    
+    packetUnitsObject = models.PacketV6.objects.create(
+                                                  parent_packet_v6 = packetObject,
+                                                  yikes_status = yikes_status_conv(packetValues["yikes_status"]),
+                                                  mcu_id = mcu_id_conv(packetValues["mcu_id"]),
+                                                  version = version_conv(packetValues["version"]),
+                                                  sequence_id = sequence_id_conv(packetValues["sequence_id"]),
+                                                  time = datetime.fromtimestamp(packetValues["time"]),
+                                                  latitude = packetValues["latitude"],
+                                                  longitude = packetValues["longitude"],
+                                                  altitude = altitude_conv(packetValues["altitude"]),
+                                                  ballast_status = ballast_status_conv(packetValues["ballast_status"]),
+                                                  cutdown_status = cutdown_status_conv(packetValues["cutdown_status"]),
+                                                  conductivity_time = datetime.fromtimestamp(packetValues["conductivity_time"]),
+                                                  satellites_count = packetValues["satellites_count"],
+                                                  rockblock_signal_strength = packetValues["rockblock_signal_strength"],
+                                                  commands_count = packetValues["commands_count"],
+                                                  altimeter_temp = altimeter_temp_conv_C(packetValues["altimeter_temp"]),
+                                                  altimeter_pressure = altimeter_pressure_conv(packetValues["altimeter_pressure"]),
+                                                  positive_7v_battery_voltage = positive_7v_battery_voltage_conv(packetValues["positive_7v_battery_voltage"]),
+                                                  negative_7v_battery_voltage = negative_7v_battery_voltage_conv(packetValues["negative_7v_battery_voltage"]),
+                                                  positive_3v6_battery_voltage = positive_3v6_battery_voltage_conv(packetValues["positive_3v6_battery_voltage"]),
+                                                  current_draw_7v_rail = current_draw_7v_rail_conv(packetValues["current_draw_7v_rail"]),
+                                                  current_draw_3v3_rail = current_draw_3v3_rail(packetValues["current_draw_3v3_rail"]),
+                                                  battery_temp = backplane_temp_conv_C(packetValues["battery_temp"]),
+                                                  mcu_temp = backplane_temp_conv_C(packetValues["mcu_temp"]),
+                                                  compass_temp = compass_temp_conv_C(packetValues["compass_temp"]),
+                                                  adc1_temp = adc_temp_conv_C(packetValues["adc1_temp"]),
+                                                  adc2_temp = adc_temp_conv_C(packetValues["adc2_temp"]),
+                                                  external_temp = harness_temp_conv_C(packetValues["external_temp"]),
+                                                  rockblock_temp = harness_temp_conv_C(packetValues["rockblock_temp"])
+                                                  )
+    print('Successfully created the packet units object.')
                                                   
     #Build measurement objects
     measurementObjectList = []
