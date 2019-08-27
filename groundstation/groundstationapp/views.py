@@ -83,7 +83,8 @@ def dashboardV6(request):
   mostRecentPacketUnits = None
   try:
     mostRecentPacketUnits = models.PacketV6Units.objects.filter(parent_packet_v6=mostRecentPacket)[0]#mostRecentPacket.child_packet_v6_units
-    
+  except: 
+    mostRecentPacketUnits = mostRecentPacket
   
   mostRecentIridiumTransmission = mostRecentPacket.parent_transmission
   
