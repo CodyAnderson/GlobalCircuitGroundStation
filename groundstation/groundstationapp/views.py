@@ -106,18 +106,18 @@ def dashboardV6(request):
                                                                    Max('horiz1'),Max('horiz2'),Max('horizD')
                                                                    )
   mostRecentMeasurementsUnitsList = [x.child_measurements_units for x in mostRecentPacket.measurements_set.all()]
-  mostRecentMeasurementsUnitsMin = mostRecentMeasurementsUnitsList.aggregate(Min('vert1'),Min('vert2'),Min('vertD'),
-                                                                             Min('compassX'),Min('compassY'),Min('compassZ'),
-                                                                             Min('horiz1'),Min('horiz2'),Min('horizD')
-                                                                             )
-  mostRecentMeasurementsUnitsAvg = mostRecentMeasurementsUnitsList.aggregate(Avg('vert1'),Avg('vert2'),Avg('vertD'),
-                                                                             Avg('compassX'),Avg('compassY'),Avg('compassZ'),
-                                                                             Avg('horiz1'),Avg('horiz2'),Avg('horizD')
-                                                                             )
-  mostRecentMeasurementsUnitsMax = mostRecentMeasurementsUnitsList.aggregate(Max('vert1'),Max('vert2'),Max('vertD'),
-                                                                             Max('compassX'),Max('compassY'),Max('compassZ'),
-                                                                             Max('horiz1'),Max('horiz2'),Max('horizD')
-                                                                             )
+  mostRecentMeasurementsUnitsMin = mostRecentMeasurementsList.aggregate(Min('child_measurements_units__vert1'),Min('child_measurements_units__vert2'),Min('child_measurements_units__vertD'),
+                                                                        Min('child_measurements_units__compassX'),Min('child_measurements_units__compassY'),Min('child_measurements_units__compassZ'),
+                                                                        Min('child_measurements_units__horiz1'),Min('child_measurements_units__horiz2'),Min('child_measurements_units__horizD')
+                                                                        )
+  mostRecentMeasurementsUnitsAvg = mostRecentMeasurementsList.aggregate(Avg('child_measurements_units__vert1'),Avg('child_measurements_units__vert2'),Avg('child_measurements_units__vertD'),
+                                                                        Avg('child_measurements_units__compassX'),Avg('child_measurements_units__compassY'),Avg('child_measurements_units__compassZ'),
+                                                                        Avg('child_measurements_units__horiz1'),Avg('child_measurements_units__horiz2'),Avg('child_measurements_units__horizD')
+                                                                        )
+  mostRecentMeasurementsUnitsMax = mostRecentMeasurementsList.aggregate(Max('child_measurements_units__vert1'),Max('child_measurements_units__vert2'),Max('child_measurements_units__vertD'),
+                                                                        Max('child_measurements_units__compassX'),Max('child_measurements_units__compassY'),Max('child_measurements_units__compassZ'),
+                                                                        Max('child_measurements_units__horiz1'),Max('child_measurements_units__horiz2'),Max('child_measurements_units__horizD')
+                                                                        )
 
   context={
            'FormFields': formFields,
