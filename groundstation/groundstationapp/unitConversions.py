@@ -1,6 +1,6 @@
 #vert1,2,D , horiz1,2,D (V)
 def adc_conv(sig):
-  return sig*3.3/1023.0
+  return (sig*125.0)/1000000.0
 
 #altimeter_temp (°C)
 def altimeter_temp_conv_C(sig):
