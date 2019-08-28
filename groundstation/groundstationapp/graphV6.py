@@ -12,23 +12,6 @@ import datetime as dt
 from datetime import datetime
 from datetime import timedelta
 
-signalFunctions = {
-  'conductivity': conductivity,
-  'horizontal'  : horizontal,
-  'vertical'     : vertical,
-  'compass'    : compass,
-  'cep'      : cep,
-  'gps'      : gps,
-  'gpsAltitude' : gpsAltitude,
-  'iridium'      : iridium,
-  'termStatus': termStatus,
-  'supervision': supervision,
-  'supervisionPressure': supervisionPressure,
-  'supervisionTemp': supervisionTemp,
-  }
-
-
-
 def graphV6(request):
   data = []
   onlyWantedData = []
