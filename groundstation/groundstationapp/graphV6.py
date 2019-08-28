@@ -50,4 +50,4 @@ def graphV6(request):
   #if request.GET.get('minTime',None):
   # context['minTime'] = request.GET.get('minTime',None)
 
-  return render(request, 'groundstation/newGraph.html', context)
+  return render(request, 'groundstation/graphV6.html', context)
