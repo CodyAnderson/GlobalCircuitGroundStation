@@ -18,6 +18,7 @@ from django.contrib import admin
 
 from groundstationapp.views import homepage, gps, postfunc, horizontal, vertical, conductivity, submitfunc, dumpfunc, scrapefunc, utf8js, theBest, greyBalloon, redBalloon, greyBalloonClicked, redBalloonClicked, dashboard, dashboardV6
 from groundstationapp.newGraph import newGraph, googleMap, badGoogleMap
+from groundstationapp.graphV6 import graphV6
 
 urlpatterns = [
     url(r'^$', homepage, name='homepage'),
@@ -28,7 +29,7 @@ urlpatterns = [
 	#url(r'^compass/$', compass, name='compass'),
 	url(r'^conductivity/$', conductivity, name='conductivity'),
 	url(r'^newgraph/$', newGraph, name='newGraph'),
-    url(r'^post/$', postfunc, name='postfunc'),
+  url(r'^post/$', postfunc, name='postfunc'),
 	url(r'^submit/$', submitfunc, name='submitfunc'),
 	url(r'^submit/utf8\.js$', utf8js, name='utf8js'),
 	url(r'^dump.hex$', dumpfunc, name='dumpfunc'),
@@ -43,4 +44,5 @@ urlpatterns = [
 	url(r'^RedBalloonClicked.png$', redBalloonClicked, name='redBalloonClicked'),
 	url(r'^dashboard/$', dashboard, name='dashboard'),
 	url(r'^dashboardV6/$', dashboardV6, name='dashboardV6'),
+	url(r'^graphV6/$', graphV6, name='graphV6'),
 ]
