@@ -114,9 +114,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
-DATETIME_FORMAT = 'N j, Y, H:i:s.u'
+DATETIME_FORMAT = 'N j, Y, H:i:s T'
 DATE_FORMAT = 'N j, Y'
-TIME_FORMAT = 'H:i:s.u'
+TIME_FORMAT = 'H:i:s T'
 
 LANGUAGE_CODE = 'en-us'
 

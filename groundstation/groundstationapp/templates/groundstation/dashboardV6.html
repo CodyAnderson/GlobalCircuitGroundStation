@@ -84,7 +84,7 @@
         </tr>
         <tr>
           <td>Packet Time</td>
-          <td>{{ Packet.time }}</td>
+          <td>{{ Packet.time|date:"U" }}</td>
           <td>{{ PacketUnits.time }}</td>
           <td></td>
         </tr>
@@ -120,7 +120,7 @@
         </tr>
         <tr>
           <td>Conductivity Time</td>
-          <td>{{ Packet.conductivity_time }}</td>
+          <td>{{ Packet.conductivity_time|date:"U" }}</td>
           <td>{{ PacketUnits.conductivity_time }}</td>
           <td></td>
         </tr>
