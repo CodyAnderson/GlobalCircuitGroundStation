@@ -25,12 +25,14 @@
       <form>
         Window begin: <br>
         <input type="radio" name="windowStartRelative" value="true"{% if filterOptions.windowStartRelative == "true" %} {{ "checked" }} {% endif %}>Relative<br>
-        <input type="number" id="windowStartYearsAgo" name="windowStartYearsAgo" min="0" max="2019"> Years, 
-        <input type="number" id="windowStartWeeksAgo" name="windowStartWeeksAgo" min="0" max="52"> Weeks, 
-        <input type="number" id="windowStartDaysAgo" name="windowStartDaysAgo" min="0" max="366"> Days, 
-        <input type="number" id="windowStartHoursAgo" name="windowStartHoursAgo" min="0" max="24"> Hours, 
-        <input type="number" id="windowStartMinutesAgo" name="windowStartMinutesAgo" min="0" max="60"> Minutes, and
-        <input type="number" id="windowStartSecondsAgo" name="windowStartSecondsAgo" min="0" max="60"> Seconds ago.
+          <div style="margin-left: 40px;">
+            <input type="number" id="windowStartYearsAgo" name="windowStartYearsAgo" min="0" max="2019"> Years, 
+            <input type="number" id="windowStartWeeksAgo" name="windowStartWeeksAgo" min="0" max="52"> Weeks, 
+            <input type="number" id="windowStartDaysAgo" name="windowStartDaysAgo" min="0" max="366"> Days, 
+            <input type="number" id="windowStartHoursAgo" name="windowStartHoursAgo" min="0" max="24"> Hours, 
+            <input type="number" id="windowStartMinutesAgo" name="windowStartMinutesAgo" min="0" max="60"> Minutes, and
+            <input type="number" id="windowStartSecondsAgo" name="windowStartSecondsAgo" min="0" max="60"> Seconds ago.
+          </div>
         <br>
         <input type="radio" name="windowStartRelative" value="false"{% if filterOptions.windowStartRelative == "false" %} {{ "checked" }} {% endif %}>Fixed<br>
 			  <input type="submit" value="Apply Filters">
