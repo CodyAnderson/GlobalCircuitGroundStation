@@ -48,7 +48,7 @@ def graphV6(request):
   data_source = SimpleDataSource(data=dataList)
   
   chartOptions['title'] = chartTitle
-  #chartOptions['tooltip'] = {'isHtml': 'true'}
+  chartOptions['tooltip'] = {'isHtml': True}
   chartOptions['hAxis'] = {'format': 'MMM. dd, yyyy, HH:mm:ss'}
   
   chart = LineChart(data_source, options=chartOptions) # Creating a line chart
