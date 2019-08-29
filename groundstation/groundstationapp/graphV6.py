@@ -58,11 +58,13 @@ def graphV6(request):
   
   
   
-  
   context = {
     'chart': chart,
     'title': chartTitle,
     'description': chartDescription,
+    'hours': [str(x).zfill(2) for x in range(24)],
+    'minutes': [str(x).zfill(2) for x in range(60)],
+    'seconds': [str(x).zfill(2) for x in range(60)]
     }
   #if request.GET.get('maxTime',None):
   # context['maxTime'] = request.GET.get('maxTime',None)

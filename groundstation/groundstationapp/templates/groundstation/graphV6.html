@@ -27,7 +27,6 @@
         <input type="radio" name="windowStartRelative" value="true"{% if filterOptions.windowStartRelative == "true" %} {{ "checked" }} {% endif %}>Relative<br>
           <div style="margin-left: 40px;">
             <input id="windowStartYearsAgo" name="windowStartYearsAgo"> Years, 
-            <input id="windowStartWeeksAgo" name="windowStartWeeksAgo"> Weeks, 
             <input id="windowStartDaysAgo" name="windowStartDaysAgo"> Days, 
             <input id="windowStartHoursAgo" name="windowStartHoursAgo"> Hours, 
             <input id="windowStartMinutesAgo" name="windowStartMinutesAgo"> Minutes, and
@@ -36,12 +35,18 @@
         <br>
         <input type="radio" name="windowStartRelative" value="false"{% if filterOptions.windowStartRelative == "false" %} {{ "checked" }} {% endif %}>Fixed<br>
           <div style="margin-left: 40px;">
-            Start at: <input id="windowStartAtYear" name="windowStartAtYear">Year
-            <input id="windowStartAtMonth" name="windowStartAtMonth">Month
-            <input id="windowStartAtDay" name="windowStartAtDay">Day
-            <input id="windowStartAtHour" name="windowStartAtHour">Hour
+            Start at: 
+            <input id="StartAtDate" name="windowStartAtDate">
+            <select id="windowStartAtHour" name="windowStartAtHour">
+              {% for option in hours %}<option value="{{ option }}"{% if filterOptions.windowStartAtHour == option %} selected{% endif %}>{{ option }}</option>
+{% endfor %}
+            </select>
             <input id="windowStartAtMinute" name="windowStartAtMinute">Minute
+              {% for option in minutes %}<option value="{{ option }}"{% if filterOptions.windowStartAtMinute == option %} selected{% endif %}>{{ option }}</option>
+{% endfor %}
             <input id="windowStartAtSecond" name="windowStartAtSecond">Second
+              {% for option in seconds %}<option value="{{ option }}"{% if filterOptions.windowStartAtSecond == option %} selected{% endif %}>{{ option }}</option>
+{% endfor %}
           </div>
           <input type="text" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]" id="24h"/>
           <input type="text" pattern="([01]?[0-9]{1}|2[0-3]{1}):[0-5]{1}[0-9]{1}" id="24h"/>

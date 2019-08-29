@@ -10,8 +10,8 @@
       {% for name, value in FormFields.items %}
       {{ value.label }}: 
       <select name="{{ name }}">
-        {% for option in value.options %}<option value="{{ option }}"{% if value.selected == option %} selected{% endif %}>{{ option }}</option>{% endfor %}
-      </select><br>
+        {% for option in value.options %}<option value="{{ option }}"{% if value.selected == option %} selected{% endif %}>{{ option }}</option>
+{% endfor %}        </select><br>
       {% endfor %}
       <input type="submit" value="Apply Filters">
     </form>
