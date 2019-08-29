@@ -26,15 +26,23 @@
         Window begin: <br>
         <input type="radio" name="windowStartRelative" value="true"{% if filterOptions.windowStartRelative == "true" %} {{ "checked" }} {% endif %}>Relative<br>
           <div style="margin-left: 40px;">
-            <input type="number" id="windowStartYearsAgo" name="windowStartYearsAgo" min="0" max="2019"> Years, 
-            <input type="number" id="windowStartWeeksAgo" name="windowStartWeeksAgo" min="0" max="52"> Weeks, 
-            <input type="number" id="windowStartDaysAgo" name="windowStartDaysAgo" min="0" max="366"> Days, 
-            <input type="number" id="windowStartHoursAgo" name="windowStartHoursAgo" min="0" max="24"> Hours, 
-            <input type="number" id="windowStartMinutesAgo" name="windowStartMinutesAgo" min="0" max="60"> Minutes, and
-            <input type="number" id="windowStartSecondsAgo" name="windowStartSecondsAgo" min="0" max="60"> Seconds ago.
+            <input type="number" id="windowStartYearsAgo" name="windowStartYearsAgo"> Years, 
+            <input type="number" id="windowStartWeeksAgo" name="windowStartWeeksAgo"> Weeks, 
+            <input type="number" id="windowStartDaysAgo" name="windowStartDaysAgo"> Days, 
+            <input type="number" id="windowStartHoursAgo" name="windowStartHoursAgo"> Hours, 
+            <input type="number" id="windowStartMinutesAgo" name="windowStartMinutesAgo"> Minutes, and
+            <input type="number" id="windowStartSecondsAgo" name="windowStartSecondsAgo"> Seconds ago.
           </div>
         <br>
         <input type="radio" name="windowStartRelative" value="false"{% if filterOptions.windowStartRelative == "false" %} {{ "checked" }} {% endif %}>Fixed<br>
+          <div style="margin-left: 40px;">
+            Start at: <input type="number" id="windowStartAtYear" name="windowStartAtYear">Year
+            <input type="number" id="windowStartAtMonth" name="windowStartAtMonth">Month
+            <input type="number" id="windowStartAtDay" name="windowStartAtDay">Day
+            <input type="number" id="windowStartAtHour" name="windowStartAtHour">Hour
+            <input type="number" id="windowStartAtMinute" name="windowStartAtMinute">Minute
+            <input type="number" id="windowStartAtSecond" name="windowStartAtSecond">Second
+          </div>
 			  <input type="submit" value="Apply Filters">
       </form>
     <div>
