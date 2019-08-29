@@ -36,7 +36,7 @@
         <input type="radio" name="windowStartRelative" value="false"{% if filterOptions.windowStartRelative == "false" %} {{ "checked" }} {% endif %}>Fixed<br>
           <div style="margin-left: 40px;">
             Start at: 
-            <input id="StartAtDate" name="windowStartAtDate">
+            <input type="date" id="StartAtDate" name="windowStartAtDate">
             <select id="windowStartAtHour" name="windowStartAtHour">
               {% for option in hours %}<option value="{{ option }}"{% if filterOptions.windowStartAtHour == option %} selected{% endif %}>{{ option }}</option>
 {% endfor %}</select>
