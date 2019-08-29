@@ -40,15 +40,13 @@
             <select id="windowStartAtHour" name="windowStartAtHour">
               {% for option in hours %}<option value="{{ option }}"{% if filterOptions.windowStartAtHour == option %} selected{% endif %}>{{ option }}</option>
 {% endfor %}</select>
-            <select id="windowStartAtMinute" name="windowStartAtMinute">Minute
+            :<select id="windowStartAtMinute" name="windowStartAtMinute">
               {% for option in minutes %}<option value="{{ option }}"{% if filterOptions.windowStartAtMinute == option %} selected{% endif %}>{{ option }}</option>
 {% endfor %}</select>
-            <select id="windowStartAtSecond" name="windowStartAtSecond">Second
+            :<select id="windowStartAtSecond" name="windowStartAtSecond">
               {% for option in seconds %}<option value="{{ option }}"{% if filterOptions.windowStartAtSecond == option %} selected{% endif %}>{{ option }}</option>
 {% endfor %}</select>
           </div>
-          <input type="text" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]" id="24h"/>
-          <input type="text" pattern="([01]?[0-9]{1}|2[0-3]{1}):[0-5]{1}[0-9]{1}" id="24h"/>
 			  <input type="submit" value="Apply Filters">
       </form>
     <div>
