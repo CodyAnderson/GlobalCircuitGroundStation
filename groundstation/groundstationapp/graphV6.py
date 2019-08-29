@@ -33,15 +33,15 @@ def graphV6(request):
   
   uncutData = models.PacketV6Units.objects.filter(time__gte=datetime(2019, 8, 29)).all()
   
-  # dataHeader = [
-			# [{'type': 'datetime', 'label': 'Time'}, 'Volts +7V', {'type': 'string', 'role':'tooltip'}, 'Volts -7V', {'type': 'string', 'role':'tooltip'}, 'Volts +3V6', {'type': 'string', 'role':'tooltip'}]	 # create a list to hold the column names and data for the axis names
-		# ]
-  # data = [[sJDS(x.time), x.positive_7v_battery_voltage, x.time.strftime("%b. %d, %Y, %H:%M:%S<br>" + "Volts +7V" + ": "+str(x.positive_7v_battery_voltage)), x.negative_7v_battery_voltage, x.time.strftime("%b. %d, %Y, %H:%M:%S<br>" + "Volts -7V" + ": "+str(x.negative_7v_battery_voltage)), x.positive_3v6_battery_voltage, x.time.strftime("%b. %d, %Y, %H:%M:%S<br>" + "Volts +3V6" + ": "+str(x.positive_3v6_battery_voltage))] for x in uncutData]
-
   dataHeader = [
-			[{'type': 'datetime', 'label': 'Time'}, 'Volts +7V', 'Volts -7V', 'Volts +3V6']	 # create a list to hold the column names and data for the axis names
+			[{'type': 'datetime', 'label': 'Time'}, 'Volts +7V', {'type': 'string', 'role':'tooltip'}, 'Volts -7V', {'type': 'string', 'role':'tooltip'}, 'Volts +3V6', {'type': 'string', 'role':'tooltip'}]	 # create a list to hold the column names and data for the axis names
 		]
-  data = [[sJDS(x.time), x.positive_7v_battery_voltage, x.negative_7v_battery_voltage, x.positive_3v6_battery_voltage] for x in uncutData]
+  data = [[sJDS(x.time), x.positive_7v_battery_voltage, x.time.strftime("%b. %d, %Y, %H:%M:%S<br>" + "Volts +7V" + ": "+str(x.positive_7v_battery_voltage)), x.negative_7v_battery_voltage, x.time.strftime("%b. %d, %Y, %H:%M:%S<br>" + "Volts -7V" + ": "+str(x.negative_7v_battery_voltage)), x.positive_3v6_battery_voltage, x.time.strftime("%b. %d, %Y, %H:%M:%S<br>" + "Volts +3V6" + ": "+str(x.positive_3v6_battery_voltage))] for x in uncutData]
+
+  # dataHeader = [
+			# [{'type': 'datetime', 'label': 'Time'}, 'Volts +7V', 'Volts -7V', 'Volts +3V6']	 # create a list to hold the column names and data for the axis names
+		# ]
+  # data = [[sJDS(x.time), x.positive_7v_battery_voltage, x.negative_7v_battery_voltage, x.positive_3v6_battery_voltage] for x in uncutData]
   
   dataList = dataHeader + data
   
