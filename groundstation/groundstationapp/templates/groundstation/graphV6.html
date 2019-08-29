@@ -13,11 +13,15 @@
 			<th>{{ description }} </th>
 			<h2> </h2>
 			{{ chart.as_html|safe }}
+      <form>
+			  <input type="submit" value="Refresh">
+      </form>
 		</div>
-    <form>
-      
-			<input type="submit" value="Refresh">
-    </form>
+    <div style="float: left;">
+      <form>
+			  <input type="submit" value="Apply Filters">
+      </form>
+    <div>
 	</body>
 
 </html>
