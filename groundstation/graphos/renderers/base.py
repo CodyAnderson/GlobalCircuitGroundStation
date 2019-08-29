@@ -44,7 +44,7 @@ class BaseChart(object):
         return options
 
     def get_options_json(self):
-        return json.dumps(self.get_options(), cls=JSONEncoderForHTML)
+        return json.dumps(self.get_options())#, cls=JSONEncoderForHTML)
 
     def get_template(self):
         return 'graphos/as_html.html'
