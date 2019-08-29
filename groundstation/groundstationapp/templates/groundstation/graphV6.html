@@ -12,7 +12,7 @@
 			<h2> </h2>
 			<th>{{ description }} </th>
 			<h2> </h2>
-			{{ chart.as_html|safe }}
+			{% autoescape off %}{{ chart.as_html }}{% endautoescape %}
 		</div>
 	</body>
 
