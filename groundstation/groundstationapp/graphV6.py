@@ -31,7 +31,7 @@ def graphV6(request):
   
   
   
-  uncutData = models.PacketV6Units.objects.filter(time__gte=datetime(2019, 8, 28)).all()
+  uncutData = models.PacketV6Units.objects.filter(time__gte=datetime(2019, 8, 29)).all()
   
   # dataHeader = [
 			# [{'type': 'datetime', 'label': 'Time'}, 'Volts +7V', {'type': 'string', 'role':'tooltip'}, 'Volts -7V', {'type': 'string', 'role':'tooltip'}, 'Volts +3V6', {'type': 'string', 'role':'tooltip'}]	 # create a list to hold the column names and data for the axis names
