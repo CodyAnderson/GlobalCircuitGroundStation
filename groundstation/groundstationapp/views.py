@@ -63,7 +63,7 @@ def dashboardV6(request):
   
   formFields['mcuID'] = {}
   formFields['mcuID']['label'] = 'Selected Packet MCU ID'
-  formFields['mcuID']['options'] = ['ANY','0','1','2','3','4','5','6','7','8','9','10']
+  formFields['mcuID']['options'] = ['ANY','1','2','3','4']
   formFields['mcuID']['selected'] = request.GET.get('mcuID', 'ANY')
   
   formFields['IMEI'] = {}

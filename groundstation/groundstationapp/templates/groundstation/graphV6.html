@@ -19,6 +19,8 @@
 		</div>
     <div style="float: left;">
       <form>
+        <input type="radio" name="windowStartRelative" value="true"{% if filterOptions.windowStartRelative == "true" %} {{ "checked" }} {% endif %}>Relative
+        <input type="radio" name="windowStartRelative" value="false"{% if filterOptions.windowStartRelative == "false" %} {{ "checked" }} {% endif %}>Fixed
 			  <input type="submit" value="Apply Filters">
       </form>
     <div>
