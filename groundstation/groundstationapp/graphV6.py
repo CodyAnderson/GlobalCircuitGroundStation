@@ -12,6 +12,8 @@ import datetime as dt
 from datetime import datetime
 from datetime import timedelta
 
+signalDefinitions()
+
 def sillyJavascriptDatetimeString(datetimeObject):
   tDTS = datetimeObject.strftime("Date(%Y, %m, %d, %H, %M, %S, %f)")
   tempDateString = tDTS[:11] + '{0:02d}'.format(int(tDTS[11:13])-1) + tDTS[13:31] + '{0:03d}'.format(int(tDTS[31:37])//1000) + tDTS[37:]
@@ -24,6 +26,21 @@ def graphV6(request):
   onlyWantedData = []
   
   chart = None
+  
+  
+  formFields = {}
+  
+  formFields['mcuID'] = {}
+  formFields['mcuID']['label'] = 'Selected Packet MCU ID'
+  formFields['mcuID']['options'] = ['ANY','1','2','3','4']
+  formFields['mcuID']['selected'] = request.GET.get('mcuID', 'ANY')
+  
+  formFields['IMEI'] = {}
+  formFields['IMEI']['label'] = 'Selected Iridium IMEI'
+  formFields['IMEI']['options'] = ['ANY', '300234065252710', '300434063219840', '300434063839690', '300434063766960', '300434063560100', '300434063184090', '300434063383330', '300434063185070', '300434063382350', '300234063778640', '888888888888888']
+  formFields['IMEI']['selected'] = request.GET.get('IMEI', 'ANY')
+  
+  
   
   chartTitle = "Battery Voltage"
   chartDescription = "Measured voltages of the batteries."
@@ -52,6 +69,7 @@ def graphV6(request):
   chartOptions['title'] = chartTitle
   chartOptions['tooltip'] = {'isHtml': True}
   chartOptions['hAxis'] = {'format': 'MMM. dd, yyyy, HH:mm:ss'}
+  chartOptions["pointSize"] = 5
   
   chart = LineChart(data_source, options=chartOptions) # Creating a line chart
   
@@ -64,7 +82,8 @@ def graphV6(request):
     'description': chartDescription,
     'hours': [str(x).zfill(2) for x in range(24)],
     'minutes': [str(x).zfill(2) for x in range(60)],
-    'seconds': [str(x).zfill(2) for x in range(60)]
+    'seconds': [str(x).zfill(2) for x in range(60)],
+    'FormFields': formFields
     }
   #if request.GET.get('maxTime',None):
   # context['maxTime'] = request.GET.get('maxTime',None)
