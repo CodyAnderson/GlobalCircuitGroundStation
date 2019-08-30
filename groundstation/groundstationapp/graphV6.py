@@ -12,7 +12,16 @@ import datetime as dt
 from datetime import datetime
 from datetime import timedelta
 
-signalDefinitions = {}
+signalDefinitions = {
+                     'measurements_vert1': {
+                                            'name': 'Vert1',
+                                            'units': '',
+                                            },
+                     'measurements_vert2': {
+                                            'name': 'Vert2',
+                                            'units': '',
+                                            }
+                    }
 
 def sillyJavascriptDatetimeString(datetimeObject):
   tDTS = datetimeObject.strftime("Date(%Y, %m, %d, %H, %M, %S, %f)")
