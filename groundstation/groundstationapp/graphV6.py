@@ -69,7 +69,7 @@ def graphV6(request):
   chartOptions['title'] = chartTitle
   chartOptions['tooltip'] = {'isHtml': True}
   chartOptions['hAxis'] = {'format': 'MMM. dd, yyyy, HH:mm:ss'}
-  chartOptions["pointSize"] = 5
+  chartOptions["pointSize"] = 3
   
   chart = LineChart(data_source, options=chartOptions) # Creating a line chart
   
