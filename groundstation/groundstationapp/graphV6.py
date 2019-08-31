@@ -565,7 +565,7 @@ def graphV6(request):
   chartOptions["pointSize"] = 3
   
   chartOptions["series"] = {0: {"targetAxisIndex": 0},1: {"targetAxisIndex": 1},2: {"targetAxisIndex": 0}}
-	chartOptions["vAxes"] = {0: {"title": 'Volts'}, 1: {"title": 'Volts'}}
+  chartOptions["vAxes"] = {0: {"title": 'Volts'}, 1: {"title": 'Volts'}}
   
   chart = LineChart(data_source, options=chartOptions) # Creating a line chart
   
