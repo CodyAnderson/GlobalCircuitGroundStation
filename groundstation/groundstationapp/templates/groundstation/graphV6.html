@@ -30,7 +30,7 @@
 {% endfor %}          </select><br>
         {% endfor %}<br>
         Window begin: <br>
-        <input type="radio" name="windowStartRelative" value="true"{% if filterOptions.windowStartRelative == "true" %} {{ "checked" }} {% endif %}>Relative<br>
+        <!--<input type="radio" name="windowStartRelative" value="true"{% if filterOptions.windowStartRelative == "true" %} {{ "checked" }} {% endif %}>Relative<br>
           <div style="margin-left: 40px;">
             <input id="windowStartYearsAgo" name="windowStartYearsAgo"> Years, 
             <input id="windowStartDaysAgo" name="windowStartDaysAgo"> Days, 
@@ -38,11 +38,11 @@
             <input id="windowStartMinutesAgo" name="windowStartMinutesAgo"> Minutes, and
             <input id="windowStartSecondsAgo" name="windowStartSecondsAgo"> Seconds ago.
           </div>
-        <br>
+        <br>-->
         <input type="radio" name="windowStartRelative" value="false"{% if filterOptions.windowStartRelative == "false" %} {{ "checked" }} {% endif %}>Fixed<br>
           <div style="margin-left: 40px;">
             Start at: 
-            <input type="date" id="StartAtDate" name="windowStartAtDate">
+            <input type="date" id="windowStartAtDate" name="windowStartAtDate">
             <select id="windowStartAtHour" name="windowStartAtHour">
               {% for option in hours %}<option value="{{ option }}"{% if filterOptions.windowStartAtHour == option %} selected{% endif %}>{{ option }}</option>
 {% endfor %}</select>
@@ -51,6 +51,19 @@
 {% endfor %}</select>
             :<select id="windowStartAtSecond" name="windowStartAtSecond">
               {% for option in seconds %}<option value="{{ option }}"{% if filterOptions.windowStartAtSecond == option %} selected{% endif %}>{{ option }}</option>
+{% endfor %}</select>
+          </div>
+          <div style="margin-left: 40px;">
+            End at: 
+            <input type="date" id="windowEndAtDate" name="windowEndAtDate">
+            <select id="windowEndAtHour" name="windowEndAtHour">
+              {% for option in hours %}<option value="{{ option }}"{% if filterOptions.windowEndAtHour == option %} selected{% endif %}>{{ option }}</option>
+{% endfor %}</select>
+            :<select id="windowEndAtMinute" name="windowEndAtMinute">
+              {% for option in minutes %}<option value="{{ option }}"{% if filterOptions.windowEndAtMinute == option %} selected{% endif %}>{{ option }}</option>
+{% endfor %}</select>
+            :<select id="windowEndAtSecond" name="windowEndAtSecond">
+              {% for option in seconds %}<option value="{{ option }}"{% if filterOptions.windowEndAtSecond == option %} selected{% endif %}>{{ option }}</option>
 {% endfor %}</select>
           </div>
 			  <input type="submit" value="Apply Filters">
