@@ -156,6 +156,16 @@ def graphV6(request):
   formFields['leftAxisSignal_A']['options'] = signalList
   formFields['leftAxisSignal_A']['selected'] = request.GET.get('leftAxisSignal_A', 'ANY')
   
+  formFields['leftAxisSignal_B'] = {}
+  formFields['leftAxisSignal_B']['label'] = 'Left Axis Signal B'
+  formFields['leftAxisSignal_B']['options'] = signalList
+  formFields['leftAxisSignal_B']['selected'] = request.GET.get('leftAxisSignal_B', 'ANY')
+  
+  formFields['leftAxisSignal_C'] = {}
+  formFields['leftAxisSignal_C']['label'] = 'Left Axis Signal C'
+  formFields['leftAxisSignal_C']['options'] = signalList
+  formFields['leftAxisSignal_C']['selected'] = request.GET.get('leftAxisSignal_C', 'ANY')
+  
   chartTitle = "Battery Voltage"
   chartDescription = "Measured voltages of the batteries."
   chartOptions = {'title': chartTitle}
