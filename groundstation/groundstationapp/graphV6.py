@@ -523,7 +523,7 @@ def graphV6(request):
     sigDef = signalDefinitions[signalId]
     dataHeader[0].append(sigDef['name'])
     dataHeader[0].append(toolTipColumn)
-    data.append('TestBoi')
+    dataHeader.append('TestBoi')
   dataArray = []
     
   #Loop through all the data
