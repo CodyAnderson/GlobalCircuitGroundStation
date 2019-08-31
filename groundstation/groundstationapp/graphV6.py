@@ -546,7 +546,7 @@ def graphV6(request):
     data.append(None)
     dataArray.append(data)
   for each in range(10):
-    dataArray[each] = each
+    dataArray[each][7] = each
   dataList = dataHeader + dataArray
       
   # dataHeader = [
