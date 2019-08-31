@@ -538,7 +538,7 @@ def graphV6(request):
       sigName = sigDef['name']
       sigUnits = sigDef['units']
       sigValue = signalValue(x,signalId)
-      data.append(sigVal)
+      data.append(sigValue)
       toolTipString = x.time.strftime("%b. %d, %Y, %H:%M:%S<br>" + sigName + ": "+str(SigValue))
       if(sigUnits):
         toolTipString = toolTipString + ' ' + sigUnits
