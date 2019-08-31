@@ -523,7 +523,6 @@ def graphV6(request):
     sigDef = signalDefinitions[signalId]
     dataHeader[0].append(sigDef['name'])
     dataHeader[0].append(toolTipColumn)
-  dataHeader[0].append('TestBoi')
   dataArray = []
     
   #Loop through all the data
@@ -543,10 +542,7 @@ def graphV6(request):
       if(sigUnits):
         toolTipString = toolTipString + ' ' + sigUnits
       data.append(toolTipString)
-    data.append(None)
     dataArray.append(data)
-  for each in range(10):
-    dataArray[each][7] = each
   dataList = dataHeader + dataArray
       
   # dataHeader = [
@@ -567,6 +563,9 @@ def graphV6(request):
   chartOptions['tooltip'] = {'isHtml': True}
   chartOptions['hAxis'] = {'format': 'MMM. dd, yyyy, HH:mm:ss'}
   chartOptions["pointSize"] = 3
+  
+  chartOptions["series"] = {0: {"targetAxisIndex": 0},1: {"targetAxisIndex": 1},2: {"targetAxisIndex": 0}}
+	chartOptions["vAxes"] = {0: {"title": 'Volts'}, 1: {"title": 'Volts'}}
   
   chart = LineChart(data_source, options=chartOptions) # Creating a line chart
   
