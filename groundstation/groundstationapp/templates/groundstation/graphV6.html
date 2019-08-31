@@ -27,7 +27,7 @@
         {{ value.label }}: 
         <select name="{{ name }}">
           {% for option in value.options %}<option value="{{ option }}"{% if value.selected == option %} selected{% endif %}>{{ option }}</option>
-{% endfor %}          </select><br>
+{% endfor %}          </select><br><br>
         {% endfor %}
         Window begin: <br>
         <input type="radio" name="windowStartRelative" value="true"{% if filterOptions.windowStartRelative == "true" %} {{ "checked" }} {% endif %}>Relative<br>
