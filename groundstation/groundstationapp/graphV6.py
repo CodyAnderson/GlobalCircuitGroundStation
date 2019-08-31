@@ -545,7 +545,8 @@ def graphV6(request):
       data.append(toolTipString)
     data.append(None)
     dataArray.append(data)
-  
+  for each in range(10):
+    dataArray[each] = each
   dataList = dataHeader + dataArray
       
   # dataHeader = [
