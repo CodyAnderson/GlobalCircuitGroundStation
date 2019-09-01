@@ -633,8 +633,8 @@ def graphV6(request):
         data = [sJDS(x.time)]
         #Loop through the chosen signals
         for signal in ['leftAxisSignal_A', 'leftAxisSignal_B', 'leftAxisSignal_C', 'rightAxisSignal_A', 'rightAxisSignal_B', 'rightAxisSignal_C']:
-        #Check if the current chosen signal is from the current table
-        signalId = formFields[signal]['selected']
+          #Check if the current chosen signal is from the current table
+          signalId = formFields[signal]['selected']
           if( signalId == 'ANY'):
             continue
           if signalId.split('___')[0] == tableName:
