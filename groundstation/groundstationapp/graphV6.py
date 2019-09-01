@@ -741,6 +741,8 @@ def graphV6(request):
   chartTitle = ', '.join(chartTitleList)
   chartDescription = "A comprised of  the signals " + ', '.join(chartDescriptionList) + '.'
   
+  leftAxisTitle = ', '.join(leftAxisTitleList)
+  rightAxisTitle = ', '.join(rightAxisTitleList)
   
   
   chartOptions["vAxes"] = {0: {"title": leftAxisTitle}, 1: {"title": rightAxisTitle}}
