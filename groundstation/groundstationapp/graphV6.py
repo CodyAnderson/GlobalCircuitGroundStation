@@ -592,7 +592,7 @@ def graphV6(request):
     filteredDataRows['ConductivityMeasurementsUnits'] = filteredDataRows['ConductivityMeasurementsUnits'].filter(parent_conductivity_measurements__parent_packet__parent_transmission__imei=int(formFields['IMEI']['selected']))
   
   for key in filteredDataRows.keys():
-    filteredDataRows[key] = filteredDataRows[key].filter(time__gte=windowStartTime).filter(time__lte=windowEndTime)
+    filteredDataRows[key] = filteredDataRows[key].filter(time__gte=windowStartTime).filter(time__lte=windowEndTime).order_by('-time')
   
   # uncutData = models.PacketV6Units.objects.filter(time__gte=datetime(2019, 8, 29)).all()
 
