@@ -633,27 +633,27 @@ def graphV6(request):
         data = [sJDS(x.time)]
         #Loop through the chosen signals
         for signal in ['leftAxisSignal_A', 'leftAxisSignal_B', 'leftAxisSignal_C', 'rightAxisSignal_A', 'rightAxisSignal_B', 'rightAxisSignal_C']:
-          #Check if the current chosen signal is from the current table
-          signalId = formFields[signal]['selected']
-            if( signalId == 'ANY'):
-              continue
-            if signalId.split('___')[0] == tableName:
-            #If so, append the data point to the current output data row
-              #Then append the tooltip to the current output data row
-              sigDef = signalDefinitions[signalId]
-              sigName = sigDef['name']
-              sigUnits = sigDef['units']
-              sigValue = signalValue(x,signalId)
-              data.append(sigValue)
-              toolTipString = x.time.strftime("%b. %d, %Y, %H:%M:%S<br>" + sigName + ": "+str(sigValue))
-              if(sigUnits):
-                toolTipString = toolTipString + ' ' + sigUnits
-              data.append(toolTipString)
-            else:
-            #If not, append None to the current output data row
-              #Then append None (as the tooltip) to the current output data row
-              data.append(None)
-              data.append(None)
+        #Check if the current chosen signal is from the current table
+        signalId = formFields[signal]['selected']
+          if( signalId == 'ANY'):
+            continue
+          if signalId.split('___')[0] == tableName:
+          #If so, append the data point to the current output data row
+            #Then append the tooltip to the current output data row
+            sigDef = signalDefinitions[signalId]
+            sigName = sigDef['name']
+            sigUnits = sigDef['units']
+            sigValue = signalValue(x,signalId)
+            data.append(sigValue)
+            toolTipString = x.time.strftime("%b. %d, %Y, %H:%M:%S<br>" + sigName + ": "+str(sigValue))
+            if(sigUnits):
+              toolTipString = toolTipString + ' ' + sigUnits
+            data.append(toolTipString)
+          else:
+          #If not, append None to the current output data row
+            #Then append None (as the tooltip) to the current output data row
+            data.append(None)
+            data.append(None)
         dataArray.append(data)
   dataList = dataHeader + dataArray
   
