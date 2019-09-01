@@ -613,7 +613,7 @@ def graphV6(request):
   #Loop through all the selected signals to create the dataHeader
   for signal in ['leftAxisSignal_A', 'leftAxisSignal_B', 'leftAxisSignal_C', 'rightAxisSignal_A', 'rightAxisSignal_B', 'rightAxisSignal_C']:
     signalId = formFields[signal]['selected']
-    if( signalId == 'ANY'):
+    if( signalId == 'NONE'):
       continue
     sigDef = signalDefinitions[signalId]
     dataHeader[0].append(sigDef['name'])
@@ -628,7 +628,7 @@ def graphV6(request):
     inThere = False
     for signal in ['leftAxisSignal_A', 'leftAxisSignal_B', 'leftAxisSignal_C', 'rightAxisSignal_A', 'rightAxisSignal_B', 'rightAxisSignal_C']:
       signalId = formFields[signal]['selected']
-      if( signalId == 'ANY'):
+      if( signalId == 'NONE'):
         continue
       if signalId.split('___')[0] == tableName:
         inThere = True
@@ -641,7 +641,7 @@ def graphV6(request):
         for signal in ['leftAxisSignal_A', 'leftAxisSignal_B', 'leftAxisSignal_C', 'rightAxisSignal_A', 'rightAxisSignal_B', 'rightAxisSignal_C']:
           #Check if the current chosen signal is from the current table
           signalId = formFields[signal]['selected']
-          if( signalId == 'ANY'):
+          if( signalId == 'NONE'):
             continue
           if signalId.split('___')[0] == tableName:
           #If so, append the data point to the current output data row
@@ -672,7 +672,7 @@ def graphV6(request):
     # #Loop through all the selected signals to create the data array
     # for signal in ['leftAxisSignal_A', 'leftAxisSignal_B', 'leftAxisSignal_C']:
       # signalId = formFields[signal]['selected']
-      # if( signalId == 'ANY'):
+      # if( signalId == 'NONE'):
         # continue
       # sigDef = signalDefinitions[signalId]
       # sigName = sigDef['name']
