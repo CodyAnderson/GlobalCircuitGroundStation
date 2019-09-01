@@ -458,7 +458,13 @@ def sillyJavascriptDatetimeString(datetimeObject):
 sJDS = sillyJavascriptDatetimeString
 
 def signalValue(dataRow, signalId):
-  if signalId == 'PacketV6Units___positive_7v_battery_voltage':
+  if signalId == 'IridiumTransmission___cep':
+    return dataRow.cep
+  elif signalId == 'PacketV6___rockblock_signal_strength':
+    return dataRow.rockblock_signal_strength
+  elif signalId == 'PacketV6Units___rockblock_signal_strength':
+    return dataRow.rockblock_signal_strength
+  elif signalId == 'PacketV6Units___positive_7v_battery_voltage':
     return dataRow.positive_7v_battery_voltage
   elif signalId == 'PacketV6Units___negative_7v_battery_voltage':
     return dataRow.negative_7v_battery_voltage
@@ -473,7 +479,6 @@ def graphV6(request):
   onlyWantedData = []
   
   chart = None
-  
   
   formFields = {}
   
@@ -502,13 +507,97 @@ def graphV6(request):
   formFields['leftAxisSignal_C']['options'] = signalList
   formFields['leftAxisSignal_C']['selected'] = request.GET.get('leftAxisSignal_C', 'ANY')
   
+  formFields['rightAxisSignal_A'] = {}
+  formFields['rightAxisSignal_A']['label'] = 'Right Axis Signal A'
+  formFields['rightAxisSignal_A']['options'] = signalList
+  formFields['rightAxisSignal_A']['selected'] = request.GET.get('rightAxisSignal_A', 'ANY')
+  
+  formFields['rightAxisSignal_B'] = {}
+  formFields['rightAxisSignal_B']['label'] = 'Right Axis Signal B'
+  formFields['rightAxisSignal_B']['options'] = signalList
+  formFields['rightAxisSignal_B']['selected'] = request.GET.get('rightAxisSignal_B', 'ANY')
+  
+  formFields['rightAxisSignal_C'] = {}
+  formFields['rightAxisSignal_C']['label'] = 'Right Axis Signal C'
+  formFields['rightAxisSignal_C']['options'] = signalList
+  formFields['rightAxisSignal_C']['selected'] = request.GET.get('rightAxisSignal_C', 'ANY')
+  
+  filterOptions['windowStartRelative'] = request.GET.get('windowStartRelative', 'false')
+  
+  filterOptions['windowStartAtDate'] = request.GET.get('windowStartAtDate', '2019-08-29')
+  filterOptions['windowStartAtHour'] = request.GET.get('windowStartAtHour', '00')
+  filterOptions['windowStartAtMinute'] = request.GET.get('windowStartAtMinute', '00')
+  filterOptions['windowStartAtSecond'] = request.GET.get('windowStartAtSecond', '00')
+  
+  windowStartTimeString = filterOptions['windowStartAtDate'] + ' '
+  windowStartTimeString = windowStartTimeString + filterOptions['windowStartAtHour'] + ':'
+  windowStartTimeString = windowStartTimeString + filterOptions['windowStartAtMinute'] + ':'
+  windowStartTimeString = windowStartTimeString + filterOptions['windowStartAtSecond']
+  
+  windowStartTime = datetime.strptime(windowStartTimeString, "%y-%m-%d %H:%M:%S")
+  
+  
+
+  filterOptions['windowEndAtDate'] = request.GET.get('windowEndAtDate', '2019-09-30')
+  filterOptions['windowEndAtHour'] = request.GET.get('windowEndAtHour', '23')
+  filterOptions['windowEndAtMinute'] = request.GET.get('windowEndAtMinute', '59')
+  filterOptions['windowEndAtSecond'] = request.GET.get('windowEndAtSecond', '59')
+  
+  windowEndTimeString = filterOptions['windowEndAtDate'] + ' '
+  windowEndTimeString = windowEndTimeString + filterOptions['windowEndAtHour'] + ':'
+  windowEndTimeString = windowEndTimeString + filterOptions['windowEndAtMinute'] + ':'
+  windowEndTimeString = windowEndTimeString + filterOptions['windowEndAtSecond']
+  
+  windowEndTime = datetime.strptime(windowEndTimeString, "%y-%m-%d %H:%M:%S")
+  
   chartTitle = "Battery Voltage"
   chartDescription = "Measured voltages of the batteries."
   chartOptions = {'title': chartTitle}
   
+  filteredDataRows = {}
+  
+  filteredDataRows['Request'] = models.Request.objects.all()
+  filteredDataRows['IridiumTransmission'] = models.IridiumTransmission.objects.all()
+  filteredDataRows['PacketV6'] = models.PacketV6.objects.all()
+  filteredDataRows['PacketV6Units'] = models.PacketV6Units.objects.all()
+  filteredDataRows['Measurements'] = models.Measurements.objects.all()
+  filteredDataRows['MeasurementsUnits'] = models.MeasurementsUnits.objects.all()
+  filteredDataRows['ConductivityMeasurements'] = models.ConductivityMeasurements.objects.all()
+  filteredDataRows['ConductivityMeasurementsUnits'] = models.ConductivityMeasurementsUnits.objects.all()
+  
+  if(formFields['mcuID']['selected'] != 'ANY'):
+    filteredDataRows['Request'] = filteredDataRows['Request'].filter(child_transmission__child_packet__mcu_id=int(formFields['mcuID']['selected']))
+    filteredDataRows['IridiumTransmission'] = filteredDataRows['IridiumTransmission'].filter(child_packet__mcu_id=int(formFields['mcuID']['selected']))
+    filteredDataRows['PacketV6'] = filteredDataRows['PacketV6'].filter(mcu_id=int(formFields['mcuID']['selected']))
+    filteredDataRows['PacketV6Units'] = filteredDataRows['PacketV6Units'].filter(parent_packet_v6__mcu_id=int(formFields['mcuID']['selected']))
+    filteredDataRows['Measurements'] = filteredDataRows['Measurements'].filter(parent_packet__mcu_id=int(formFields['mcuID']['selected']))
+    filteredDataRows['MeasurementsUnits'] = filteredDataRows['MeasurementsUnits'].filter(parent_measurements__parent_packet__mcu_id=int(formFields['mcuID']['selected']))
+    filteredDataRows['ConductivityMeasurements'] = filteredDataRows['ConductivityMeasurements'].filter(parent_packet__mcu_id=int(formFields['mcuID']['selected']))
+    filteredDataRows['ConductivityMeasurementsUnits'] = filteredDataRows['ConductivityMeasurementsUnits'].filter(parent_conductivity_measurements__parent_packet__mcu_id=int(formFields['mcuID']['selected']))
+    
+  if(formFields['IMEI']['selected'] != 'ANY'):
+    filteredDataRows['Request'] = filteredDataRows['Request'].filter(child_transmission__imei=int(formFields['IMEI']['selected']))
+    filteredDataRows['IridiumTransmission'] = filteredDataRows['IridiumTransmission'].filter(imei=int(formFields['IMEI']['selected']))
+    filteredDataRows['PacketV6'] = filteredDataRows['PacketV6'].filter(parent_transmission__imei=int(formFields['IMEI']['selected']))
+    filteredDataRows['PacketV6Units'] = filteredDataRows['PacketV6Units'].filter(parent_packet_v6__parent_transmission__imei=int(formFields['IMEI']['selected']))
+    filteredDataRows['Measurements'] = filteredDataRows['Measurements'].filter(parent_packet__parent_transmission__imei=int(formFields['IMEI']['selected']))
+    filteredDataRows['MeasurementsUnits'] = filteredDataRows['MeasurementsUnits'].filter(parent_measurements__parent_packet__parent_transmission__imei=int(formFields['IMEI']['selected']))
+    filteredDataRows['ConductivityMeasurements'] = filteredDataRows['ConductivityMeasurements'].filter(parent_packet__parent_transmission__imei=int(formFields['IMEI']['selected']))
+    filteredDataRows['ConductivityMeasurementsUnits'] = filteredDataRows['ConductivityMeasurementsUnits'].filter(parent_conductivity_measurements__parent_packet__parent_transmission__imei=int(formFields['IMEI']['selected']))
+  
+  for key in filteredDataRows.keys():
+    filteredDataRows[key] = filteredDataRows[key].filter(time__gte=windowStartTime).filter(time__lte=windowEndTime)
+  
+  # uncutData = models.PacketV6Units.objects.filter(time__gte=datetime(2019, 8, 29)).all()
+
+  # unfilteredData = models.PacketV6.objects.all()
+  # filteredData = unfilteredData
+  # if(formFields['mcuID']['selected'] != 'ANY'):
+    # filteredData = filteredData.filter(mcu_id=int(formFields['mcuID']['selected']))
+  # if(formFields['IMEI']['selected'] != 'ANY'):
+    # filteredData = filteredData.filter(parent_transmission__imei=int(formFields['IMEI']['selected']))
   
   
-  uncutData = models.PacketV6Units.objects.filter(time__gte=datetime(2019, 8, 29)).all()
   
   toolTipColumn = {'type': 'string', 'role':'tooltip', 'p':{'html': True}}
   
@@ -516,34 +605,80 @@ def graphV6(request):
   dataHeader = [[{'type': 'datetime', 'label': 'Time'}]]
   
   #Loop through all the selected signals to create the dataHeader
-  for signal in ['leftAxisSignal_A', 'leftAxisSignal_B', 'leftAxisSignal_C']:
+  for signal in ['leftAxisSignal_A', 'leftAxisSignal_B', 'leftAxisSignal_C', 'rightAxisSignal_A', 'rightAxisSignal_B', 'rightAxisSignal_C']:
     signalId = formFields[signal]['selected']
     if( signalId == 'ANY'):
       continue
     sigDef = signalDefinitions[signalId]
     dataHeader[0].append(sigDef['name'])
     dataHeader[0].append(toolTipColumn)
-  dataArray = []
     
-  #Loop through all the data
-  for x in uncutData:
-    data = [sJDS(x.time)]
-    #Loop through all the selected signals to create the data array
-    for signal in ['leftAxisSignal_A', 'leftAxisSignal_B', 'leftAxisSignal_C']:
+  dataArray = []
+  
+  #Loop through all of the POTENTIAL tables of data
+  for tableName in filteredDataRows.keys():
+    #See if any of the chosen signals come from that table
+      #If not, skip this one and look at the next one
+    inThere = False
+    for signal in ['leftAxisSignal_A', 'leftAxisSignal_B', 'leftAxisSignal_C', 'rightAxisSignal_A', 'rightAxisSignal_B', 'rightAxisSignal_C']:
       signalId = formFields[signal]['selected']
       if( signalId == 'ANY'):
         continue
-      sigDef = signalDefinitions[signalId]
-      sigName = sigDef['name']
-      sigUnits = sigDef['units']
-      sigValue = signalValue(x,signalId)
-      data.append(sigValue)
-      toolTipString = x.time.strftime("%b. %d, %Y, %H:%M:%S<br>" + sigName + ": "+str(sigValue))
-      if(sigUnits):
-        toolTipString = toolTipString + ' ' + sigUnits
-      data.append(toolTipString)
-    dataArray.append(data)
+      if signalId.split('___')[0] == tableName:
+        inThere = True
+    if(inThere):
+      #If so, loop through each data row from that table
+      for x in filteredDataRows[tableName]:
+        #For each data row, append the timestamp to the current output data row
+        data = [sJDS(x.time)]
+        #Loop through the chosen signals
+        for signal in ['leftAxisSignal_A', 'leftAxisSignal_B', 'leftAxisSignal_C', 'rightAxisSignal_A', 'rightAxisSignal_B', 'rightAxisSignal_C']:
+          #Check if the current chosen signal is from the current table
+          signalId = formFields[signal]['selected']
+            if( signalId == 'ANY'):
+              continue
+            if signalId.split('___')[0] == tableName:
+            #If so, append the data point to the current output data row
+              #Then append the tooltip to the current output data row
+              sigDef = signalDefinitions[signalId]
+              sigName = sigDef['name']
+              sigUnits = sigDef['units']
+              sigValue = signalValue(x,signalId)
+              data.append(sigValue)
+              toolTipString = x.time.strftime("%b. %d, %Y, %H:%M:%S<br>" + sigName + ": "+str(sigValue))
+              if(sigUnits):
+                toolTipString = toolTipString + ' ' + sigUnits
+              data.append(toolTipString)
+            else:
+            #If not, append None to the current output data row
+              #Then append None (as the tooltip) to the current output data row
+              data.append(None)
+              data.append(None)
+        dataArray.append(data)
   dataList = dataHeader + dataArray
+  
+  
+  
+    
+  # #Loop through all the data
+  # for x in uncutData:
+    # data = [sJDS(x.time)]
+    # #Loop through all the selected signals to create the data array
+    # for signal in ['leftAxisSignal_A', 'leftAxisSignal_B', 'leftAxisSignal_C']:
+      # signalId = formFields[signal]['selected']
+      # if( signalId == 'ANY'):
+        # continue
+      # sigDef = signalDefinitions[signalId]
+      # sigName = sigDef['name']
+      # sigUnits = sigDef['units']
+      # sigValue = signalValue(x,signalId)
+      # data.append(sigValue)
+      # toolTipString = x.time.strftime("%b. %d, %Y, %H:%M:%S<br>" + sigName + ": "+str(sigValue))
+      # if(sigUnits):
+        # toolTipString = toolTipString + ' ' + sigUnits
+      # data.append(toolTipString)
+    # dataArray.append(data)
+  # dataList = dataHeader + dataArray
       
   # dataHeader = [
 			# [{'type': 'datetime', 'label': 'Time'}, 'Volts +7V', toolTipColumn, 'Volts -7V', toolTipColumn, 'Volts +3V6', toolTipColumn]	 # create a list to hold the column names and data for the axis names
@@ -564,7 +699,7 @@ def graphV6(request):
   chartOptions['hAxis'] = {'format': 'MMM. dd, yyyy, HH:mm:ss'}
   chartOptions["pointSize"] = 3
   
-  chartOptions["series"] = {0: {"targetAxisIndex": 0},1: {"targetAxisIndex": 1},2: {"targetAxisIndex": 0}}
+  chartOptions["series"] = {0: {"targetAxisIndex": 0},1: {"targetAxisIndex": 0},2: {"targetAxisIndex": 0}}
   chartOptions["vAxes"] = {0: {"title": 'Volts'}, 1: {"title": 'Volts'}}
   
   chart = LineChart(data_source, options=chartOptions) # Creating a line chart
@@ -579,7 +714,8 @@ def graphV6(request):
     'hours': [str(x).zfill(2) for x in range(24)],
     'minutes': [str(x).zfill(2) for x in range(60)],
     'seconds': [str(x).zfill(2) for x in range(60)],
-    'FormFields': formFields
+    'FormFields': formFields,
+    'filterOptions' : filterOptions
     }
   #if request.GET.get('maxTime',None):
   # context['maxTime'] = request.GET.get('maxTime',None)
