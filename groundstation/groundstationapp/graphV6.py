@@ -714,7 +714,7 @@ def graphV6(request):
     chartDescriptionList.append(sigDef['name'] + " (" + sigDef['description'] + ") " )
   
   chartTitle = ', '.join(chartTitleList)
-  chartDescription = "A comprised of  the signals" + ', '.join(chartTitleList) + '.'
+  chartDescription = "A comprised of  the signals" + ', '.join(chartDescriptionList) + '.'
   
   dataArray = []
   
