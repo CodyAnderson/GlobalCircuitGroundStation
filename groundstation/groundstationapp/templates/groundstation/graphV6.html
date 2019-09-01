@@ -42,7 +42,7 @@
         <input type="radio" name="windowStartRelative" value="false"{% if filterOptions.windowStartRelative == "false" %} {{ "checked" }} {% endif %}>Fixed<br>
           <div style="margin-left: 40px;">
             Start at: 
-            <input type="date" id="windowStartAtDate" name="windowStartAtDate">
+            <input type="date" id="windowStartAtDate" name="windowStartAtDate" value="{{ filterOptions.windowStartAtDate }}">
             <select id="windowStartAtHour" name="windowStartAtHour">
               {% for option in hours %}<option value="{{ option }}"{% if filterOptions.windowStartAtHour == option %} selected{% endif %}>{{ option }}</option>
 {% endfor %}</select>
@@ -55,7 +55,7 @@
           </div>
           <div style="margin-left: 40px;">
             End at: 
-            <input type="date" id="windowEndAtDate" name="windowEndAtDate">
+            <input type="date" id="windowEndAtDate" name="windowEndAtDate" value="{{ filterOptions.windowEndAtDate }}">
             <select id="windowEndAtHour" name="windowEndAtHour">
               {% for option in hours %}<option value="{{ option }}"{% if filterOptions.windowEndAtHour == option %} selected{% endif %}>{{ option }}</option>
 {% endfor %}</select>
