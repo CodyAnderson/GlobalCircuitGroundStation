@@ -538,7 +538,7 @@ def graphV6(request):
   windowStartTimeString = windowStartTimeString + filterOptions['windowStartAtMinute'] + ':'
   windowStartTimeString = windowStartTimeString + filterOptions['windowStartAtSecond']
   
-  windowStartTime = datetime.strptime(windowStartTimeString, "%y-%m-%d %H:%M:%S")
+  windowStartTime = datetime.strptime(windowStartTimeString, "%Y-%m-%d %H:%M:%S")
   
   
 
@@ -554,7 +554,7 @@ def graphV6(request):
   windowEndTimeString = windowEndTimeString + filterOptions['windowEndAtMinute'] + ':'
   windowEndTimeString = windowEndTimeString + filterOptions['windowEndAtSecond']
   
-  windowEndTime = datetime.strptime(windowEndTimeString, "%y-%m-%d %H:%M:%S")
+  windowEndTime = datetime.strptime(windowEndTimeString, "%Y-%m-%d %H:%M:%S")
   
   chartTitle = "Battery Voltage"
   chartDescription = "Measured voltages of the batteries."
