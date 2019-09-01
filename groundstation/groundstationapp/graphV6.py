@@ -726,7 +726,7 @@ def graphV6(request):
     elif(signal.split('Axis')[0] == 'right'):
       rightAxisTitleList.append(signalAxisTitle)
       targetAxisIndex = 1
-    else
+    else:
       raise ValueError
     
     chartOptions["series"][seriesIndex] = {"targetAxisIndex": targetAxisIndex}
