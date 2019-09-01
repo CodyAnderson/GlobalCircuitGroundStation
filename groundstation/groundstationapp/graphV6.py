@@ -522,6 +522,8 @@ def graphV6(request):
   formFields['rightAxisSignal_C']['options'] = signalList
   formFields['rightAxisSignal_C']['selected'] = request.GET.get('rightAxisSignal_C', 'ANY')
   
+  filterOptions = {}
+  
   filterOptions['windowStartRelative'] = request.GET.get('windowStartRelative', 'false')
   
   filterOptions['windowStartAtDate'] = request.GET.get('windowStartAtDate', '2019-08-29')
