@@ -60,11 +60,11 @@ def adc_temp_conv_K(sig):
   
 #external_temp, rockblock_temp (°C)
 def harness_temp_conv_C(sig):
-  return ((sig*3.3/1023.0)-2.4)*100
+  return ((sig*3.3/1023.0)-2.7)*100
 
 #external_temp, rockblock_temp (°K)
 def harness_temp_conv_K(sig):
-  return (((sig*3.3/1023.0)-2.4)*100)+273.15
+  return (((sig*3.3/1023.0)-2.7)*100)+273.15
 
 #altitude (m)
 def altitude_conv(sig):

@@ -119,334 +119,417 @@ signalDefinitions = {
                     'Request___processing_duration'               :{
                                                                    'name' : 'Request Processing Duration',
                                                                    'units' : 's',
+                                                                   'description' : '',
                                                                    },
                     'Request___forwarded_for_address'             :{
-                                                                   'name' : '',
+                                                                   'name' : 'Request Forwarded For Address',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'Request___remote_address'                    :{
-                                                                   'name' : '',
+                                                                   'name' : 'Request Remote Address',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'Request___response_duration'                 :{
-                                                                   'name' : '',
+                                                                   'name' : 'Request Response Duration',
                                                                    'units' : 's',
+                                                                   'description' : '',
                                                                    },
                     'Request___response_status_code'              :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'IridiumTransmission___latitude'              :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'IridiumTransmission___longitude'             :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'IridiumTransmission___cep'                   :{
-                                                                   'name' : '',
-                                                                   'units' : '',
+                                                                   'name' : 'CEP',
+                                                                   'units' : 'km',
+                                                                   'description' : '',
                                                                    },
                     'IridiumTransmission___momsn'                 :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'IridiumTransmission___imei'                  :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'IridiumTransmission___device_type'           :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'IridiumTransmission___serial'                :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'IridiumTransmission___iridium_session_status':{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6___yikes_status'                     :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6___mcu_id'                           :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6___version'                          :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6___sequence_id'                      :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6___latitude'                         :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6___longitude'                        :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6___altitude'                         :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6___ballast_status'                   :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6___cutdown_status'                   :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6___conductivity_time'                :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6___satellites_count'                 :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6___rockblock_signal_strength'        :{
-                                                                   'name' : '',
+                                                                   'name' : 'RockBlock Signal Strength',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6___commands_count'                   :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6___altimeter_temp'                   :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6___altimeter_pressure'               :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6___positive_7v_battery_voltage'      :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6___negative_7v_battery_voltage'      :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6___positive_3v6_battery_voltage'     :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6___current_draw_7v_rail'             :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6___current_draw_3v3_rail'            :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6___battery_temp'                     :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6___mcu_temp'                         :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6___compass_temp'                     :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6___adc1_temp'                        :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6___adc2_temp'                        :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6___external_temp'                    :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6___rockblock_temp'                   :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6Units___latitude'                    :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6Units___longitude'                   :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6Units___altitude'                    :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6Units___conductivity_time'           :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6Units___satellites_count'            :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6Units___rockblock_signal_strength'   :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6Units___commands_count'              :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6Units___altimeter_temp'              :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6Units___altimeter_pressure'          :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6Units___positive_7v_battery_voltage' :{
                                                                    'name' : 'Volts +7V',
                                                                    'units' : 'V',
+                                                                   'description' : 'The measured voltage of the +7V battery.',
                                                                    },
                     'PacketV6Units___negative_7v_battery_voltage' :{
                                                                    'name' : 'Volts -7V',
                                                                    'units' : 'V',
+                                                                   'description' : 'The measured voltage of the -7V battery.',
                                                                    },
                     'PacketV6Units___positive_3v6_battery_voltage':{
                                                                    'name' : 'Volts +3V6',
                                                                    'units' : 'V',
+                                                                   'description' : 'The measured voltage of the +3V6 battery.',
                                                                    },
                     'PacketV6Units___current_draw_7v_rail'        :{
-                                                                   'name' : '',
-                                                                   'units' : '',
+                                                                   'name' : 'Current +7V',
+                                                                   'units' : 'mA',
+                                                                   'description' : 'The current draw on the +7V rail.',
                                                                    },
                     'PacketV6Units___current_draw_3v3_rail'       :{
-                                                                   'name' : '',
-                                                                   'units' : '',
+                                                                   'name' : 'Current +3V3',
+                                                                   'units' : 'mA',
+                                                                   'description' : 'The current draw on the +3V3 rail.',
                                                                    },
                     'PacketV6Units___battery_temp'                :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6Units___mcu_temp'                    :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6Units___compass_temp'                :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6Units___adc1_temp'                   :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6Units___adc2_temp'                   :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6Units___external_temp'               :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'PacketV6Units___rockblock_temp'              :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'Measurements___vert1'                        :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'Measurements___vert2'                        :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'Measurements___vertD'                        :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'Measurements___compassX'                     :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'Measurements___compassY'                     :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'Measurements___compassZ'                     :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'Measurements___horiz1'                       :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'Measurements___horiz2'                       :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'Measurements___horizD'                       :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'MeasurementsUnits___vert1'                   :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'MeasurementsUnits___vert2'                   :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'MeasurementsUnits___vertD'                   :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'MeasurementsUnits___compassX'                :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'MeasurementsUnits___compassY'                :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'MeasurementsUnits___compassZ'                :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'MeasurementsUnits___horiz1'                  :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'MeasurementsUnits___horiz2'                  :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'MeasurementsUnits___horizD'                  :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'ConductivityMeasurements___vert1'            :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'ConductivityMeasurements___vert2'            :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'ConductivityMeasurementsUnits___vert1'       :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     'ConductivityMeasurementsUnits___vert2'       :{
                                                                    'name' : '',
                                                                    'units' : '',
+                                                                   'description' : '',
                                                                    },
                     }
                     
@@ -470,6 +553,8 @@ def signalValue(dataRow, signalId):
     return dataRow.negative_7v_battery_voltage
   elif signalId == 'PacketV6Units___positive_3v6_battery_voltage':
     return dataRow.positive_3v6_battery_voltage
+  else:
+    return dataRow.getattr(signalId.split('___')[1])
   
   return None
   
@@ -479,6 +564,8 @@ def graphV6(request):
   onlyWantedData = []
   
   chart = None
+  
+  chartOptions = {}
   
   formFields = {}
   
@@ -556,9 +643,8 @@ def graphV6(request):
   
   windowEndTime = datetime.strptime(windowEndTimeString, "%Y-%m-%d %H:%M:%S")
   
-  chartTitle = "Battery Voltage"
-  chartDescription = "Measured voltages of the batteries."
-  chartOptions = {'title': chartTitle}
+  # chartTitle = "Battery Voltage"
+  # chartDescription = "Measured voltages of the batteries."
   
   filteredDataRows = {}
   
@@ -610,6 +696,11 @@ def graphV6(request):
   
   dataHeader = [[{'type': 'datetime', 'label': 'Time'}]]
   
+  chartTitle = ""
+  chartTitleList = []
+  chartDescription = ""
+  chartDescriptionList = []
+  
   #Loop through all the selected signals to create the dataHeader
   for signal in ['leftAxisSignal_A', 'leftAxisSignal_B', 'leftAxisSignal_C', 'rightAxisSignal_A', 'rightAxisSignal_B', 'rightAxisSignal_C']:
     signalId = formFields[signal]['selected']
@@ -619,6 +710,12 @@ def graphV6(request):
     dataHeader[0].append(sigDef['name'])
     dataHeader[0].append(toolTipColumn)
     
+    chartTitleList.append(sigDef['name']) 
+    chartDescriptionList.append(sigDef['name'] + " (" + sigDef['description'] + ") " )
+  
+  chartTitle = ', '.join(chartTitleList)
+  chartDescription = "A comprised of  the signals" + ', '.join(chartTitleList) + '.'
+  
   dataArray = []
   
   #Loop through all of the POTENTIAL tables of data
