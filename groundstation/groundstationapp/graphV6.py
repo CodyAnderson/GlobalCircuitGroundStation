@@ -527,6 +527,8 @@ def graphV6(request):
   filterOptions['windowStartRelative'] = request.GET.get('windowStartRelative', 'false')
   
   filterOptions['windowStartAtDate'] = request.GET.get('windowStartAtDate', '2019-08-29')
+  if filterOptions['windowStartAtDate'] == '':
+    filterOptions['windowStartAtDate'] = '2019-08-29'
   filterOptions['windowStartAtHour'] = request.GET.get('windowStartAtHour', '00')
   filterOptions['windowStartAtMinute'] = request.GET.get('windowStartAtMinute', '00')
   filterOptions['windowStartAtSecond'] = request.GET.get('windowStartAtSecond', '00')
@@ -541,6 +543,8 @@ def graphV6(request):
   
 
   filterOptions['windowEndAtDate'] = request.GET.get('windowEndAtDate', '2019-09-30')
+  if filterOptions['windowEndAtDate'] == '':
+    filterOptions['windowEndAtDate'] = '2019-09-30'
   filterOptions['windowEndAtHour'] = request.GET.get('windowEndAtHour', '23')
   filterOptions['windowEndAtMinute'] = request.GET.get('windowEndAtMinute', '59')
   filterOptions['windowEndAtSecond'] = request.GET.get('windowEndAtSecond', '59')
