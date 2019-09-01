@@ -701,12 +701,37 @@ def graphV6(request):
   chartDescription = ""
   chartDescriptionList = []
   
+  seriesIndex = 0
+  
+  chartOptions["series"] = {}
+  
+  leftAxisTitle = ""
+  leftAxisTitleList = []
+  rightAxisTitle = ""
+  rightAxisTitleList = []
+  
   #Loop through all the selected signals to create the dataHeader
   for signal in ['leftAxisSignal_A', 'leftAxisSignal_B', 'leftAxisSignal_C', 'rightAxisSignal_A', 'rightAxisSignal_B', 'rightAxisSignal_C']:
     signalId = formFields[signal]['selected']
     if( signalId == 'NONE'):
       continue
     sigDef = signalDefinitions[signalId]
+    
+    signalAxisTitle = sigDef['name'] + ' (' + sigDef['units'] + ') '
+    targetAxisIndex = 0
+    
+    if(signal.split('Axis')[0] == 'left'):
+      leftAxisTitleList.append(signalAxisTitle)
+      targetAxisIndex = 0
+    elif(signal.split('Axis')[0] == 'right'):
+      rightAxisTitleList.append(signalAxisTitle)
+      targetAxisIndex = 1
+    else
+      raise ValueError
+    
+    chartOptions["series"][seriesIndex] = {"targetAxisIndex": targetAxisIndex}
+    seriesIndex = seriesIndex + 1
+    
     dataHeader[0].append(sigDef['name'])
     dataHeader[0].append(toolTipColumn)
     
@@ -714,7 +739,11 @@ def graphV6(request):
     chartDescriptionList.append(sigDef['name'] + " (" + sigDef['description'] + ") " )
   
   chartTitle = ', '.join(chartTitleList)
-  chartDescription = "A comprised of  the signals" + ', '.join(chartDescriptionList) + '.'
+  chartDescription = "A comprised of  the signals " + ', '.join(chartDescriptionList) + '.'
+  
+  
+  
+  chartOptions["vAxes"] = {0: {"title": leftAxisTitle}, 1: {"title": rightAxisTitle}}
   
   dataArray = []
   
@@ -802,8 +831,8 @@ def graphV6(request):
   chartOptions['hAxis'] = {'format': 'MMM. dd, yyyy, HH:mm:ss'}
   chartOptions["pointSize"] = 3
   
-  chartOptions["series"] = {0: {"targetAxisIndex": 0},1: {"targetAxisIndex": 0},2: {"targetAxisIndex": 0}}
-  chartOptions["vAxes"] = {0: {"title": 'Volts'}, 1: {"title": 'Volts'}}
+  # chartOptions["series"] = {0: {"targetAxisIndex": 0},1: {"targetAxisIndex": 0},2: {"targetAxisIndex": 0}}
+  # chartOptions["vAxes"] = {0: {"title": 'Volts'}, 1: {"title": 'Volts'}}
   
   chart = LineChart(data_source, options=chartOptions) # Creating a line chart
   
