@@ -554,7 +554,7 @@ def signalValue(dataRow, signalId):
   elif signalId == 'PacketV6Units___positive_3v6_battery_voltage':
     return dataRow.positive_3v6_battery_voltage
   else:
-    return dataRow.getattr(signalId.split('___')[1])
+    return getattr(dataRow, signalId.split('___')[1])
   
   return None
   
