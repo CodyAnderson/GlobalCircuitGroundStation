@@ -582,32 +582,32 @@ def graphV6(request):
   formFields['leftAxisSignal_A'] = {}
   formFields['leftAxisSignal_A']['label'] = 'Left Axis Signal A'
   formFields['leftAxisSignal_A']['options'] = signalList
-  formFields['leftAxisSignal_A']['selected'] = request.GET.get('leftAxisSignal_A', 'ANY')
+  formFields['leftAxisSignal_A']['selected'] = request.GET.get('leftAxisSignal_A', 'NONE')
   
   formFields['leftAxisSignal_B'] = {}
   formFields['leftAxisSignal_B']['label'] = 'Left Axis Signal B'
   formFields['leftAxisSignal_B']['options'] = signalList
-  formFields['leftAxisSignal_B']['selected'] = request.GET.get('leftAxisSignal_B', 'ANY')
+  formFields['leftAxisSignal_B']['selected'] = request.GET.get('leftAxisSignal_B', 'NONE')
   
   formFields['leftAxisSignal_C'] = {}
   formFields['leftAxisSignal_C']['label'] = 'Left Axis Signal C'
   formFields['leftAxisSignal_C']['options'] = signalList
-  formFields['leftAxisSignal_C']['selected'] = request.GET.get('leftAxisSignal_C', 'ANY')
+  formFields['leftAxisSignal_C']['selected'] = request.GET.get('leftAxisSignal_C', 'NONE')
   
   formFields['rightAxisSignal_A'] = {}
   formFields['rightAxisSignal_A']['label'] = 'Right Axis Signal A'
   formFields['rightAxisSignal_A']['options'] = signalList
-  formFields['rightAxisSignal_A']['selected'] = request.GET.get('rightAxisSignal_A', 'ANY')
+  formFields['rightAxisSignal_A']['selected'] = request.GET.get('rightAxisSignal_A', 'NONE')
   
   formFields['rightAxisSignal_B'] = {}
   formFields['rightAxisSignal_B']['label'] = 'Right Axis Signal B'
   formFields['rightAxisSignal_B']['options'] = signalList
-  formFields['rightAxisSignal_B']['selected'] = request.GET.get('rightAxisSignal_B', 'ANY')
+  formFields['rightAxisSignal_B']['selected'] = request.GET.get('rightAxisSignal_B', 'NONE')
   
   formFields['rightAxisSignal_C'] = {}
   formFields['rightAxisSignal_C']['label'] = 'Right Axis Signal C'
   formFields['rightAxisSignal_C']['options'] = signalList
-  formFields['rightAxisSignal_C']['selected'] = request.GET.get('rightAxisSignal_C', 'ANY')
+  formFields['rightAxisSignal_C']['selected'] = request.GET.get('rightAxisSignal_C', 'NONE')
   
   filterOptions = {}
   
