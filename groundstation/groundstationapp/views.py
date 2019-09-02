@@ -281,57 +281,53 @@ def fastPost(request):
   else:
     context = {'text': 'none'}
     
+  requestedRequest = {}
+  requestedRequest["request.POST"] = True if request.POST else False
+  requestedRequest["request.GET"] = True if request.GET else False
+  requestedRequest["request.POST.get('data')"] = request.POST.get('data')
+  requestedRequest["request.POST.get('transmit_time')"] = request.POST.get('transmit_time')
+  requestedRequest["request.POST.get('imei')"] = request.POST.get('imei')
+  requestedRequest["request.POST.get('momsn')"] = request.POST.get('momsn')
+  
+  requestedRequest["request.POST.get('iridium_latitude')"] = request.POST.get('iridium_latitude')
+  requestedRequest["request.POST.get('iridium_longitude')"] = request.POST.get('iridium_longitude')
+  requestedRequest["request.POST.get('iridium_cep')"] = request.POST.get('iridium_cep')
+  requestedRequest["request.POST.get('transmitted_via_satellite')"] = request.POST.get('transmitted_via_satellite')
+  
+  requestedRequest["request.META.get('HTTP_X_FORWARDED_FOR')"] = request.META.get('HTTP_X_FORWARDED_FOR')   
+  requestedRequest["request.META.get('HTTP_X_FORWARDED_HOST')"] = request.META.get('HTTP_X_FORWARDED_HOST')  
+  requestedRequest["request.META.get('HTTP_X_FORWARDED_SERVER')"] = request.META.get('HTTP_X_FORWARDED_SERVER')
+  requestedRequest["request.META.get('REMOTE_ADDR')"] = request.META.get('REMOTE_ADDR')            
+
     
-  postfunc(request)
+  postfuncV6(requestedRequest)
   print(("----"*4) + "-END FASTPOST-" + ("----"*4))
   return render(request, 'groundstation/post.html', context)
   
 @background(schedule=10)
-def postfunc(request):
+def postfunc(requestedRequest):
   context = {'text': 'none'}
   try:
-    #print(dir(request))
-    
-    # print('HTTP_X_FORWADED_FOR: ' + str(request.META.get('HTTP_X_FORWARDED_FOR')))
-    # print('HTTP_X_FORWADED_HOST: ' + str(request.META.get('HTTP_X_FORWARDED_HOST')))
-    # print('HTTP_X_FORWADED_SERVER: ' + str(request.META.get('HTTP_X_FORWARDED_SERVER')))
-    # print('REMOTE_ADDR:         ' + str(request.META.get('REMOTE_ADDR')))
-    # print(request.POST.keys())
-    # print("device_type: " + request.POST.get('device_type', 'NONE'))
-    # print("serial: " + request.POST.get('serial', 'NONE'))
-    # print("iridium_session_status: " + request.POST.get('iridium_session_status', 'NONE'))
-    #return render(request, 'groundstation/post.html', context)
-    if (request.POST):
-      packet_data = request.POST.get('data')
+    if (requestedRequest["request.POST"]):
+      packet_data = requestedRequest["request.POST.get('data')"]
       #if data exists
       if (packet_data is not None):
         if (True or (packet_data[0:2].upper() in ['00','01','02','03','04','05','06','07','08','FF','FE','FD','FC','FB','FA','F9','F8','F7'])):
-          #packet_sio=io.StringIO(binascii.unhexlify(packet_data).decode(errors='ignore'))
-          #packet_fields = structure.unpack(packet_sio)
           binary_packet_data = binascii.unhexlify(packet_data)
           packet_fields = structure.unpack_new(binary_packet_data)
           print(packet_fields['seq'])
           print(packet_fields['version'])
-          #timestring = '20' + request.POST.get('transmit_time')
-          datetimeString = datetime.strptime(request.POST.get('transmit_time'),"%y-%m-%d %H:%M:%S")
-          filteredImei = request.POST.get('imei')
+          datetimeString = datetime.strptime(requestedRequest["request.POST.get('transmit_time')"],"%y-%m-%d %H:%M:%S")
+          filteredImei = requestedRequest["request.POST.get('imei')"]
           if(filteredImei == "CollinsLaptop"):
             filteredImei = "888888888888888"
-          new_IridiumData = models.IridiumData.objects.create(transmit_time = datetimeString, iridium_latitude = request.POST.get('iridium_latitude'), iridium_longitude = request.POST.get('iridium_longitude'), iridium_cep = request.POST.get('iridium_cep'), momsn = request.POST.get('momsn'), imei = filteredImei, transmitted_via_satellite = True if request.POST.get('transmitted_via_satellite') is None else request.POST.get('transmitted_via_satellite'))
+          new_IridiumData = models.IridiumData.objects.create(transmit_time = datetimeString, iridium_latitude = requestedRequest["request.POST.get('iridium_latitude')"], iridium_longitude = requestedRequest["request.POST.get('iridium_longitude')"], iridium_cep = requestedRequest["request.POST.get('iridium_cep')"], momsn = requestedRequest["request.POST.get('momsn')"], imei = filteredImei, transmitted_via_satellite = True if requestedRequest["request.POST.get('transmitted_via_satellite')"] is None else requestedRequest["request.POST.get('transmitted_via_satellite')"])
           print(new_IridiumData.transmit_time)
           new_Packet = models.Packet.objects.create(global_id=new_IridiumData,packet_id=packet_fields['seq'],version=packet_fields['version'])
           new_RawData = models.RawData.objects.create(global_id=new_Packet,data=binary_packet_data,hexdata=packet_data)
           try:
-            #hour_now = packet_fields['time']//10000
-            #minute_now = (packet_fields['time']-hour_now*10000)//100
-            #second_now = packet_fields['time']-hour_now*10000-minute_now*100
-            #time_now = datetimeString.replace(hour=hour_now,minute=minute_now,second=second_now,microsecond=0)
             time_now = datetime.fromtimestamp(packet_fields['time'])
             
-            #cond_hour_now = packet_fields['cond_time']//10000
-            #cond_minute_now = (packet_fields['cond_time']-cond_hour_now*10000)//100
-            #cond_second_now = packet_fields['cond_time']-cond_hour_now*10000-cond_minute_now*100
-            #cond_time_now = datetimeString.replace(hour=cond_hour_now,minute=cond_minute_now,second=cond_second_now,microsecond=0)
             cond_time_now = datetime.fromtimestamp(packet_fields['cond_time'])
             
             
@@ -342,8 +338,6 @@ def postfunc(request):
             for i in range(0,15):
               new_ConductivityData = models.ConductivityData.objects.create(global_id=new_SlowMeasurement,sub_id=i*10+(packet_fields['seq']%10),vert1=packet_fields['cVert1'][i],vert2=packet_fields['cVert2'][i])
             labelList=["Temperature","Temperature","Pressure","Pressure","IL0","IL1","IL2","IH0","IH1","IH2","T0","T1","T2","Tmag","Tadc1","Tadc2","Text","TRB","UNUSED0","UNUSED1"]
-            #newSupDataL= models.SupData.objects.create(global_id=new_Packet,sub_id=0,type=labelList[(packet_fields['seq']%10)*2], value=packet_fields['sup'][0])
-            #newSupDataH= models.SupData.objects.create(global_id=new_Packet,sub_id=0 if (packet_fields['seq']%10 > 1) else 1,type=labelList[((packet_fields['seq']%10)*2)+1], value=packet_fields['sup'][1])
             newSupDataList = []
             for fieldName in packet_fields['sup']:
               print('Fieldname: ' + str(fieldName))
@@ -361,34 +355,29 @@ def postfunc(request):
           packet_fields = structure.unpack_new(binary_packet_data)
           print(packet_fields['seq'])
           print(packet_fields['version'])
-          #timestring = '20' + request.POST.get('transmit_time')
-          datetimeString = datetime.strptime(request.POST.get('transmit_time'),"%y-%m-%d %H:%M:%S")
-          filteredImei = request.POST.get('imei')
+          datetimeString = datetime.strptime(requestedRequest["request.POST.get('transmit_time')"],"%y-%m-%d %H:%M:%S")
+          filteredImei = requestedRequest["request.POST.get('imei')"]
           if(filteredImei == "CollinsLaptop"):
             filteredImei = "888888888888888"
-          new_IridiumData = models.IridiumData.objects.create(transmit_time = datetimeString, iridium_latitude = request.POST.get('iridium_latitude'), iridium_longitude = request.POST.get('iridium_longitude'), iridium_cep = request.POST.get('iridium_cep'), momsn = request.POST.get('momsn'), imei = filteredImei, transmitted_via_satellite = True if request.POST.get('transmitted_via_satellite') is None else request.POST.get('transmitted_via_satellite'))
+          new_IridiumData = models.IridiumData.objects.create(transmit_time = datetimeString, iridium_latitude = requestedRequest["request.POST.get('iridium_latitude')"], iridium_longitude = requestedRequest["request.POST.get('iridium_longitude')"], iridium_cep = requestedRequest["request.POST.get('iridium_cep')"], momsn = requestedRequest["request.POST.get('momsn')"], imei = filteredImei, transmitted_via_satellite = True if requestedRequest["request.POST.get('transmitted_via_satellite')"] is None else requestedRequest["request.POST.get('transmitted_via_satellite')"])
           print(new_IridiumData.transmit_time)
           new_Packet = models.Packet.objects.create(global_id=new_IridiumData,packet_id=packet_fields['seq'],version=packet_fields['version'])
           new_RawData = models.RawData.objects.create(global_id=new_Packet,data=binary_packet_data,hexdata=packet_data)
       else:
-        new_IridiumData = models.IridiumData.objects.create(transmit_time = datetimeString, iridium_latitude = request.POST.get('iridium_latitude'), iridium_longitude = request.POST.get('iridium_longitude'), iridium_cep = request.POST.get('iridium_cep'), momsn = request.POST.get('momsn'), imei = filteredImei, transmitted_via_satellite = True if request.POST.get('transmitted_via_satellite') is None else request.POST.get('transmitted_via_satellite'))
+        new_IridiumData = models.IridiumData.objects.create(transmit_time = datetimeString, iridium_latitude = requestedRequest["request.POST.get('iridium_latitude')"], iridium_longitude = requestedRequest["request.POST.get('iridium_longitude')"], iridium_cep = requestedRequest["request.POST.get('iridium_cep')"], momsn = requestedRequest["request.POST.get('momsn')"], imei = filteredImei, transmitted_via_satellite = True if requestedRequest["request.POST.get('transmitted_via_satellite')"] is None else requestedRequest["request.POST.get('transmitted_via_satellite')"])
         print(new_IridiumData.transmit_time)
           
-        
-      #else
-      #iridium_txtime = request.POST.get('transmit_time',time.strftime("%Y-%m-%dT%H:%M:%SZ UTC",time.gmtime()))
-      iridium_txtime = request.POST.get('transmit_time')
-      iridium_imei = request.POST.get('imei')
-      iridium_momsn = request.POST.get('momsn')
-      iridium_latitude = request.POST.get('iridium_latitude')
-      iridium_longitude = request.POST.get('iridium_longitude')
-      iridium_cep = request.POST.get('iridium_cep')
+      iridium_txtime = requestedRequest["request.POST.get('transmit_time')"]
+      iridium_imei = requestedRequest["request.POST.get('imei')"]
+      iridium_momsn = requestedRequest["request.POST.get('momsn')"]
+      iridium_latitude = requestedRequest["request.POST.get('iridium_latitude')"]
+      iridium_longitude = requestedRequest["request.POST.get('iridium_longitude')"]
+      iridium_cep = requestedRequest["request.POST.get('iridium_cep')"]
       Data={'data':packet_data,'txtime':iridium_txtime,'imei':iridium_imei,'momsn':iridium_momsn,'lat':iridium_latitude,'lon':iridium_longitude,'cep':iridium_cep}
-      #print(Data)
       
       print(packet_fields)
       context = {'text': Data}
-    elif (request.GET):
+    elif (requestedRequest["request.GET"]):
       context = {'text': 'get'}
     else:
       context = {'text': 'none'}
@@ -400,39 +389,50 @@ def postfunc(request):
     postfuncV6(request)
   except Exception as err:
     print("Whoops, looks like the new parsing function malfunctioned.")
-    print(str(err))
+    print(str(err))    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+   
+    
+    
+    
+    
+    
+    
+    
+    
   
-@csrf_exempt
-def postfuncV6(request):
-  if (request.POST):
-    # print('HTTP_X_FORWADED_FOR: ' + str(request.META.get('HTTP_X_FORWARDED_FOR')))
-    # print('HTTP_X_FORWADED_HOST: ' + str(request.META.get('HTTP_X_FORWARDED_HOST')))
-    # print('HTTP_X_FORWADED_SERVER: ' + str(request.META.get('HTTP_X_FORWARDED_SERVER')))
-    # print('REMOTE_ADDR:         ' + str(request.META.get('REMOTE_ADDR')))
-    # print(request.POST.keys())
-    # print("device_type: " + request.POST.get('device_type', 'NONE'))
-    # print("serial: " + request.POST.get('serial', 'NONE'))
-    # print("iridium_session_status: " + request.POST.get('iridium_session_status', 'NONE'))
+@background(schedule=10)
+def postfuncV6(requestedRequest):
+  if (requestedRequest["request.POST"]):
     
     #Build request object
-    requestObject = models.Request.objects.create(time = datetime.utcnow(), forwarded_for_address = str(request.META.get('HTTP_X_FORWARDED_FOR')), forwarded_host_address = str(request.META.get('HTTP_X_FORWARDED_HOST')), forwarded_server_address = str(request.META.get('HTTP_X_FORWARDED_SERVER')), remote_address = str(request.META.get('REMOTE_ADDR')))
+    requestObject = models.Request.objects.create(time = datetime.utcnow(), forwarded_for_address = str(requestedRequest["request.META.get('HTTP_X_FORWARDED_FOR')"]), forwarded_host_address = str(requestedRequest["request.META.get('HTTP_X_FORWARDED_HOST')"]), forwarded_server_address = str(requestedRequest["request.META.get('HTTP_X_FORWARDED_SERVER')"]), remote_address = str(requestedRequest["request.META.get('REMOTE_ADDR')"]))
     print('Successfully created the request object.')
     
     #Build transmission object
-    iridiumTime = datetime.strptime(request.POST.get('transmit_time'),"%y-%m-%d %H:%M:%S")
-    iridiumLatitude = request.POST.get('iridium_latitude')
-    iridiumLongitude = request.POST.get('iridium_longitude')
-    iridiumCep = request.POST.get('iridium_cep')
-    iridiumMomsn = request.POST.get('momsn')
-    iridiumImei = request.POST.get('imei')
+    iridiumTime = datetime.strptime(requestedRequest["request.POST.get('transmit_time')"],"%y-%m-%d %H:%M:%S")
+    iridiumLatitude = requestedRequest["request.POST.get('iridium_latitude')"]
+    iridiumLongitude = requestedRequest["request.POST.get('iridium_longitude')"]
+    iridiumCep = requestedRequest["request.POST.get('iridium_cep')"]
+    iridiumMomsn = requestedRequest["request.POST.get('momsn')"]
+    iridiumImei = requestedRequest["request.POST.get('imei')"]
     if(iridiumImei == "CollinsLaptop"):
       iridiumImei = "888888888888888"
-    transViaSat = True if request.POST.get('transmitted_via_satellite') is None else request.POST.get('transmitted_via_satellite')
+    transViaSat = True if requestedRequest["request.POST.get('transmitted_via_satellite')"] is None else requestedRequest["request.POST.get('transmitted_via_satellite')"]
     transmissonObject = models.IridiumTransmission.objects.create( parent_request = requestObject, time = iridiumTime, latitude = iridiumLatitude, longitude = iridiumLongitude, cep = iridiumCep, momsn = iridiumMomsn, imei = iridiumImei, transmitted_via_satellite = transViaSat)
     print('Successfully created the transmission object.')
     
     #Build raw packet object
-    hexRawPacketData = request.POST.get('data')
+    hexRawPacketData = requestedRequest["request.POST.get('data')"]
     binRawPacketData = binascii.unhexlify(hexRawPacketData)
     rawPacketObject = models.RawPacket.objects.create(parent_transmission = transmissonObject, data = binRawPacketData, hexdata = hexRawPacketData)
     print('Successfully created the raw packet object.')
@@ -570,8 +570,8 @@ def postfuncV6(request):
   else:
     errorMessage = "This was NOT a POST request. Please try again with a POST request."
     print(errorMessage)
-    return render(request, 'groundstation/post.html', {'text': errorMessage})
-  return render(request, 'groundstation/post.html', {'text': 'None'})
+    return #render(request, 'groundstation/post.html', {'text': errorMessage})
+  return #render(request, 'groundstation/post.html', {'text': 'None'})
   
 def horizontal(request):
   data = [
