@@ -271,9 +271,9 @@ def googleMap(request):
 
   ordered_gpsmeasurements = models.PacketV6Units.objects.order_by('-time').filter(time__gte=windowStartTime)
   if(formFields['mcuID']['selected'] != 'ANY'):
-    ordered_gpsmeasurements = ordered_gpsmeasurements.filter()
+    ordered_gpsmeasurements = ordered_gpsmeasurements.filter(parent_packet_v6__mcu_id=int(formFields['mcuID']['selected']))
   if(formFields['IMEI']['selected'] != 'ANY'):
-    ordered_gpsmeasurements = ordered_gpsmeasurements.filter(parent_transmission__imei=int(formFields['IMEI']['selected']))
+    ordered_gpsmeasurements = ordered_gpsmeasurements.filter(parent_packet_v6__parent_transmission__imei=int(formFields['IMEI']['selected']))
   
   ordered_gpsmeasurements = ordered_gpsmeasurements[:400]
   
