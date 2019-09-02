@@ -17,6 +17,7 @@ from graphos.renderers.gchart import LineChart
 from django.db.models import IntegerField, DateTimeField, ExpressionWrapper, F, Avg, Max, Min
 
 from django.views.decorators.csrf import csrf_exempt
+from background_task import background
 
 from . import structure
 from . import models
@@ -267,8 +268,26 @@ def submitfunc(request):
     print(r.status_code)
     print(r.content)
   return render(request, 'groundstation/submit.html', context)
-  
+
+
 @csrf_exempt
+def fastPost(request):
+  context = {'text': ''}
+  print(("----"*4) + "BEGIN FASTPOST" + ("----"*4))
+  if (request.POST):
+    print(packet_fields)
+    context = {'text': Data}
+  elif (request.GET):
+    context = {'text': 'get'}
+  else:
+    context = {'text': 'none'}
+    
+    
+  postfunc(request)
+  print(("----"*4) + "-END FASTPOST-" + ("----"*4))
+  return render(request, 'groundstation/post.html', context)
+  
+@background(schedule=10)
 def postfunc(request):
   context = {'text': 'none'}
   try:
@@ -383,7 +402,6 @@ def postfunc(request):
   except Exception as err:
     print("Whoops, looks like the new parsing function malfunctioned.")
     print(str(err))
-  return render(request, 'groundstation/post.html', context)
   
 @csrf_exempt
 def postfuncV6(request):

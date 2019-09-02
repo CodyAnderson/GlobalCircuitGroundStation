@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from groundstationapp.views import homepage, gps, postfunc, horizontal, vertical, conductivity, submitfunc, dumpfunc, scrapefunc, utf8js, theBest, greyBalloon, redBalloon, greyBalloonClicked, redBalloonClicked, dashboard, dashboardV6
+from groundstationapp.views import homepage, gps, fastPost, horizontal, vertical, conductivity, submitfunc, dumpfunc, scrapefunc, utf8js, theBest, greyBalloon, redBalloon, greyBalloonClicked, redBalloonClicked, dashboard, dashboardV6
 from groundstationapp.newGraph import newGraph, oldGoogleMap, googleMap, badGoogleMap
 from groundstationapp.graphV6 import graphV6
 
@@ -28,8 +28,9 @@ urlpatterns = [
 	url(r'^vertical/$', vertical, name='vertical'),
 	#url(r'^compass/$', compass, name='compass'),
 	url(r'^conductivity/$', conductivity, name='conductivity'),
-	url(r'^oldgraph/$', newGraph, name='newGraph'),
-  url(r'^post/$', postfunc, name='postfunc'),
+	url(r'^oldgraph/$', newGraph, name='oldGraph'),
+	url(r'^newgraph/$', newGraph, name='newGraph'),
+  url(r'^post/$', fastPost, name='fastPost'),
 	url(r'^submit/$', submitfunc, name='submitfunc'),
 	url(r'^submit/utf8\.js$', utf8js, name='utf8js'),
 	url(r'^dump.hex$', dumpfunc, name='dumpfunc'),
