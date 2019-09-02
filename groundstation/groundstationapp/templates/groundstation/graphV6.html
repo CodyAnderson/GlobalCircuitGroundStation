@@ -9,6 +9,7 @@
 	<body>
 		<div style="float: left;">
       <form>
+        <input type="hidden">
 			  <input type="submit" value="Refresh Graph">
       </form>
 			<h1>{{ title }} </h1>
@@ -17,6 +18,7 @@
 			<h2> </h2>
 			{{ chart.as_html|safe }}
       <form>
+        <input type="hidden" name="testMe" value="TESTED">
 			  <input type="submit" value="Refresh Graph">
       </form>
 		</div>
