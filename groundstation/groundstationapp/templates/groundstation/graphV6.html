@@ -9,17 +9,16 @@
 	<body>
 		<div style="float: left;">
       <form name="top">
-			  <input type="submit" value="RefreshGraph">
+{% for name, value in FormFields.items %}        <input type="hidden" id="{{ name }}" name="{{ name }}" value="{{ value.selected }}" >
+{% endfor %}        <input type="submit" value="Refresh Graph" >
       </form>
 			<h1>{{ title }} </h1>
 			<h2> </h2>
 			<th>{{ description }} </th>
 			<h2> </h2>
 			{{ chart.as_html|safe }}
-      <form name="bottom" >
-{% for name, value in FormFields.items %}        <input type="hidden" id="{{ name }}" name="{{ name }}" value="{{ value.selected }}" >
-{% endfor %}			  <input type="submit" value="Refresh Graph" >
-      </form>
+      <div>
+      </div>
 		</div>
     <div style="float: left;">
 			<h2> Graph Filters </h2>
