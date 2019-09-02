@@ -26,6 +26,7 @@
             {% for option in value.options %}<option value="{{ option }}"{% if value.selected == option %} selected{% endif %}>{{ option }}</option>
 {% endfor %}          </select><br>
           {% endfor %}<br>
+			    <input type="submit" value="Apply Filters">
         </form>
         <h2>Most recent:</h2>
         <h3>Time: {{ points.0.2 }}</h3>
