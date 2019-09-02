@@ -275,7 +275,7 @@ def fastPost(request):
   context = {'text': ''}
   print(("----"*4) + "BEGIN FASTPOST" + ("----"*4))
   if (request.POST):
-    context = {'text': Data}
+    context = {'text': 'POST'}#Data}
   elif (request.GET):
     context = {'text': 'get'}
   else:
