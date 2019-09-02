@@ -18,7 +18,7 @@
 			<h2> </h2>
 			{{ chart.as_html|safe }}
       <form>
-        {% for name, value in FormFields.items %}<input type="hidden" name="{{ name }}" value="{{ value.selected }}">
+        {% for name, value in FormFields.items %}<input type="hidden" id="{{ name }}" name="{{ name }}" value="{{ value.selected }}">
 {% endfor %}			  <input type="submit" value="Refresh Graph">
       </form>
 		</div>
