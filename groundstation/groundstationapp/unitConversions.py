@@ -7,11 +7,11 @@ def lat_lon_conv(sig):
     realLong = sig - 0x80000000
     longSign = -1.0
     
-    realLongString = str(int(realLong)).zfill(9)
+  realLongString = str(int(realLong)).zfill(9)
     
-    realLong = longSign * (float(realLongString[0:3]) + (float(realLongString[3:5]) + float(realLongString[5:9])/10000.0 )/60.0)
+  realLong = longSign * (float(realLongString[0:3]) + (float(realLongString[3:5]) + float(realLongString[5:9])/10000.0 )/60.0)
     
-    return realLong
+  return realLong
 
 #vert1,2,D , horiz1,2,D (V)
 def adc_conv(sig):
