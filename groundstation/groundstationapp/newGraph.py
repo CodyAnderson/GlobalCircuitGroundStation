@@ -275,7 +275,7 @@ def googleMap(request):
   if(formFields['IMEI']['selected'] != 'ANY'):
     ordered_gpsmeasurements = ordered_gpsmeasurements.filter(parent_packet_v6__parent_transmission__imei=int(formFields['IMEI']['selected']))
   
-  ordered_gpsmeasurements = ordered_gpsmeasurements[:200]
+  ordered_gpsmeasurements = ordered_gpsmeasurements[:50]
   
   for x in ordered_gpsmeasurements:
     tempDateTime = x.time
