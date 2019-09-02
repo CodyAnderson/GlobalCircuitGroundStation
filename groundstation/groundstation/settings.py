@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'background-task',
+    'background_task',
     'groundstationapp',
     'graphos',
     'corsheaders',
