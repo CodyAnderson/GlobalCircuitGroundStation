@@ -59,11 +59,11 @@ def backplane_temp_conv_K(sig):
   
 #compass_temp (°C)
 def compass_temp_conv_C(sig):
-  return sig+10.0
+  return sig+15.0
   
 #compass_temp (°K)
 def compass_temp_conv_K(sig):
-  return sig+283.15
+  return sig+15.0+273.15
   
 #adc1_temp, adc2_temp (°C)
 def adc_temp_conv_C(sig):
@@ -128,7 +128,7 @@ def cutdown_status_conv(sig):
   if sig==0x00:
     return "Idle"
   elif sig==0x01:
-    return "Successfully cut down"
+    return "Cutdown message was received and acknowledged. This MAY have successfully cut down."
   elif sig==0x02:
     return "XBee communication in progress"
   elif sig==0x03:
@@ -144,13 +144,13 @@ def cutdown_status_conv(sig):
     
 def mcu_id_conv(sig):
   if sig==1:
-    return "CollinPop0"
+    return "Flight Board 1" #"CollinPop0"
   elif sig==2:
-    return "CollinPop1"
+    return "Flight Board 2" #"CollinPop1"
   elif sig==3:
-    return "CollinPop2"
+    return "Flight Board 3" #"CollinPop2"
   elif sig==4:
-    return "CodyPop0"
+    return "Flight Board 4" #"CodyPop0"
   else:
     return "UNDEFINED"
     
