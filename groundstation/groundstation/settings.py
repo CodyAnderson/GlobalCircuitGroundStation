@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'groundstationapp',
     'graphos',
     'corsheaders',
-    'django-background-tasks',
+    'background-tasks',
 ]
 
 MIDDLEWARE = [
