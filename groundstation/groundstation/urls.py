@@ -17,7 +17,7 @@ from django.conf.urls import url
 from django.contrib import admin
 
 from groundstationapp.views import homepage, gps, postfunc, horizontal, vertical, conductivity, submitfunc, dumpfunc, scrapefunc, utf8js, theBest, greyBalloon, redBalloon, greyBalloonClicked, redBalloonClicked, dashboard, dashboardV6
-from groundstationapp.newGraph import newGraph, googleMap, badGoogleMap
+from groundstationapp.newGraph import newGraph, oldGoogleMap, googleMap, badGoogleMap
 from groundstationapp.graphV6 import graphV6
 
 urlpatterns = [
@@ -37,6 +37,7 @@ urlpatterns = [
 	url(r'^theBest.json$', theBest, name='theBest'),
 	url(r'^scrape/$', scrapefunc, name='scrapefunc'),
 	url(r'^googleMap/$', googleMap, name='googleMap'),
+	url(r'^oldGoogleMap/$', oldGoogleMap, name='oldGoogleMap'),
 	url(r'^badGoogleMap/$', badGoogleMap, name='badGoogleMap'),
 	url(r'^GreyBalloon.png$', greyBalloon, name='greyBalloon'),
 	url(r'^RedBalloon.png$', redBalloon, name='redBalloon'),

@@ -266,7 +266,16 @@ def googleMap(request):
   
   points = [] #FORMAT OF '[Lat(float), Long(float), Name(String)],'
   
-  ordered_gpsmeasurements = models.PacketV6Units.objects.order_by('-time').filter()[:400]
+  windowStartTimeString = '2019-08-29 00:00:00'
+  windowStartTime = datetime.strptime(windowStartTimeString, "%Y-%m-%d %H:%M:%S")
+
+  ordered_gpsmeasurements = models.PacketV6Units.objects.order_by('-time').filter(time__gte=windowStartTime)
+  if(formFields['mcuID']['selected'] != 'ANY'):
+    ordered_gpsmeasurements = ordered_gpsmeasurements.filter()
+  if(formFields['IMEI']['selected'] != 'ANY'):
+    ordered_gpsmeasurements = ordered_gpsmeasurements.filter(parent_transmission__imei=int(formFields['IMEI']['selected']))
+  
+  ordered_gpsmeasurements = ordered_gpsmeasurements[:400]
   
   for x in ordered_gpsmeasurements:
     tempDateTime = x.time
