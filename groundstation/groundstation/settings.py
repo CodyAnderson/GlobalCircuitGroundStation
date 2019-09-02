@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'groundstationapp',
     'graphos',
     'corsheaders',
-    'background-tasks',
+    'background-task',
 ]
 
 MIDDLEWARE = [
