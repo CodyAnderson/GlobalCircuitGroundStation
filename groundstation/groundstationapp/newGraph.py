@@ -266,7 +266,7 @@ def googleMap(request):
   
   points = [] #FORMAT OF '[Lat(float), Long(float), Name(String)],'
   
-  ordered_gpsmeasurements = models.PacketV6Units.objects.order_by('-time').filter()[:401]
+  ordered_gpsmeasurements = models.PacketV6Units.objects.order_by('-time').filter()[:400]
   
   for x in ordered_gpsmeasurements:
     tempDateTime = x.time
