@@ -8,7 +8,7 @@
 	</head>
 	<body>
 		<div style="float: left;">
-      <form>
+      <form name="top">
         <input type="hidden">
 			  <input type="submit" value="Refresh Graph">
       </form>
@@ -17,14 +17,14 @@
 			<th>{{ description }} </th>
 			<h2> </h2>
 			{{ chart.as_html|safe }}
-      <form>
-        {% for name, value in FormFields.items %}<input type="hidden" id="{{ name }}" name="{{ name }}" value="{{ value.selected }}">
-{% endfor %}			  <input type="submit" value="Refresh Graph">
+      <form name="bottom" >
+{% for name, value in FormFields.items %}        <input type="hidden" id="{{ name }}" name="{{ name }}" value="{{ value.selected }}" >
+{% endfor %}			  <input type="submit" value="Refresh Graph" >
       </form>
 		</div>
     <div style="float: left;">
 			<h2> Graph Filters </h2>
-      <form>
+      <form name="bigBoy">
         {% for name, value in FormFields.items %}
         {{ value.label }}: 
         <select name="{{ name }}">
