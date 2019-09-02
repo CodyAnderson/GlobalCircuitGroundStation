@@ -19,6 +19,14 @@
         <h2>•The red(blue if selected) balloon is the most recent point</h2>
         <h2>•The grey(dark grey if selected) balloon is an older point</h2>
         <a href=""><button>Refresh Map</button></a>
+        <form>
+          {% for name, value in FormFields.items %}
+          {{ value.label }}: 
+          <select name="{{ name }}">
+            {% for option in value.options %}<option value="{{ option }}"{% if value.selected == option %} selected{% endif %}>{{ option }}</option>
+{% endfor %}          </select><br>
+          {% endfor %}<br>
+        </form>
         <h2>Most recent:</h2>
         <h3>Time: {{ points.0.2 }}</h3>
         <h3>Lat,Lon: {{ points.0.0 }}, {{ points.0.1 }}</h3>

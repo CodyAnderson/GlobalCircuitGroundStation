@@ -462,8 +462,8 @@ def postfuncV6(request):
                                                   version = uC.version_conv(packetValues["version"]),
                                                   sequence_id = uC.sequence_id_conv(packetValues["sequence_id"]),
                                                   time = datetime.fromtimestamp(packetValues["time"]),
-                                                  latitude = packetValues["latitude"],
-                                                  longitude = packetValues["longitude"],
+                                                  latitude = uC.lat_lon_conv(packetValues["latitude"]),
+                                                  longitude = uC.lat_lon_conv(packetValues["longitude"]),
                                                   altitude = uC.altitude_conv(packetValues["altitude"]),
                                                   ballast_status = uC.ballast_status_conv(packetValues["ballast_status"]),
                                                   cutdown_status = uC.cutdown_status_conv(packetValues["cutdown_status"]),
@@ -507,7 +507,7 @@ def postfuncV6(request):
       print('Successfully created ' + str(each+1) + '/12 measurement object(s).')
     print('Successfully created ALL measurement object(s).')
                                                   
-    #Build measurement objects
+    #Build measurement units objects
     measurementUnitsObjectList = []
     for each in range(12):
       parent_measurements = measurementObjectList[each]
@@ -537,6 +537,18 @@ def postfuncV6(request):
       measurementObjectList.append(measurementObject)
       print('Successfully created ' + str(each+1) + '/15 conductivity measurement object(s).')
     print('Successfully created ALL conductivity measurement object(s).')
+    
+    #Build conductivity measurement units objects
+    conductivityMeasurementUnitsObjectList = []
+    for each in range(15):
+      parent_conductivity_measurements = conductivityMeasurementObjectList[each]
+      conductivityMeasurementUnitsTime = datetime.fromtimestamp(packetValues["conductivity_time"]) + ((each*10)+(packetValues["sequence_id"]%10))*timedelta(seconds=0.1)
+      conductivityMeasurementUnitsVert1 = uC.adc_conv(packetValues["conductivity_vert1"][each])
+      conductivityMeasurementUnitsVert2 = uC.adc_conv(packetValues["conductivity_vert2"][each])
+      measurementObject = models.ConductivityMeasurementsUnits.objects.create(parent_conductivity_measurements = parent_conductivity_measurements, time = conductivityMeasurementUnitsTime, vert1 = conductivityMeasurementUnitsVert1, vert2 = conductivityMeasurementUnitsVert2)
+      measurementObjectList.append(measurementObject)
+      print('Successfully created ' + str(each+1) + '/15 conductivity measurement units object(s).')
+    print('Successfully created ALL conductivity measurement units object(s).')
     
   else:
     errorMessage = "This was NOT a POST request. Please try again with a POST request."

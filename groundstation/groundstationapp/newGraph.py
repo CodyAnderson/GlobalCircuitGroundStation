@@ -201,7 +201,7 @@ def newGraph(request):
 
   return render(request, 'groundstation/newGraph.html', context)
   
-def googleMap(request):
+def oldGoogleMap(request):
   
   
   
@@ -247,6 +247,44 @@ def googleMap(request):
   context = {
     'points': points,
     'MAPS_API_KEY': secrets.MAPS_API_KEY,
+  }
+  return render(request, 'groundstation/googleMap.html', context)
+  
+def googleMap(request):
+  
+  formFields = {}
+  
+  formFields['mcuID'] = {}
+  formFields['mcuID']['label'] = 'Packet MCU ID'
+  formFields['mcuID']['options'] = ['ANY','1','2','3','4']
+  formFields['mcuID']['selected'] = request.GET.get('mcuID', 'ANY')
+  
+  formFields['IMEI'] = {}
+  formFields['IMEI']['label'] = 'Iridium IMEI'
+  formFields['IMEI']['options'] = ['ANY', '300234065252710', '300434063219840', '300434063839690', '300434063766960', '300434063560100', '300434063184090', '300434063383330', '300434063185070', '300434063382350', '300234063778640', '888888888888888']
+  formFields['IMEI']['selected'] = request.GET.get('IMEI', 'ANY')
+  
+  points = [] #FORMAT OF '[Lat(float), Long(float), Name(String)],'
+  
+  ordered_gpsmeasurements = models.PacketV6Units.objects.order_by('-time').filter()[:401]
+  
+  for x in ordered_gpsmeasurements:
+    tempDateTime = x.time
+    tempDateString = tempDateTime.strftime("%Y-%m-%d %H:%M:%S UTC")
+    
+    realLong = x.longitude
+    realLat = x.latitude
+    
+    altString = "Altitude: " + str(x.altitude) + 'm'
+    
+    #descString = tempDateString + "<br>" + altString
+    
+    points.append([realLat, realLong, tempDateString, altString])#descString])#str(realLat) + ', ' + str(realLong) + ', '+ tempDateString])#tempDateString])
+  
+  context = {
+    'points': points,
+    'MAPS_API_KEY': secrets.MAPS_API_KEY,
+    'FormFields': formFields,
   }
   return render(request, 'groundstation/googleMap.html', context)
   

@@ -1,3 +1,18 @@
+#gps_latitude, gps_longitude
+def lat_lon_conv(sig):
+  realLong = sig
+  longSign = 1.0
+  
+  if (sig > 0x80000000):
+    realLong = sig - 0x80000000
+    longSign = -1.0
+    
+    realLongString = str(int(realLong)).zfill(9)
+    
+    realLong = longSign * (float(realLongString[0:3]) + (float(realLongString[3:5]) + float(realLongString[5:9])/10000.0 )/60.0)
+    
+    return realLong
+
 #vert1,2,D , horiz1,2,D (V)
 def adc_conv(sig):
   return (sig*125.0)/1000000.0
@@ -98,7 +113,7 @@ def ballast_status_conv(sig):
   elif sig==0x01:
     return "Successfully dropped"
   elif sig==0x02:
-    return "Failed to address"
+    return "Failed to address (This MAY mean that you have already dropped this ballast)"
   elif sig==0x03:
     return "Failed to arm"
   elif sig==0x04:
