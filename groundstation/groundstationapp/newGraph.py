@@ -215,7 +215,7 @@ def descentRate(request):
   dataUnits2 = []
   
   for each in dataUnits:
-    dataUnits2.append(each.time,each.altitude)
+    dataUnits2.append([each.time,each.altitude])
     
   for each in range(len(dataUnits2)-1):
     differenceInAlts = (dataUnits2[each+1][1] - dataUnits2[each][1])/((dataUnits2[each+1][0] - dataUnits2[each][0]).total_seconds()/60.0)
