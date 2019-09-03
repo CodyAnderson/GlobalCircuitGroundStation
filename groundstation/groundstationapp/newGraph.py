@@ -217,9 +217,9 @@ def descentRate(request):
   for each in dataUnits:
     dataUnits2.append([each.time,each.altitude])
     
-  for each in range(len(dataUnits2)-1):
-    differenceInAlts = (dataUnits2[each+1][1] - dataUnits2[each][1])/((dataUnits2[each+1][0] - dataUnits2[each][0]).total_seconds()/60.0)
-    data.append([sJDS(dataUnits2[each+1][0]),differenceInAlts])
+  for each in range(len(dataUnits2)-10):
+    differenceInAlts = (dataUnits2[each+10][1] - dataUnits2[each][1])/((dataUnits2[each+10][0] - dataUnits2[each][0]).total_seconds()/60.0)
+    data.append([sJDS(dataUnits2[each+10][0]),differenceInAlts])
   
   print(len(dataUnits))
   print(len(data))
