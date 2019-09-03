@@ -232,8 +232,8 @@ def descentRate(request):
 
   context = {
   'chart': chart,
-  'title': chartTitle,
-  'description': chartDescription,
+  'title': "Descent Rate",
+  'description': "Descent Rate",
   }
   return render(request, 'groundstation/descentRate.html', context)
   
