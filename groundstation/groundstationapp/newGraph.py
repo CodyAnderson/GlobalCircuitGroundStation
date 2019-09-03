@@ -219,7 +219,7 @@ def descentRate(request):
     
   for each in range(len(dataUnits2)-10):
     differenceInAlts = (dataUnits2[each+10][1] - dataUnits2[each][1])/((dataUnits2[each+10][0] - dataUnits2[each][0]).total_seconds()/60.0)
-    data.append([sJDS(dataUnits2[each+10][0]),differenceInAlts])
+    data.append([sJDS((dataUnits2[each][0]) + ((dataUnits2[each+10][0] - dataUnits2[each][0])/2)),differenceInAlts])
   
   print(len(dataUnits))
   print(len(data))
