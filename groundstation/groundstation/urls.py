@@ -17,7 +17,7 @@ from django.conf.urls import url
 from django.contrib import admin
 
 from groundstationapp.views import homepage, gps, fastPost, horizontal, vertical, conductivity, submitfunc, dumpfunc, scrapefunc, utf8js, theBest, greyBalloon, redBalloon, greyBalloonClicked, redBalloonClicked, dashboard, dashboardV6
-from groundstationapp.newGraph import newGraph, oldGoogleMap, googleMap, badGoogleMap, descentRate
+from groundstationapp.newGraph import newGraph, oldGoogleMap, googleMap, badGoogleMap, quickDescentRate, descentRate
 from groundstationapp.graphV6 import graphV6
 
 urlpatterns = [
@@ -48,5 +48,5 @@ urlpatterns = [
 	url(r'^dashboardV6/$', dashboardV6, name='dashboardV6'),
 	url(r'^graphV6/$', graphV6, name='graphV6'),
 	url(r'^descentRate/$', descentRate, name='descentRate'),
-	url(r'^descentRate/$', descentRate, name='quickDescentRate'),
+	url(r'^quickDescentRate/$', quickDescentRate, name='quickDescentRate'),
 ]
