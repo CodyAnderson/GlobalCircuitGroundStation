@@ -172,7 +172,7 @@ def homepage(request):
   
     
   
-  context = {'serverType': secrets.serverType}
+  context = {'serverType': secrets.serverType, 'currentTimeString': datetime.utcnow().strftime("%y-%m-%dT%H:%M:%S")}
   return render(request, 'groundstation/homepage.html', context)
 
 def gps(request):    # Change to google maps
