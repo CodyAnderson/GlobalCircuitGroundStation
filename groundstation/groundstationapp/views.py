@@ -30,7 +30,13 @@ from datetime import timedelta
 
 import binascii
 
+from django.http import HttpResponse
+import MapPoints
+
 # Create your views here.
+
+def kmlFile(request):
+  return HttpResponse(MapPoints.kmlFileString(), content_type="text/plain")
 
 def dashboard(request):
   
