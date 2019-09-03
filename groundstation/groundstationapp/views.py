@@ -251,6 +251,10 @@ def submitfunc(request):
   password = request.GET.get('password', '')
   imei = request.GET.get('imei', '')
   message = request.GET.get('message', '')
+  
+  if(imei == 'Flightboard2'):
+    imei = '300434063185070'
+  
   context={
   'serverType': secrets.serverType,
   'imei': imei,
