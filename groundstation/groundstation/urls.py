@@ -48,4 +48,5 @@ urlpatterns = [
 	url(r'^dashboardV6/$', dashboardV6, name='dashboardV6'),
 	url(r'^graphV6/$', graphV6, name='graphV6'),
 	url(r'^descentRate/$', descentRate, name='descentRate'),
+	url(r'^descentRate/$', descentRate, name='quickDescentRate'),
 ]

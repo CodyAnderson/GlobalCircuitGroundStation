@@ -235,6 +235,60 @@ def descentRate(request):
   }
   return render(request, 'groundstation/descentRate.html', context)
   
+def quickDescentRate(request):
+  
+  data = []
+  dataUnits = models.PacketV6Units.objects.filter(parent_packet_v6__mcu_id=1).order_by('-time')[:50]
+  dataUnits2 = []
+  
+  for each in dataUnits:
+    dataUnits2.append([each.time,each.altitude])
+    
+  for each in range(len(dataUnits2)-1):
+    differenceInAlts = (dataUnits2[each+1][1] - dataUnits2[each][1])/((dataUnits2[each+1][0] - dataUnits2[each][0]).total_seconds()/60.0)
+    data.append([sJDS((dataUnits2[each][0]) + ((dataUnits2[each+1][0] - dataUnits2[each][0])/2)),differenceInAlts])
+  
+  print(len(dataUnits))
+  print(len(data))
+  dataHeader = [[{'type': 'datetime', 'label': 'Time'},'Alt']]
+  dataList = dataHeader + data
+  data_source = SimpleDataSource(data=dataList)
+  chart = LineChart(data_source)
+
+  context = {
+  'chart': chart,
+  'title': "Descent Rate",
+  'description': "Descent Rate",
+  }
+  return render(request, 'groundstation/descentRate.html', context)
+  
+def timeSinceLastPacket(request):
+  
+  data = []
+  dataUnits = models.PacketV6Units.objects.filter(parent_packet_v6__mcu_id=1).order_by('-time')[:400]
+  dataUnits2 = []
+  
+  for each in dataUnits:
+    dataUnits2.append([each.time,each.altitude])
+    
+  for each in range(len(dataUnits2)-1):
+    differenceInAlts = (dataUnits2[each+1][1] - dataUnits2[each][1])/((dataUnits2[each+1][0] - dataUnits2[each][0]).total_seconds()/60.0)
+    data.append([sJDS((dataUnits2[each][0]) + ((dataUnits2[each+1][0] - dataUnits2[each][0])/2)),differenceInAlts])
+  
+  print(len(dataUnits))
+  print(len(data))
+  dataHeader = [[{'type': 'datetime', 'label': 'Time'},'TimeSinceLastPacketV6','TimeSinceLastIridiumTransmission']]
+  dataList = dataHeader + data
+  data_source = SimpleDataSource(data=dataList)
+  chart = LineChart(data_source)
+
+  context = {
+  'chart': chart,
+  'title': "Descent Rate",
+  'description': "Descent Rate",
+  }
+  return render(request, 'groundstation/descentRate.html', context)
+  
   
 def oldGoogleMap(request):
   
