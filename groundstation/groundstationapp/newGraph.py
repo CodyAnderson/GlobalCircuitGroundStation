@@ -219,12 +219,10 @@ def descentRate(request):
     
   for each in range(len(dataUnits2)-1):
     differenceInAlts = (dataUnits2[each+1][1] - dataUnits2[each][1])/(dataUnits2[each+1][0].total_seconds() - dataUnits2[each][0].total_seconds())
-    
-    
-    
     data.append(sJDS(dataUnits2[each+1][0]),differenceInAlts)
   
-  
+  print(dataUnits)
+  print(len(data))
   dataHeader = [[{'type': 'datetime', 'label': 'Time'},'Alt']]
   dataList = dataHeader + data
   data_source = SimpleDataSource(data=dataList)
