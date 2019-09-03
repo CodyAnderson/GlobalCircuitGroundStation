@@ -31,7 +31,7 @@ from datetime import timedelta
 import binascii
 
 from django.http import HttpResponse
-import MapPoints
+from . import MapPoints
 
 # Create your views here.
 
