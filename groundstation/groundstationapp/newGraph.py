@@ -200,6 +200,43 @@ def newGraph(request):
   # context['minTime'] = request.GET.get('minTime',None)
 
   return render(request, 'groundstation/newGraph.html', context)
+
+def sillyJavascriptDatetimeString(datetimeObject):
+  tDTS = datetimeObject.strftime("Date(%Y, %m, %d, %H, %M, %S, %f)")
+  tempDateString = tDTS[:11] + '{0:02d}'.format(int(tDTS[11:13])-1) + tDTS[13:31] + '{0:03d}'.format(int(tDTS[31:37])//1000) + tDTS[37:]
+  return tempDateString
+
+sJDS = sillyJavascriptDatetimeString
+  
+def descentRate(request):
+  
+  data = []
+  dataUnits = models.PacketV6Units.objects.filter(mcu_id=1).order_by('-time')[:200]
+  dataUnits2 = []
+  
+  for each in dataUnits:
+    dataUnits2.append(each.time,each.altimeter)
+    
+  for each in range(len(dataUnits2)-1):
+    differenceInAlts = (dataUnits2[each+1][1] - dataUnits2[each][1])/(dataUnits2[each+1][0].total_seconds() - dataUnits2[each][0].total_seconds())
+    
+    
+    
+    data.append(sJDS(dataUnits2[each+1][0]),differenceInAlts)
+  
+  
+  dataHeader = [[{'type': 'datetime', 'label': 'Time'},'Alt']]
+  dataList = dataHeader + data
+  data_source = SimpleDataSource(data=dataList)
+  chart = LineChart(data_source)
+
+  context = {
+  'chart': chart,
+  'title': chartTitle,
+  'description': chartDescription,
+  }
+  return render(request, 'groundstation/descentRate.html', context)
+  
   
 def oldGoogleMap(request):
   
