@@ -211,7 +211,7 @@ sJDS = sillyJavascriptDatetimeString
 def descentRate(request):
   
   data = []
-  dataUnits = models.PacketV6Units.objects.filter(mcu_id=1).order_by('-time')[:200]
+  dataUnits = models.PacketV6Units.objects.filter(parent_packet_v6__mcu_idmcu_id=1).order_by('-time')[:200]
   dataUnits2 = []
   
   for each in dataUnits:
