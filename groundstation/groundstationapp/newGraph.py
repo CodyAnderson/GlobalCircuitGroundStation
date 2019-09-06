@@ -256,7 +256,7 @@ def avgBalloonLocation(request):
     
     
     
-    dataUnits2.append([each.time,totalLat/totalPoints,totalLon/totalPoints,totalAlt/totalPoints])
+    dataUnits2.append([totalPoints,totalLat/totalPoints,totalLon/totalPoints,totalAlt/totalPoints])
     
 
     
