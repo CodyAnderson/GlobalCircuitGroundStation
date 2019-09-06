@@ -238,7 +238,7 @@ def descentRate(request):
 def avgBalloonLocation(request):
   
   data = []
-  dataUnits = list(models.PacketV6Units.objects.filter(parent_packet_v6__mcu_id=1).order_by('-time')[:400])
+  dataUnits = list(models.PacketV6Units.objects.filter(parent_packet_v6__mcu_id=1).order_by('-time')[:50])
   dataUnits.reverse()
   dataUnits2 = []
   
