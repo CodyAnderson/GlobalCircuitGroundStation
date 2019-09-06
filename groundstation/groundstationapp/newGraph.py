@@ -248,11 +248,11 @@ def avgBalloonLocation(request):
   totalAlt = 0.0
   
   for each in dataUnits:
-    totalPoints += 1.0
+    totalPoints = totalPoints + 1.0
     
-    totalLat += each.latitude
-    totalLon += each.longitude
-    totalAlt += each.altitude
+    totalLat = totalLat + each.latitude
+    totalLon = totalLon + each.longitude
+    totalAlt = totalAlt+ each.altitude
     
     
     
