@@ -265,7 +265,7 @@ def avgBalloonLocation(request):
   
   print(len(dataUnits))
   print(len(data))
-  dataHeader = [[{'type': 'datetime', 'label': 'Time'},'Longitude','Latitude','Altitude']]
+  dataHeader = [['Index','Longitude','Latitude','Altitude']]
   dataList = dataHeader + data
   data_source = SimpleDataSource(data=dataList)
   chart = LineChart(data_source)
