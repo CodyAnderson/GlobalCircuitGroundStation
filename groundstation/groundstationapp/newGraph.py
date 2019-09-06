@@ -235,6 +235,48 @@ def descentRate(request):
   }
   return render(request, 'groundstation/descentRate.html', context)
   
+def avgBalloonLocation(request):
+  
+  data = []
+  dataUnits = models.PacketV6Units.objects.filter(parent_packet_v6__mcu_id=1).order_by('-time')[:400]
+  dataUnits.reverse()
+  dataUnits2 = []
+  
+  totalPoints = 0.0
+  totalLat = 0.0
+  totalLon = 0.0
+  totalAlt = 0.0
+  
+  for each in dataUnits:
+    totalPoints += 1.0
+    
+    totalLat += each.latitude
+    totalLon += each.longitude
+    totalAlt += each.altitude
+    
+    
+    
+    dataUnits2.append([each.time,totalLat/totalPoints,totalLon/totalPoints,totalAlt/totalPoints])
+    
+
+    
+  for each in dataUnits2:
+    data.append([sJDS(dataUnits2[0]),dataUnits2[1],dataUnits2[2],dataUnits2[3]])
+  
+  print(len(dataUnits))
+  print(len(data))
+  dataHeader = [[{'type': 'datetime', 'label': 'Time'},'Longitude','Latitude','Altitude']]
+  dataList = dataHeader + data
+  data_source = SimpleDataSource(data=dataList)
+  chart = LineChart(data_source)
+
+  context = {
+  'chart': chart,
+  'title': "Avg. Position",
+  'description': "Avg. Position",
+  }
+  return render(request, 'groundstation/descentRate.html', context)
+  
 def quickDescentRate(request):
   
   data = []
