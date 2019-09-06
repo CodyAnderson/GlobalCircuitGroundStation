@@ -261,7 +261,7 @@ def avgBalloonLocation(request):
 
     
   for each in dataUnits2:
-    data.append([sJDS(each[0]),each[1],each[2],each[3]])
+    data.append([each[0],each[1],each[2],each[3]])
   
   print(len(dataUnits))
   print(len(data))
