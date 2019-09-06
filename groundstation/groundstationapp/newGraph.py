@@ -238,7 +238,7 @@ def descentRate(request):
 def avgBalloonLocation(request):
   
   data = []
-  dataUnits = list(models.PacketV6Units.objects.filter(parent_packet_v6__mcu_id=1).order_by('-time')[:400])
+  dataUnits = list(models.PacketV6Units.objects.filter(parent_packet_v6__mcu_id=1).order_by('-time')[:400]
   dataUnits.reverse()
   dataUnits2 = []
   
@@ -261,7 +261,7 @@ def avgBalloonLocation(request):
 
     
   for each in dataUnits2:
-    data.append([sJDS(dataUnits2[0]),dataUnits2[1],dataUnits2[2],dataUnits2[3]])
+    data.append([sJDS(each[0]),each[1],each[2],each[3]])
   
   print(len(dataUnits))
   print(len(data))
