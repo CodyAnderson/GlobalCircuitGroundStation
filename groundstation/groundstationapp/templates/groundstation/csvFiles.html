@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+    <head>
+    <title>CSV Files</title>
+    </head>
+    <body>
+      <div style="display: block; width: 100%;">
+        <h1>CSV Files</h1>
+      </div>
+      <div style="display: block;">
+        <div style="background-color:#dddddd; display: inline-block; padding: 0em 1em 0em 1em; float: left;">
+          <h2>CSV Files For Download</h2>
+          
+{% for name in csvFileNames %}          <a href="/{{ name }}.csv" download><button>{{ name }}</button></a>
+          <br><br>
+{% endfor %}
+        </div>
+      </div>
+    </body>
+</html>

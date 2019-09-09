@@ -40,7 +40,20 @@ signalFunctions = {
   'supervisionTemp': supervisionTemp,
   }
 
-
+def csvFiles(request):
+  csvFileNames = [
+                 'Request',
+                 'IridiumTransmission',
+                 'RawPacket',
+                 'PacketV6',
+                 'PacketV6Units',
+                 'Measurements',
+                 'MeasurementsUnits',
+                 'ConductivityMeasurements',
+                 'ConductivityMeasurementsUnits',
+                 ]
+  context = {'csvFileNames': csvFileNames}
+  return render(request, 'groundstation/csvFiles.html', context)
 
 def newGraph(request):
 

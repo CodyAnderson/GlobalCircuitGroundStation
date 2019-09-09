@@ -17,7 +17,7 @@ from django.conf.urls import url
 from django.contrib import admin
 
 from groundstationapp.views import homepage, gps, fastPost, horizontal, vertical, conductivity, submitfunc, dumpfunc, scrapefunc, utf8js, theBest, greyBalloon, redBalloon, greyBalloonClicked, redBalloonClicked, dashboard, dashboardV6, kmlFile
-from groundstationapp.newGraph import newGraph, oldGoogleMap, googleMap, badGoogleMap, quickDescentRate, descentRate, avgBalloonLocation
+from groundstationapp.newGraph import newGraph, oldGoogleMap, googleMap, badGoogleMap, quickDescentRate, descentRate, avgBalloonLocation, csvFiles
 from groundstationapp.graphV6 import graphV6
 
 urlpatterns = [
@@ -51,4 +51,5 @@ urlpatterns = [
   url(r'^quickDescentRate/$', quickDescentRate, name='quickDescentRate'),
   url(r'^balloonPath\.kml', kmlFile, name='kmlFile'),
   url(r'^avgBalloonLocation/$', avgBalloonLocation, name='avgBalloonLocation'),
+  url(r'^csvFiles/$', csvFiles, name='csvFiles'),
 ]
