@@ -252,7 +252,7 @@ def avgBalloonLocation(request):
     
     totalLat = totalLat + each.latitude
     totalLon = totalLon + each.longitude
-    totalAlt = totalAlt+ each.altitude
+    totalAlt = totalAlt + each.altitude
     
     
     
