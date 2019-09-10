@@ -185,6 +185,7 @@ functionsList = [
 def naughtyFuncString(csvTableName, csvHeader):
   stringMan = ''
   stringMan = stringMan + 'def ' + csvTableName + '(request):\n'
+  stringMan = stringMan + "filteredDataRows = {}\n"
   stringMan = stringMan + "  filteredDataRows['" + csvTableName + "'] = models." + csvTableName + ".objects.order_by('-time').all()\n"
   stringMan = stringMan + "  \n"
   stringMan = stringMan + "  csvHeader = [\n"
@@ -201,6 +202,7 @@ def naughtyFuncString(csvTableName, csvHeader):
   return stringMan
   
 def Request(request):
+filteredDataRows = {}
   filteredDataRows['Request'] = models.Request.objects.order_by('-time').all()
 
   csvHeader = [
@@ -231,6 +233,7 @@ def Request(request):
   return render(request, 'groundstation/csvFile.csv', context)
 
 def IridiumTransmission(request):
+filteredDataRows = {}
   filteredDataRows['IridiumTransmission'] = models.IridiumTransmission.objects.order_by('-time').all()
 
   csvHeader = [
@@ -261,6 +264,7 @@ def IridiumTransmission(request):
   return render(request, 'groundstation/csvFile.csv', context)
 
 def RawPacket(request):
+filteredDataRows = {}
   filteredDataRows['RawPacket'] = models.RawPacket.objects.order_by('-time').all()
 
   csvHeader = [
@@ -273,6 +277,7 @@ def RawPacket(request):
   return render(request, 'groundstation/csvFile.csv', context)
 
 def PacketV6(request):
+filteredDataRows = {}
   filteredDataRows['PacketV6'] = models.PacketV6.objects.order_by('-time').all()
 
   csvHeader = [
@@ -337,6 +342,7 @@ def PacketV6(request):
   return render(request, 'groundstation/csvFile.csv', context)
 
 def PacketV6Units(request):
+filteredDataRows = {}
   filteredDataRows['PacketV6Units'] = models.PacketV6Units.objects.order_by('-time').all()
 
   csvHeader = [
@@ -401,6 +407,7 @@ def PacketV6Units(request):
   return render(request, 'groundstation/csvFile.csv', context)
 
 def Measurements(request):
+filteredDataRows = {}
   filteredDataRows['Measurements'] = models.Measurements.objects.order_by('-time').all()
 
   csvHeader = [
@@ -431,6 +438,7 @@ def Measurements(request):
   return render(request, 'groundstation/csvFile.csv', context)
 
 def MeasurementsUnits(request):
+filteredDataRows = {}
   filteredDataRows['MeasurementsUnits'] = models.MeasurementsUnits.objects.order_by('-time').all()
 
   csvHeader = [
@@ -461,6 +469,7 @@ def MeasurementsUnits(request):
   return render(request, 'groundstation/csvFile.csv', context)
 
 def ConductivityMeasurements(request):
+filteredDataRows = {}
   filteredDataRows['ConductivityMeasurements'] = models.ConductivityMeasurements.objects.order_by('-time').all()
 
   csvHeader = [
@@ -477,6 +486,7 @@ def ConductivityMeasurements(request):
   return render(request, 'groundstation/csvFile.csv', context)
 
 def ConductivityMeasurementsUnits(request):
+filteredDataRows = {}
   filteredDataRows['ConductivityMeasurementsUnits'] = models.ConductivityMeasurementsUnits.objects.order_by('-time').all()
 
   csvHeader = [
@@ -491,21 +501,6 @@ def ConductivityMeasurementsUnits(request):
              ] for x in filteredDataRows['ConductivityMeasurementsUnits']]
   context = {'csvHeader':  csvHeader, 'csvData': csvData}
   return render(request, 'groundstation/csvFile.csv', context)
-
-def csvFiles(request):
-  csvFileNames = [
-                 'Request',
-                 'IridiumTransmission',
-                 'RawPacket',
-                 'PacketV6',
-                 'PacketV6Units',
-                 'Measurements',
-                 'MeasurementsUnits',
-                 'ConductivityMeasurements',
-                 'ConductivityMeasurementsUnits',
-                 ]
-  context = {'csvFileNames': csvFileNames}
-  return render(request, 'groundstation/csvFiles.html', context)
 
 def newGraph(request):
 
