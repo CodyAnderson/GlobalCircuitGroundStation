@@ -201,7 +201,7 @@ def naughtyFuncString(csvTableName, csvHeader):
   stringMan = ''
   stringMan = stringMan + 'def ' + csvTableName + '(request):\n'
   stringMan = stringMan + "  filteredDataRows = {}\n"
-  stringMan = stringMan + "  filteredDataRows['" + csvTableName + "'] = models." + csvTableName + ".objects.order_by('-time').all()\n"
+  stringMan = stringMan + "  filteredDataRows['" + csvTableName + "'] = models." + csvTableName + ".objects.order_by('time').all()\n"
   stringMan = stringMan + "  \n"
   stringMan = stringMan + "  csvHeader = [\n"
   for each in csvHeader:
@@ -218,7 +218,7 @@ def naughtyFuncString(csvTableName, csvHeader):
   
 def Request(request):
   filteredDataRows = {}
-  filteredDataRows['Request'] = models.Request.objects.order_by('-time').all()
+  filteredDataRows['Request'] = models.Request.objects.order_by('time').all()
 
   csvHeader = [
               'time',
@@ -249,7 +249,7 @@ def Request(request):
 
 def IridiumTransmission(request):
   filteredDataRows = {}
-  filteredDataRows['IridiumTransmission'] = models.IridiumTransmission.objects.order_by('-time').all()
+  filteredDataRows['IridiumTransmission'] = models.IridiumTransmission.objects.order_by('time').all()
 
   csvHeader = [
               'time',
@@ -280,7 +280,7 @@ def IridiumTransmission(request):
 
 def RawPacket(request):
   filteredDataRows = {}
-  filteredDataRows['RawPacket'] = models.RawPacket.objects.order_by('-time').all()
+  filteredDataRows['RawPacket'] = models.RawPacket.objects.order_by('time').all()
 
   csvHeader = [
               'hexdata',
@@ -293,7 +293,7 @@ def RawPacket(request):
 
 def PacketV6(request):
   filteredDataRows = {}
-  filteredDataRows['PacketV6'] = models.PacketV6.objects.order_by('-time').all()
+  filteredDataRows['PacketV6'] = models.PacketV6.objects.order_by('time').all()
 
   csvHeader = [
               'time',
@@ -358,7 +358,7 @@ def PacketV6(request):
 
 def PacketV6Units(request):
   filteredDataRows = {}
-  filteredDataRows['PacketV6Units'] = models.PacketV6Units.objects.order_by('-time').all()
+  filteredDataRows['PacketV6Units'] = models.PacketV6Units.objects.order_by('time').all()
 
   csvHeader = [
               'time',
@@ -423,7 +423,7 @@ def PacketV6Units(request):
 
 def Measurements(request):
   filteredDataRows = {}
-  filteredDataRows['Measurements'] = models.Measurements.objects.order_by('-time').all()
+  filteredDataRows['Measurements'] = models.Measurements.objects.order_by('time').all()
 
   csvHeader = [
               'time',
@@ -454,7 +454,7 @@ def Measurements(request):
 
 def MeasurementsUnits(request):
   filteredDataRows = {}
-  filteredDataRows['MeasurementsUnits'] = models.MeasurementsUnits.objects.order_by('-time').all()
+  filteredDataRows['MeasurementsUnits'] = models.MeasurementsUnits.objects.order_by('time').all()
 
   csvHeader = [
               'time',
@@ -485,7 +485,7 @@ def MeasurementsUnits(request):
 
 def ConductivityMeasurements(request):
   filteredDataRows = {}
-  filteredDataRows['ConductivityMeasurements'] = models.ConductivityMeasurements.objects.order_by('-time').all()
+  filteredDataRows['ConductivityMeasurements'] = models.ConductivityMeasurements.objects.order_by('time').all()
 
   csvHeader = [
               'time',
@@ -502,7 +502,7 @@ def ConductivityMeasurements(request):
 
 def ConductivityMeasurementsUnits(request):
   filteredDataRows = {}
-  filteredDataRows['ConductivityMeasurementsUnits'] = models.ConductivityMeasurementsUnits.objects.order_by('-time').all()
+  filteredDataRows['ConductivityMeasurementsUnits'] = models.ConductivityMeasurementsUnits.objects.order_by('time').all()
 
   csvHeader = [
               'time',
