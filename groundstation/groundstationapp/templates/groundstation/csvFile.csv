@@ -1,0 +1,2 @@
+{% for fieldName in csvHeader %}{{ fieldName }},{% endfor %}{% for record in csvData%}
+{% for field in record %}{{ field }},{% endfor %}{% endfor %}

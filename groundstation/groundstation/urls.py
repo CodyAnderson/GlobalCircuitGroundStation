@@ -18,6 +18,7 @@ from django.contrib import admin
 
 from groundstationapp.views import homepage, gps, fastPost, horizontal, vertical, conductivity, submitfunc, dumpfunc, scrapefunc, utf8js, theBest, greyBalloon, redBalloon, greyBalloonClicked, redBalloonClicked, dashboard, dashboardV6, kmlFile
 from groundstationapp.newGraph import newGraph, oldGoogleMap, googleMap, badGoogleMap, quickDescentRate, descentRate, avgBalloonLocation, csvFiles
+from groundstationapp.newGraph import Request, IridiumTransmission, RawPacket, PacketV6, PacketV6Units, Measurements, MeasurementsUnits, ConductivityMeasurements, ConductivityMeasurementsUnits
 from groundstationapp.graphV6 import graphV6
 
 urlpatterns = [
@@ -52,4 +53,13 @@ urlpatterns = [
   url(r'^balloonPath\.kml', kmlFile, name='kmlFile'),
   url(r'^avgBalloonLocation/$', avgBalloonLocation, name='avgBalloonLocation'),
   url(r'^csvFiles/$', csvFiles, name='csvFiles'),
+  url(r'^Request\.csv$', Request, name='Request'),
+  url(r'^IridiumTransmission\.csv$', IridiumTransmission, name='IridiumTransmission'),
+  url(r'^RawPacket\.csv$', RawPacket, name='RawPacket'),
+  url(r'^PacketV6\.csv$', PacketV6, name='PacketV6'),
+  url(r'^PacketV6Units\.csv$', PacketV6Units, name='PacketV6Units'),
+  url(r'^Measurements\.csv$', Measurements, name='Measurements'),
+  url(r'^MeasurementsUnits\.csv$', MeasurementsUnits, name='MeasurementsUnits'),
+  url(r'^ConductivityMeasurements\.csv$', ConductivityMeasurements, name='ConductivityMeasurements'),
+  url(r'^ConductivityMeasurementsUnits\.csv$', ConductivityMeasurementsUnits, name='ConductivityMeasurementsUnits'),
 ]
