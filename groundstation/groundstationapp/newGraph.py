@@ -212,7 +212,7 @@ def naughtyFuncString(csvTableName, csvHeader):
    stringMan = stringMan + "              x." + each + ",\n"
   stringMan = stringMan + "             ] for x in filteredDataRows['" + csvTableName + "']]\n"
   stringMan = stringMan + "  context = {'csvHeader':  csvHeader, 'csvData': csvData}\n"
-  stringMan = stringMan + "  return render(request, 'groundstation/csvFile.csv', context, content_type='text/plain')\n"
+  stringMan = stringMan + "  return render(request, 'groundstation/csvFile.csv', context, content_type='text/csv')\n"
   stringMan = stringMan + "  \n"
   return stringMan
   
@@ -245,7 +245,7 @@ def Request(request):
               x.response_status_code,
              ] for x in filteredDataRows['Request']]
   context = {'csvHeader':  csvHeader, 'csvData': csvData}
-  return render(request, 'groundstation/csvFile.csv', context, content_type='text/plain')
+  return render(request, 'groundstation/csvFile.csv', context, content_type='text/csv')
 
 def IridiumTransmission(request):
   filteredDataRows = {}
@@ -276,7 +276,7 @@ def IridiumTransmission(request):
               x.transmitted_via_satellite,
              ] for x in filteredDataRows['IridiumTransmission']]
   context = {'csvHeader':  csvHeader, 'csvData': csvData}
-  return render(request, 'groundstation/csvFile.csv', context, content_type='text/plain')
+  return render(request, 'groundstation/csvFile.csv', context, content_type='text/csv')
 
 def RawPacket(request):
   filteredDataRows = {}
@@ -289,7 +289,7 @@ def RawPacket(request):
               x.hexdata,
              ] for x in filteredDataRows['RawPacket']]
   context = {'csvHeader':  csvHeader, 'csvData': csvData}
-  return render(request, 'groundstation/csvFile.csv', context, content_type='text/plain')
+  return render(request, 'groundstation/csvFile.csv', context, content_type='text/csv')
 
 def PacketV6(request):
   filteredDataRows = {}
@@ -354,7 +354,7 @@ def PacketV6(request):
               x.rockblock_temp,
              ] for x in filteredDataRows['PacketV6']]
   context = {'csvHeader':  csvHeader, 'csvData': csvData}
-  return render(request, 'groundstation/csvFile.csv', context, content_type='text/plain')
+  return render(request, 'groundstation/csvFile.csv', context, content_type='text/csv')
 
 def PacketV6Units(request):
   filteredDataRows = {}
@@ -419,7 +419,7 @@ def PacketV6Units(request):
               x.rockblock_temp,
              ] for x in filteredDataRows['PacketV6Units']]
   context = {'csvHeader':  csvHeader, 'csvData': csvData}
-  return render(request, 'groundstation/csvFile.csv', context, content_type='text/plain')
+  return render(request, 'groundstation/csvFile.csv', context, content_type='text/csv')
 
 def Measurements(request):
   filteredDataRows = {}
@@ -450,7 +450,7 @@ def Measurements(request):
               x.horizD,
              ] for x in filteredDataRows['Measurements']]
   context = {'csvHeader':  csvHeader, 'csvData': csvData}
-  return render(request, 'groundstation/csvFile.csv', context, content_type='text/plain')
+  return render(request, 'groundstation/csvFile.csv', context, content_type='text/csv')
 
 def MeasurementsUnits(request):
   filteredDataRows = {}
@@ -481,7 +481,7 @@ def MeasurementsUnits(request):
               x.horizD,
              ] for x in filteredDataRows['MeasurementsUnits']]
   context = {'csvHeader':  csvHeader, 'csvData': csvData}
-  return render(request, 'groundstation/csvFile.csv', context, content_type='text/plain')
+  return render(request, 'groundstation/csvFile.csv', context, content_type='text/csv')
 
 def ConductivityMeasurements(request):
   filteredDataRows = {}
@@ -498,7 +498,7 @@ def ConductivityMeasurements(request):
               x.vert2,
              ] for x in filteredDataRows['ConductivityMeasurements']]
   context = {'csvHeader':  csvHeader, 'csvData': csvData}
-  return render(request, 'groundstation/csvFile.csv', context, content_type='text/plain')
+  return render(request, 'groundstation/csvFile.csv', context, content_type='text/csv')
 
 def ConductivityMeasurementsUnits(request):
   filteredDataRows = {}
@@ -515,7 +515,7 @@ def ConductivityMeasurementsUnits(request):
               x.vert2,
              ] for x in filteredDataRows['ConductivityMeasurementsUnits']]
   context = {'csvHeader':  csvHeader, 'csvData': csvData}
-  return render(request, 'groundstation/csvFile.csv', context, content_type='text/plain')
+  return render(request, 'groundstation/csvFile.csv', context, content_type='text/csv')
 
 def newGraph(request):
 
