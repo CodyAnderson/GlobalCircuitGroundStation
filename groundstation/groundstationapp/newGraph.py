@@ -212,12 +212,12 @@ def naughtyFuncString(csvTableName, csvHeader):
    stringMan = stringMan + "              x." + each + ",\n"
   stringMan = stringMan + "             ] for x in filteredDataRows['" + csvTableName + "']]\n"
   stringMan = stringMan + "  context = {'csvHeader':  csvHeader, 'csvData': csvData}\n"
-  stringMan = stringMan + "  return render(request, 'groundstation/csvFile.csv', context)\n"
+  stringMan = stringMan + "  return render(request, 'groundstation/csvFile.csv', context, content_type='text/plain')\n"
   stringMan = stringMan + "  \n"
   return stringMan
   
 def Request(request):
-  filteredDataRows = {}
+filteredDataRows = {}
   filteredDataRows['Request'] = models.Request.objects.order_by('-time').all()
 
   csvHeader = [
@@ -245,10 +245,10 @@ def Request(request):
               x.response_status_code,
              ] for x in filteredDataRows['Request']]
   context = {'csvHeader':  csvHeader, 'csvData': csvData}
-  return render(request, 'groundstation/csvFile.csv', context)
+  return render(request, 'groundstation/csvFile.csv', context, content_type='text/plain')
 
 def IridiumTransmission(request):
-  filteredDataRows = {}
+filteredDataRows = {}
   filteredDataRows['IridiumTransmission'] = models.IridiumTransmission.objects.order_by('-time').all()
 
   csvHeader = [
@@ -276,10 +276,10 @@ def IridiumTransmission(request):
               x.transmitted_via_satellite,
              ] for x in filteredDataRows['IridiumTransmission']]
   context = {'csvHeader':  csvHeader, 'csvData': csvData}
-  return render(request, 'groundstation/csvFile.csv', context)
+  return render(request, 'groundstation/csvFile.csv', context, content_type='text/plain')
 
 def RawPacket(request):
-  filteredDataRows = {}
+filteredDataRows = {}
   filteredDataRows['RawPacket'] = models.RawPacket.objects.order_by('-time').all()
 
   csvHeader = [
@@ -289,10 +289,10 @@ def RawPacket(request):
               x.hexdata,
              ] for x in filteredDataRows['RawPacket']]
   context = {'csvHeader':  csvHeader, 'csvData': csvData}
-  return render(request, 'groundstation/csvFile.csv', context)
+  return render(request, 'groundstation/csvFile.csv', context, content_type='text/plain')
 
 def PacketV6(request):
-  filteredDataRows = {}
+filteredDataRows = {}
   filteredDataRows['PacketV6'] = models.PacketV6.objects.order_by('-time').all()
 
   csvHeader = [
@@ -301,8 +301,7 @@ def PacketV6(request):
               'mcu_id',
               'version',
               'sequence_id',
-              'latitude',
-              'longitude',
+              'latitudelongitude',
               'altitude',
               'ballast_status',
               'cutdown_status',
@@ -331,8 +330,7 @@ def PacketV6(request):
               x.mcu_id,
               x.version,
               x.sequence_id,
-              x.latitude,
-              x.longitude,
+              x.latitudelongitude,
               x.altitude,
               x.ballast_status,
               x.cutdown_status,
@@ -356,10 +354,10 @@ def PacketV6(request):
               x.rockblock_temp,
              ] for x in filteredDataRows['PacketV6']]
   context = {'csvHeader':  csvHeader, 'csvData': csvData}
-  return render(request, 'groundstation/csvFile.csv', context)
+  return render(request, 'groundstation/csvFile.csv', context, content_type='text/plain')
 
 def PacketV6Units(request):
-  filteredDataRows = {}
+filteredDataRows = {}
   filteredDataRows['PacketV6Units'] = models.PacketV6Units.objects.order_by('-time').all()
 
   csvHeader = [
@@ -368,8 +366,7 @@ def PacketV6Units(request):
               'mcu_id',
               'version',
               'sequence_id',
-              'latitude',
-              'longitude',
+              'latitudelongitude',
               'altitude',
               'ballast_status',
               'cutdown_status',
@@ -398,8 +395,7 @@ def PacketV6Units(request):
               x.mcu_id,
               x.version,
               x.sequence_id,
-              x.latitude,
-              x.longitude,
+              x.latitudelongitude,
               x.altitude,
               x.ballast_status,
               x.cutdown_status,
@@ -423,10 +419,10 @@ def PacketV6Units(request):
               x.rockblock_temp,
              ] for x in filteredDataRows['PacketV6Units']]
   context = {'csvHeader':  csvHeader, 'csvData': csvData}
-  return render(request, 'groundstation/csvFile.csv', context)
+  return render(request, 'groundstation/csvFile.csv', context, content_type='text/plain')
 
 def Measurements(request):
-  filteredDataRows = {}
+filteredDataRows = {}
   filteredDataRows['Measurements'] = models.Measurements.objects.order_by('-time').all()
 
   csvHeader = [
@@ -454,10 +450,10 @@ def Measurements(request):
               x.horizD,
              ] for x in filteredDataRows['Measurements']]
   context = {'csvHeader':  csvHeader, 'csvData': csvData}
-  return render(request, 'groundstation/csvFile.csv', context)
+  return render(request, 'groundstation/csvFile.csv', context, content_type='text/plain')
 
 def MeasurementsUnits(request):
-  filteredDataRows = {}
+filteredDataRows = {}
   filteredDataRows['MeasurementsUnits'] = models.MeasurementsUnits.objects.order_by('-time').all()
 
   csvHeader = [
@@ -485,10 +481,10 @@ def MeasurementsUnits(request):
               x.horizD,
              ] for x in filteredDataRows['MeasurementsUnits']]
   context = {'csvHeader':  csvHeader, 'csvData': csvData}
-  return render(request, 'groundstation/csvFile.csv', context)
+  return render(request, 'groundstation/csvFile.csv', context, content_type='text/plain')
 
 def ConductivityMeasurements(request):
-  filteredDataRows = {}
+filteredDataRows = {}
   filteredDataRows['ConductivityMeasurements'] = models.ConductivityMeasurements.objects.order_by('-time').all()
 
   csvHeader = [
@@ -502,10 +498,10 @@ def ConductivityMeasurements(request):
               x.vert2,
              ] for x in filteredDataRows['ConductivityMeasurements']]
   context = {'csvHeader':  csvHeader, 'csvData': csvData}
-  return render(request, 'groundstation/csvFile.csv', context)
+  return render(request, 'groundstation/csvFile.csv', context, content_type='text/plain')
 
 def ConductivityMeasurementsUnits(request):
-  filteredDataRows = {}
+filteredDataRows = {}
   filteredDataRows['ConductivityMeasurementsUnits'] = models.ConductivityMeasurementsUnits.objects.order_by('-time').all()
 
   csvHeader = [
@@ -519,7 +515,7 @@ def ConductivityMeasurementsUnits(request):
               x.vert2,
              ] for x in filteredDataRows['ConductivityMeasurementsUnits']]
   context = {'csvHeader':  csvHeader, 'csvData': csvData}
-  return render(request, 'groundstation/csvFile.csv', context)
+  return render(request, 'groundstation/csvFile.csv', context, content_type='text/plain')
 
 def newGraph(request):
 
