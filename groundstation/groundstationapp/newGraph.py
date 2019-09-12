@@ -291,7 +291,7 @@ def RawPacket(request):
   context = {'csvHeader':  csvHeader, 'csvData': csvData}
   return render(request, 'groundstation/csvFile.csv', context, content_type='text/csv')
   
-def EverythingExceptForConductivity():
+def EverythingExceptForConductivity(request):
   filteredDataRows = {}
   filteredDataRows['Request'] = models.Request.objects.order_by('time').prefetch_related('child_transmission__child_packet__conductivity_measurements_set').prefetch_related('child_transmission__child_packet__conductivity_measurements_set__child_conductivity_measurements_units').prefetch_related('child_transmission__child_packet__measurements_set').prefetch_related('child_transmission__child_packet__measurements_set__child_measurements_units').select_related('child_transmission').select_related('child_transmission__child_packet')
 
@@ -326,7 +326,7 @@ def EverythingExceptForConductivity():
   context = {'csvHeader':  csvHeader, 'csvData': csvData}
   return render(request, 'groundstation/csvFile.csv', context, content_type='text/csv')
   
-def OnlyConductivity():
+def OnlyConductivity(request):
   pass
 
 def PacketV6(request):
