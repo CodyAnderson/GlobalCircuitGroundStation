@@ -293,7 +293,7 @@ def RawPacket(request):
   
 def EverythingExceptForConductivity(request):
   filteredDataRows = {}
-  filteredDataRows['Request'] = models.Request.objects.order_by('time').prefetch_related('child_transmission__child_packet__conductivity_measurements_set').prefetch_related('child_transmission__child_packet__conductivity_measurements_set__child_conductivity_measurements_units').prefetch_related('child_transmission__child_packet__measurements_set').prefetch_related('child_transmission__child_packet__measurements_set__child_measurements_units').select_related('child_transmission').select_related('child_transmission__child_packet')
+  filteredDataRows['Request'] = models.Request.objects.order_by('time').prefetch_related('child_transmission__child_packet__measurements_set').prefetch_related('child_transmission__child_packet__measurements_set__child_measurements_units').select_related('child_transmission').select_related('child_transmission__child_packet')
 
   csvHeader = [
               'time',
