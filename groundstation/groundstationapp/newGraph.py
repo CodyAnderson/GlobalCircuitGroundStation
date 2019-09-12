@@ -290,6 +290,44 @@ def RawPacket(request):
              ] for x in filteredDataRows['RawPacket']]
   context = {'csvHeader':  csvHeader, 'csvData': csvData}
   return render(request, 'groundstation/csvFile.csv', context, content_type='text/csv')
+  
+def EverythingExceptForConductivity():
+  filteredDataRows = {}
+  filteredDataRows['Request'] = models.Request.objects.order_by('time').prefetch_related('child_transmission__child_packet__conductivity_measurements_set').prefetch_related('child_transmission__child_packet__conductivity_measurements_set__child_conductivity_measurements_units').prefetch_related('child_transmission__child_packet__measurements_set').prefetch_related('child_transmission__child_packet__measurements_set__child_measurements_units').select_related('child_transmission').select_related('child_transmission__child_packet')
+
+  csvHeader = [
+              'time',
+              'processing_duration',
+              'forwarded_for_address',
+              'forwarded_host_address',
+              'forwarded_server_address',
+              'remote_address',
+              'raw_request_data',
+              'response_duration',
+              'response_errors',
+              'response_status_code',
+              ]
+  csvData = [[
+              x.time,
+              x.processing_duration,
+              x.forwarded_for_address,
+              x.forwarded_host_address,
+              x.forwarded_server_address,
+              x.remote_address,
+              x.raw_request_data,
+              x.response_duration,
+              x.response_errors,
+              x.response_status_code,
+             ] for x in filteredDataRows['Request']]
+             
+  print(len(csvData))
+  
+  
+  context = {'csvHeader':  csvHeader, 'csvData': csvData}
+  return render(request, 'groundstation/csvFile.csv', context, content_type='text/csv')
+  
+def OnlyConductivity():
+  pass
 
 def PacketV6(request):
   filteredDataRows = {}

@@ -19,6 +19,7 @@ from django.contrib import admin
 from groundstationapp.views import homepage, gps, fastPost, horizontal, vertical, conductivity, submitfunc, dumpfunc, scrapefunc, utf8js, theBest, greyBalloon, redBalloon, greyBalloonClicked, redBalloonClicked, dashboard, dashboardV6, kmlFile
 from groundstationapp.newGraph import newGraph, oldGoogleMap, googleMap, badGoogleMap, quickDescentRate, descentRate, avgBalloonLocation, csvFiles
 from groundstationapp.newGraph import Request, IridiumTransmission, RawPacket, PacketV6, PacketV6Units, Measurements, MeasurementsUnits, ConductivityMeasurements, ConductivityMeasurementsUnits
+from groundstationapp.newGraph import EverythingExceptForConductivity
 from groundstationapp.graphV6 import graphV6
 
 urlpatterns = [
@@ -62,4 +63,7 @@ urlpatterns = [
   url(r'^MeasurementsUnits\.csv$', MeasurementsUnits, name='MeasurementsUnits'),
   url(r'^ConductivityMeasurements\.csv$', ConductivityMeasurements, name='ConductivityMeasurements'),
   url(r'^ConductivityMeasurementsUnits\.csv$', ConductivityMeasurementsUnits, name='ConductivityMeasurementsUnits'),
+  
+  url(r'^EverythingExceptForConductivity\.csv$', EverythingExceptForConductivity, name='EverythingExceptForConductivity'),
+  
 ]
