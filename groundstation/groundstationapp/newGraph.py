@@ -433,10 +433,10 @@ def FlightID_IMEI_Cond_RAW(request):
   csvData = []
   
   for x in filteredDataRows['ConductivityMeasurements']:
-    if x.time == filteredDataRows['ConductivityMeasurements'][1727].time:
-      specialPacket = models.PacketV6.objects.filter(time=x.conductivity_time)
+    if x.parent_packet.time == filteredDataRows['ConductivityMeasurements'][1727].time:
+      specialPacket = models.PacketV6.objects.filter(time=x.parent_packet.conductivity_time)
       print("----BEGIN----")
-      print(x.conductivity_time)
+      print(x.parent_packet.conductivity_time)
       print(specialPacket)
       print(specialPacket[0])
       print(specialPacket[0].time)
