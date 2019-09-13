@@ -319,7 +319,7 @@ def FlightID_IMEI_Probe_Mag_RAW(request):
               'PacketV6___altitude',
               ]
   csvData = [[
-              x.time,
+              x.time.replace(tzinfo=timezone.utc).timestamp(),
               x.vert1,
               x.vert2,
               x.vertD,
@@ -331,7 +331,7 @@ def FlightID_IMEI_Probe_Mag_RAW(request):
               x.compassZ,
               
               x.parent_packet.parent_transmission.parent_request.id,
-              x.parent_packet.time,
+              x.parent_packet.time.replace(tzinfo=timezone.utc).timestamp(),
               x.parent_packet.latitude,
               x.parent_packet.longitude,
               x.parent_packet.altitude,
@@ -339,6 +339,58 @@ def FlightID_IMEI_Probe_Mag_RAW(request):
              ] for x in filteredDataRows['Measurements']]
   context = {'csvHeader':  csvHeader, 'csvData': csvData}
   return render(request, 'groundstation/csvFile.csv', context, content_type='text/csv')
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+def FlightID_IMEI_Cond_RAW(request):
+  filteredDataRows = {}
+  filteredDataRows['ConductivityMeasurements'] = models.ConductivityMeasurements.objects.order_by('time')
+  filteredDataRows['ConductivityMeasurements'] = filteredDataRows['ConductivityMeasurements'].select_related('parent_packet')
+  filteredDataRows['ConductivityMeasurements'] = filteredDataRows['ConductivityMeasurements'].select_related('parent_packet__parent_transmission__parent_request')
+  filteredDataRows['ConductivityMeasurements'] = filteredDataRows['ConductivityMeasurements'].filter(parent_packet__parent_transmission__imei = '300434063382350')
+  filteredDataRows['ConductivityMeasurements'] = filteredDataRows['ConductivityMeasurements'].filter(parent_packet__mcu_id = '1')
+
+  csvHeader = [
+              'Measurements___time',
+              'Measurements___vert1',
+              'Measurements___vert2',
+              
+              'PacketV6___id',
+              'PacketV6___time',
+              'PacketV6___latitude',
+              'PacketV6___longitude',
+              'PacketV6___altitude',
+              ]
+  csvData = [[
+              x.time.replace(tzinfo=timezone.utc).timestamp(),
+              x.vert1,
+              x.vert2,
+              
+              x.parent_packet.parent_transmission.parent_request.id,
+              x.parent_packet.time.replace(tzinfo=timezone.utc).timestamp(),
+              x.parent_packet.latitude,
+              x.parent_packet.longitude,
+              x.parent_packet.altitude,
+              
+             ] for x in filteredDataRows['ConductivityMeasurements']]
+  context = {'csvHeader':  csvHeader, 'csvData': csvData}
+  return render(request, 'groundstation/csvFile.csv', context, content_type='text/csv')
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
 def EverythingExceptForConductivity(request):
   filteredDataRows = {}
