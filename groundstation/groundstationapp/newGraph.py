@@ -340,6 +340,56 @@ def FlightID_IMEI_Probe_Mag_RAW(request):
   context = {'csvHeader':  csvHeader, 'csvData': csvData}
   return render(request, 'groundstation/csvFile.csv', context, content_type='text/csv')
   
+def FlightID_IMEI_Probe_Mag_UNITS(request):
+  filteredDataRows = {}
+  filteredDataRows['MeasurementsUnits'] = models.Measurements.objects.order_by('time')
+  filteredDataRows['MeasurementsUnits'] = filteredDataRows['MeasurementsUnits'].select_related('child_measurements_units')
+  filteredDataRows['MeasurementsUnits'] = filteredDataRows['MeasurementsUnits'].select_related('parent_packet')
+  filteredDataRows['MeasurementsUnits'] = filteredDataRows['MeasurementsUnits'].select_related('parent_packet__child_packet_v6_units')
+  filteredDataRows['MeasurementsUnits'] = filteredDataRows['MeasurementsUnits'].select_related('parent_packet__parent_transmission__parent_request')
+  filteredDataRows['MeasurementsUnits'] = filteredDataRows['MeasurementsUnits'].filter(parent_packet__parent_transmission__imei = '300434063382350')
+  filteredDataRows['MeasurementsUnits'] = filteredDataRows['MeasurementsUnits'].filter(parent_packet__mcu_id = '1')
+
+  csvHeader = [
+              'MeasurementsUnits___time',
+              'MeasurementsUnits___vert1',
+              'MeasurementsUnits___vert2',
+              'MeasurementsUnits___vertD',
+              'MeasurementsUnits___horiz1',
+              'MeasurementsUnits___horiz2',
+              'MeasurementsUnits___horizD',
+              'MeasurementsUnits___compassX',
+              'MeasurementsUnits___compassY',
+              'MeasurementsUnits___compassZ',
+              
+              'PacketV6Units___id',
+              'PacketV6Units___time',
+              'PacketV6Units___latitude',
+              'PacketV6Units___longitude',
+              'PacketV6Units___altitude',
+              ]
+  csvData = [[
+              x.child_measurements_units.time.replace(tzinfo=timezone.utc).timestamp(),
+              x.child_measurements_units.vert1,
+              x.child_measurements_units.vert2,
+              x.child_measurements_units.vertD,
+              x.child_measurements_units.horiz1,
+              x.child_measurements_units.horiz2,
+              x.child_measurements_units.horizD,
+              x.child_measurements_units.compassX,
+              x.child_measurements_units.compassY,
+              x.child_measurements_units.compassZ,
+              
+              x.parent_packet.parent_transmission.parent_request.id,
+              x.parent_packet.child_packet_v6_units.time.replace(tzinfo=timezone.utc).timestamp(),
+              x.parent_packet.child_packet_v6_units.latitude,
+              x.parent_packet.child_packet_v6_units.longitude,
+              x.parent_packet.child_packet_v6_units.altitude,
+              
+             ] for x in filteredDataRows['MeasurementsUnits']]
+  context = {'csvHeader':  csvHeader, 'csvData': csvData}
+  return render(request, 'groundstation/csvFile.csv', context, content_type='text/csv')
+  
   
   
   
@@ -358,9 +408,9 @@ def FlightID_IMEI_Cond_RAW(request):
   filteredDataRows['ConductivityMeasurements'] = filteredDataRows['ConductivityMeasurements'].filter(parent_packet__mcu_id = '1')
 
   csvHeader = [
-              'Measurements___time',
-              'Measurements___vert1',
-              'Measurements___vert2',
+              'ConductivityMeasurements___time',
+              'ConductivityMeasurements___vert1',
+              'ConductivityMeasurements___vert2',
               
               'PacketV6___id',
               'PacketV6___time',
@@ -380,6 +430,42 @@ def FlightID_IMEI_Cond_RAW(request):
               x.parent_packet.altitude,
               
              ] for x in filteredDataRows['ConductivityMeasurements']]
+  context = {'csvHeader':  csvHeader, 'csvData': csvData}
+  return render(request, 'groundstation/csvFile.csv', context, content_type='text/csv')
+  
+def FlightID_IMEI_Cond_UNITS(request):
+  filteredDataRows = {}
+  filteredDataRows['ConductivityMeasurementsUnits'] = models.ConductivityMeasurements.objects.order_by('time')
+  filteredDataRows['MeasurementsUnits'] = filteredDataRows['MeasurementsUnits'].select_related('child_conductivity_measurements_units')
+  filteredDataRows['ConductivityMeasurementsUnits'] = filteredDataRows['ConductivityMeasurementsUnits'].select_related('parent_packet')
+  filteredDataRows['MeasurementsUnits'] = filteredDataRows['MeasurementsUnits'].select_related('parent_packet__child_packet_v6_units')
+  filteredDataRows['ConductivityMeasurementsUnits'] = filteredDataRows['ConductivityMeasurementsUnits'].select_related('parent_packet__parent_transmission__parent_request')
+  filteredDataRows['ConductivityMeasurementsUnits'] = filteredDataRows['ConductivityMeasurementsUnits'].filter(parent_packet__parent_transmission__imei = '300434063382350')
+  filteredDataRows['ConductivityMeasurementsUnits'] = filteredDataRows['ConductivityMeasurementsUnits'].filter(parent_packet__mcu_id = '1')
+
+  csvHeader = [
+              'ConductivityMeasurementsUnits___time',
+              'ConductivityMeasurementsUnits___vert1',
+              'ConductivityMeasurementsUnits___vert2',
+              
+              'PacketV6Units___id',
+              'PacketV6Units___time',
+              'PacketV6Units___latitude',
+              'PacketV6Units___longitude',
+              'PacketV6Units___altitude',
+              ]
+  csvData = [[
+              x.child_conductivity_measurements_units.time.replace(tzinfo=timezone.utc).timestamp(),
+              x.child_conductivity_measurements_units.vert1,
+              x.child_conductivity_measurements_units.vert2,
+              
+              x.parent_packet.parent_transmission.parent_request.id,
+              x.parent_packet.child_packet_v6_units.time.replace(tzinfo=timezone.utc).timestamp(),
+              x.parent_packet.child_packet_v6_units.latitude,
+              x.parent_packet.child_packet_v6_units.longitude,
+              x.parent_packet.child_packet_v6_units.altitude,
+              
+             ] for x in filteredDataRows['ConductivityMeasurementsUnits']]
   context = {'csvHeader':  csvHeader, 'csvData': csvData}
   return render(request, 'groundstation/csvFile.csv', context, content_type='text/csv')
   

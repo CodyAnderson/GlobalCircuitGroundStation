@@ -19,7 +19,7 @@ from django.contrib import admin
 from groundstationapp.views import homepage, gps, fastPost, horizontal, vertical, conductivity, submitfunc, dumpfunc, scrapefunc, utf8js, theBest, greyBalloon, redBalloon, greyBalloonClicked, redBalloonClicked, dashboard, dashboardV6, kmlFile
 from groundstationapp.newGraph import newGraph, oldGoogleMap, googleMap, badGoogleMap, quickDescentRate, descentRate, avgBalloonLocation, csvFiles
 from groundstationapp.newGraph import Request, IridiumTransmission, RawPacket, PacketV6, PacketV6Units, Measurements, MeasurementsUnits, ConductivityMeasurements, ConductivityMeasurementsUnits
-from groundstationapp.newGraph import EverythingExceptForConductivity, FlightID_IMEI_Probe_Mag_RAW, FlightID_IMEI_Cond_RAW
+from groundstationapp.newGraph import EverythingExceptForConductivity, FlightID_IMEI_Probe_Mag_RAW, FlightID_IMEI_Cond_RAW, FlightID_IMEI_Probe_Mag_UNITS, FlightID_IMEI_Cond_UNITS
 from groundstationapp.graphV6 import graphV6
 
 urlpatterns = [
@@ -67,6 +67,8 @@ urlpatterns = [
   url(r'^EverythingExceptForConductivity\.csv$', EverythingExceptForConductivity, name='EverythingExceptForConductivity'),
   url(r'^FlightID_IMEI_Probe_Mag_RAW\.csv$', FlightID_IMEI_Probe_Mag_RAW, name='FlightID_IMEI_Probe_Mag_RAW'),
   url(r'^FlightID_IMEI_Cond_RAW\.csv$', FlightID_IMEI_Cond_RAW, name='FlightID_IMEI_Cond_RAW'),
+  url(r'^FlightID_IMEI_Probe_Mag_UNITS\.csv$', FlightID_IMEI_Probe_Mag_UNITS, name='FlightID_IMEI_Probe_Mag_UNITS'),
+  url(r'^FlightID_IMEI_Cond_UNITS\.csv$', FlightID_IMEI_Cond_UNITS, name='FlightID_IMEI_Cond_UNITS'),
   
   
   
