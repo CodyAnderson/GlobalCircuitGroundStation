@@ -440,7 +440,7 @@ def FlightID_IMEI_Cond_RAW(request):
       print(specialPacket)
       print(specialPacket[0])
       print(specialPacket[0].time)
-      print(specialPacket.time)
+      print(len(specialPacket))
       print("-----END-----")
     dataRow = [
                 x.time.replace(tzinfo=timezone.utc).timestamp(),
