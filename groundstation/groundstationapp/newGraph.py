@@ -383,7 +383,11 @@ def EverythingExceptForConductivity(request):
               
               ]
   csvData = []
-  for x in filteredDataRows['Request']:  
+  for x in filteredDataRows['Request']:
+    xHasChildTrans = hasattr(x, child_transmission)
+  
+  
+  
     rowObject = [
                 x.time,
                 x.processing_duration,
@@ -396,16 +400,16 @@ def EverythingExceptForConductivity(request):
                 x.response_errors,
                 x.response_status_code,
                 
-                x.child_transmission.time,
-                x.child_transmission.latitude,
-                x.child_transmission.longitude,
-                x.child_transmission.cep,
-                x.child_transmission.momsn,
-                x.child_transmission.imei,
-                x.child_transmission.device_type,
-                x.child_transmission.serial,
-                x.child_transmission.iridium_session_status,
-                x.child_transmission.transmitted_via_satellite,
+                None if not xHasChildTrans else x.child_transmission.time,
+                None if not xHasChildTrans else x.child_transmission.latitude,
+                None if not xHasChildTrans else x.child_transmission.longitude,
+                None if not xHasChildTrans else x.child_transmission.cep,
+                None if not xHasChildTrans else x.child_transmission.momsn,
+                None if not xHasChildTrans else x.child_transmission.imei,
+                None if not xHasChildTrans else x.child_transmission.device_type,
+                None if not xHasChildTrans else x.child_transmission.serial,
+                None if not xHasChildTrans else x.child_transmission.iridium_session_status,
+                None if not xHasChildTrans else x.child_transmission.transmitted_via_satellite,
                 
                 x.child_transmission.child_packet.time,
                 x.child_transmission.child_packet.yikes_status,
