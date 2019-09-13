@@ -292,6 +292,52 @@ def RawPacket(request):
   context = {'csvHeader':  csvHeader, 'csvData': csvData}
   return render(request, 'groundstation/csvFile.csv', context, content_type='text/csv')
   
+def FlightID_IMEI_Probe_Mag_RAW(request):
+  filteredDataRows = {}
+  filteredDataRows['Measurements'] = models.Measurements.objects.order_by('time')
+  filteredDataRows['Measurements'] = filteredDataRows['Measurements'].select_related('parent_packet')
+  filteredDataRows['Measurements'] = filteredDataRows['Measurements'].select_related('parent_packet__parent_transmission__parent_request')
+
+  csvHeader = [
+              'Measurements___time',
+              'Measurements___vert1',
+              'Measurements___vert2',
+              'Measurements___vertD',
+              'Measurements___horiz1',
+              'Measurements___horiz2',
+              'Measurements___horizD',
+              'Measurements___compassX',
+              'Measurements___compassY',
+              'Measurements___compassZ',
+              
+              'PacketV6___id',
+              'PacketV6___time',
+              'PacketV6___latitude',
+              'PacketV6___longitude',
+              'PacketV6___altitude',
+              ]
+  csvData = [[
+              x.time,
+              x.vert1,
+              x.vert2,
+              x.vertD,
+              x.horiz1,
+              x.horiz2,
+              x.horizD,
+              x.compassX,
+              x.compassY,
+              x.compassZ,
+              
+              x.parent_packet.parent_transmission.parent_request.id
+              x.parent_packet.time,
+              x.parent_packet.latitude,
+              x.parent_packet.longitude,
+              x.parent_packet.altitude,
+              
+             ] for x in filteredDataRows['Measurements']]
+  context = {'csvHeader':  csvHeader, 'csvData': csvData}
+  return render(request, 'groundstation/csvFile.csv', context, content_type='text/csv')
+  
 def EverythingExceptForConductivity(request):
   filteredDataRows = {}
   filteredDataRows['Request'] = models.Request.objects.order_by('time')
