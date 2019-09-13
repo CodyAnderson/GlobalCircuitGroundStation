@@ -381,12 +381,38 @@ def EverythingExceptForConductivity(request):
               'PacketV6Units___external_temp',
               'PacketV6Units___rockblock_temp',
               
+              # 'time',
+              # 'vert1',
+              # 'vert2',
+              # 'vertD',
+              # 'compassX',
+              # 'compassY',
+              # 'compassZ',
+              # 'horiz1',
+              # 'horiz2',
+              # 'horizD',
+              
+              # 'time',
+              # 'vert1',
+              # 'vert2',
+              # 'vertD',
+              # 'compassX',
+              # 'compassY',
+              # 'compassZ',
+              # 'horiz1',
+              # 'horiz2',
+              # 'horizD',
+              
+              
+              
               ]
   csvData = []
   for x in filteredDataRows['Request']:
     xHasChildTrans = hasattr(x, 'child_transmission')
     xHasChildPack = (xHasChildTrans and hasattr(x.child_transmission, 'child_packet'))
     xHasChildPackUnits = (xHasChildTrans and (xHasChildPack and hasattr(x.child_transmission.child_packet, 'child_packet_v6_units')))
+    xHasChildMeasurements = (xHasChildTrans and (xHasChildPack and hasattr(x.child_transmission.child_packet, 'measurements_set')))
+    xHasChildMeasurementsUnits = (xHasChildTrans and (xHasChildPack and (xHasChildMeasurements and hasattr(x.child_transmission.child_packet.measurements_set, 'child_measurements_units'))))
     
   
     rowObject = [
