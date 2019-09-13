@@ -396,7 +396,7 @@ def EverythingExceptForConductivity(request):
                 x.response_errors,
                 x.response_status_code,
                 
-                x.child_transmission.time if ,
+                x.child_transmission.time,
                 x.child_transmission.latitude,
                 x.child_transmission.longitude,
                 x.child_transmission.cep,
