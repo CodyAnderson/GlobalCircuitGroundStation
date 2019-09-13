@@ -446,7 +446,7 @@ def EverythingExceptForConductivity(request):
                     None if not xHasChildTrans else x.child_transmission.iridium_session_status,
                     None if not xHasChildTrans else x.child_transmission.transmitted_via_satellite,
                     
-                    None if not xHasChildPack else x.child_transmission.child_packet.id
+                    None if not xHasChildPack else x.child_transmission.child_packet.id,
                     None if not xHasChildPack else x.child_transmission.child_packet.time.replace(tzinfo=timezone.utc).timestamp(),
                     None if not xHasChildPack else x.child_transmission.child_packet.yikes_status,
                     None if not xHasChildPack else x.child_transmission.child_packet.mcu_id,
@@ -554,7 +554,7 @@ def EverythingExceptForConductivity(request):
                   None if not xHasChildTrans else x.child_transmission.iridium_session_status,
                   None if not xHasChildTrans else x.child_transmission.transmitted_via_satellite,
                   
-                  None if not xHasChildPack else x.child_transmission.child_packet.id
+                  None if not xHasChildPack else x.child_transmission.child_packet.id,
                   None if not xHasChildPack else x.child_transmission.child_packet.time.replace(tzinfo=timezone.utc).timestamp(),
                   None if not xHasChildPack else x.child_transmission.child_packet.yikes_status,
                   None if not xHasChildPack else x.child_transmission.child_packet.mcu_id,
