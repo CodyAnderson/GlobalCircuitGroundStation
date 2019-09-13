@@ -328,7 +328,7 @@ def FlightID_IMEI_Probe_Mag_RAW(request):
               x.compassY,
               x.compassZ,
               
-              x.parent_packet.parent_transmission.parent_request.id
+              x.parent_packet.parent_transmission.parent_request.id,
               x.parent_packet.time,
               x.parent_packet.latitude,
               x.parent_packet.longitude,
