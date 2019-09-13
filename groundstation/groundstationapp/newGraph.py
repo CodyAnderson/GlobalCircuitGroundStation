@@ -431,7 +431,17 @@ def FlightID_IMEI_Cond_RAW(request):
               
              # ] for x in filteredDataRows['ConductivityMeasurements']]
   csvData = []
+  
   for x in filteredDataRows['ConductivityMeasurements']:
+    if x.time == filteredDataRows['ConductivityMeasurements'][1727].time:
+      specialPacket = models.PacketV6.objects.filter(time=x.conductivity_time)
+      print("----BEGIN----")
+      print(x.conductivity_time)
+      print(specialPacket)
+      print(specialPacket[0])
+      print(specialPacket[0].time)
+      print(specialPacket.time)
+      print("-----END-----")
     dataRow = [
                 x.time.replace(tzinfo=timezone.utc).timestamp(),
                 x.vert1,
