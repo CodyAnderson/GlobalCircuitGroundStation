@@ -412,24 +412,38 @@ def FlightID_IMEI_Cond_RAW(request):
               'ConductivityMeasurements___vert1',
               'ConductivityMeasurements___vert2',
               
-              'PacketV6___id',
-              'PacketV6___time',
-              'PacketV6___latitude',
-              'PacketV6___longitude',
-              'PacketV6___altitude',
+              '(ApproximateConductivityPacket)PacketV6___id',
+              '(ApproximateConductivityPacket)PacketV6___time',
+              '(ApproximateConductivityPacket)PacketV6___latitude',
+              '(ApproximateConductivityPacket)PacketV6___longitude',
+              '(ApproximateConductivityPacket)PacketV6___altitude',
               ]
-  csvData = [[
-              x.time.replace(tzinfo=timezone.utc).timestamp(),
-              x.vert1,
-              x.vert2,
+  # csvData = [[
+              # x.time.replace(tzinfo=timezone.utc).timestamp(),
+              # x.vert1,
+              # x.vert2,
               
-              x.parent_packet.parent_transmission.parent_request.id,
-              x.parent_packet.time.replace(tzinfo=timezone.utc).timestamp(),
-              x.parent_packet.latitude,
-              x.parent_packet.longitude,
-              x.parent_packet.altitude,
+              # x.parent_packet.parent_transmission.parent_request.id,
+              # x.parent_packet.time.replace(tzinfo=timezone.utc).timestamp(),
+              # x.parent_packet.latitude,
+              # x.parent_packet.longitude,
+              # x.parent_packet.altitude,
               
-             ] for x in filteredDataRows['ConductivityMeasurements']]
+             # ] for x in filteredDataRows['ConductivityMeasurements']]
+  csvData = []
+  for x in filteredDataRows['ConductivityMeasurements']:
+    dataRow = [
+                x.time.replace(tzinfo=timezone.utc).timestamp(),
+                x.vert1,
+                x.vert2,
+                
+                x.parent_packet.parent_transmission.parent_request.id,
+                x.parent_packet.time.replace(tzinfo=timezone.utc).timestamp(),
+                x.parent_packet.latitude,
+                x.parent_packet.longitude,
+                x.parent_packet.altitude,
+               ]
+    csvData.append(dataRow)
   context = {'csvHeader':  csvHeader, 'csvData': csvData}
   return render(request, 'groundstation/csvFile.csv', context, content_type='text/csv')
   
