@@ -384,7 +384,7 @@ def EverythingExceptForConductivity(request):
               ]
   csvData = []
   for x in filteredDataRows['Request']:
-    xHasChildTrans = hasattr(x, child_transmission)
+    xHasChildTrans = hasattr(x, 'child_transmission')
   
   
   
