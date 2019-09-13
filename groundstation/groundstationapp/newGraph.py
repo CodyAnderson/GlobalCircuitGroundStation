@@ -323,6 +323,7 @@ def EverythingExceptForConductivity(request):
               'IridiumTransmission___iridium_session_status',
               'IridiumTransmission___transmitted_via_satellite',
               
+              'PacketV6___id',
               'PacketV6___time',
               'PacketV6___yikes_status',
               'PacketV6___mcu_id',
@@ -403,8 +404,6 @@ def EverythingExceptForConductivity(request):
               'MeasurementsUnits___horiz2',
               'MeasurementsUnits___horizD',
               
-              
-              
               ]
   csvData = []
   for x in filteredDataRows['Request']:
@@ -424,7 +423,7 @@ def EverythingExceptForConductivity(request):
     if(len(measurementObjects) > 0):
        for y in measurementObjects:
         rowObject = [
-                    x.time,
+                    x.time.replace(tzinfo=timezone.utc).timestamp(),
                     x.processing_duration,
                     x.forwarded_for_address,
                     x.forwarded_host_address,
@@ -435,7 +434,7 @@ def EverythingExceptForConductivity(request):
                     x.response_errors,
                     x.response_status_code,
                     
-                    None if not xHasChildTrans else x.child_transmission.time,
+                    None if not xHasChildTrans else x.child_transmission.time.replace(tzinfo=timezone.utc).timestamp(),
                     None if not xHasChildTrans else x.child_transmission.latitude,
                     None if not xHasChildTrans else x.child_transmission.longitude,
                     None if not xHasChildTrans else x.child_transmission.cep,
@@ -446,7 +445,8 @@ def EverythingExceptForConductivity(request):
                     None if not xHasChildTrans else x.child_transmission.iridium_session_status,
                     None if not xHasChildTrans else x.child_transmission.transmitted_via_satellite,
                     
-                    None if not xHasChildPack else x.child_transmission.child_packet.time,
+                    None if not xHasChildPack else x.child_transmission.child_packet.id
+                    None if not xHasChildPack else x.child_transmission.child_packet.time.replace(tzinfo=timezone.utc).timestamp(),
                     None if not xHasChildPack else x.child_transmission.child_packet.yikes_status,
                     None if not xHasChildPack else x.child_transmission.child_packet.mcu_id,
                     None if not xHasChildPack else x.child_transmission.child_packet.version,
@@ -475,7 +475,7 @@ def EverythingExceptForConductivity(request):
                     None if not xHasChildPack else x.child_transmission.child_packet.external_temp,
                     None if not xHasChildPack else x.child_transmission.child_packet.rockblock_temp,
                     
-                    None if not xHasChildPackUnits else x.child_transmission.child_packet.child_packet_v6_units.time,
+                    None if not xHasChildPackUnits else x.child_transmission.child_packet.child_packet_v6_units.time.replace(tzinfo=timezone.utc).timestamp(),
                     None if not xHasChildPackUnits else x.child_transmission.child_packet.child_packet_v6_units.yikes_status,
                     None if not xHasChildPackUnits else x.child_transmission.child_packet.child_packet_v6_units.mcu_id,
                     None if not xHasChildPackUnits else x.child_transmission.child_packet.child_packet_v6_units.version,
@@ -504,7 +504,7 @@ def EverythingExceptForConductivity(request):
                     None if not xHasChildPackUnits else x.child_transmission.child_packet.child_packet_v6_units.external_temp,
                     None if not xHasChildPackUnits else x.child_transmission.child_packet.child_packet_v6_units.rockblock_temp,
                     
-                    None if not xHasChildMeasurements else y[0].time,
+                    None if not xHasChildMeasurements else y[0].time.replace(tzinfo=timezone.utc).timestamp(),
                     None if not xHasChildMeasurements else y[0].vert1,
                     None if not xHasChildMeasurements else y[0].vert2,
                     None if not xHasChildMeasurements else y[0].vertD,
@@ -515,7 +515,7 @@ def EverythingExceptForConductivity(request):
                     None if not xHasChildMeasurements else y[0].horiz2,
                     None if not xHasChildMeasurements else y[0].horizD,
                     
-                    None if not y[1] else y[2].time,
+                    None if not y[1] else y[2].time.replace(tzinfo=timezone.utc).timestamp(),
                     None if not y[1] else y[2].vert1,
                     None if not y[1] else y[2].vert2,
                     None if not y[1] else y[2].vertD,
@@ -531,7 +531,7 @@ def EverythingExceptForConductivity(request):
       
     else:
       rowObject = [
-                  x.time,
+                  x.time.replace(tzinfo=timezone.utc).timestamp(),
                   x.processing_duration,
                   x.forwarded_for_address,
                   x.forwarded_host_address,
@@ -542,7 +542,7 @@ def EverythingExceptForConductivity(request):
                   x.response_errors,
                   x.response_status_code,
                   
-                  None if not xHasChildTrans else x.child_transmission.time,
+                  None if not xHasChildTrans else x.child_transmission.time.replace(tzinfo=timezone.utc).timestamp(),
                   None if not xHasChildTrans else x.child_transmission.latitude,
                   None if not xHasChildTrans else x.child_transmission.longitude,
                   None if not xHasChildTrans else x.child_transmission.cep,
@@ -553,7 +553,8 @@ def EverythingExceptForConductivity(request):
                   None if not xHasChildTrans else x.child_transmission.iridium_session_status,
                   None if not xHasChildTrans else x.child_transmission.transmitted_via_satellite,
                   
-                  None if not xHasChildPack else x.child_transmission.child_packet.time,
+                  None if not xHasChildPack else x.child_transmission.child_packet.id
+                  None if not xHasChildPack else x.child_transmission.child_packet.time.replace(tzinfo=timezone.utc).timestamp(),
                   None if not xHasChildPack else x.child_transmission.child_packet.yikes_status,
                   None if not xHasChildPack else x.child_transmission.child_packet.mcu_id,
                   None if not xHasChildPack else x.child_transmission.child_packet.version,
@@ -582,7 +583,7 @@ def EverythingExceptForConductivity(request):
                   None if not xHasChildPack else x.child_transmission.child_packet.external_temp,
                   None if not xHasChildPack else x.child_transmission.child_packet.rockblock_temp,
                   
-                  None if not xHasChildPackUnits else x.child_transmission.child_packet.child_packet_v6_units.time,
+                  None if not xHasChildPackUnits else x.child_transmission.child_packet.child_packet_v6_units.time.replace(tzinfo=timezone.utc).timestamp(),
                   None if not xHasChildPackUnits else x.child_transmission.child_packet.child_packet_v6_units.yikes_status,
                   None if not xHasChildPackUnits else x.child_transmission.child_packet.child_packet_v6_units.mcu_id,
                   None if not xHasChildPackUnits else x.child_transmission.child_packet.child_packet_v6_units.version,
