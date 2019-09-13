@@ -436,9 +436,9 @@ def FlightID_IMEI_Cond_RAW(request):
 def FlightID_IMEI_Cond_UNITS(request):
   filteredDataRows = {}
   filteredDataRows['ConductivityMeasurementsUnits'] = models.ConductivityMeasurements.objects.order_by('time')
-  filteredDataRows['MeasurementsUnits'] = filteredDataRows['MeasurementsUnits'].select_related('child_conductivity_measurements_units')
+  filteredDataRows['ConductivityMeasurementsUnits'] = filteredDataRows['ConductivityMeasurementsUnits'].select_related('child_conductivity_measurements_units')
   filteredDataRows['ConductivityMeasurementsUnits'] = filteredDataRows['ConductivityMeasurementsUnits'].select_related('parent_packet')
-  filteredDataRows['MeasurementsUnits'] = filteredDataRows['MeasurementsUnits'].select_related('parent_packet__child_packet_v6_units')
+  filteredDataRows['ConductivityMeasurementsUnits'] = filteredDataRows['ConductivityMeasurementsUnits'].select_related('parent_packet__child_packet_v6_units')
   filteredDataRows['ConductivityMeasurementsUnits'] = filteredDataRows['ConductivityMeasurementsUnits'].select_related('parent_packet__parent_transmission__parent_request')
   filteredDataRows['ConductivityMeasurementsUnits'] = filteredDataRows['ConductivityMeasurementsUnits'].filter(parent_packet__parent_transmission__imei = '300434063382350')
   filteredDataRows['ConductivityMeasurementsUnits'] = filteredDataRows['ConductivityMeasurementsUnits'].filter(parent_packet__mcu_id = '1')
