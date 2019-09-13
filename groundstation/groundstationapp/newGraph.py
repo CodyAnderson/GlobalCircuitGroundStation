@@ -416,7 +416,7 @@ def EverythingExceptForConductivity(request):
     
     measurementObjects = []
     if(xHasChildMeasurements):
-      for y in x.child_transmission.child_packet.measurements_set.order_by('child_transmission__child_packet__measurements_set__time'):
+      for y in x.child_transmission.child_packet.measurements_set.order_by('time'):
         xHasChildMeasurementsUnits = (xHasChildTrans and (xHasChildPack and (xHasChildMeasurements and hasattr(y, 'child_measurements_units'))))
         yChildMeasurementsUnits = None if not xHasChildMeasurementsUnits else y.child_measurements_units
         measurementObjects.append([y, xHasChildMeasurementsUnits, yChildMeasurementsUnits])
