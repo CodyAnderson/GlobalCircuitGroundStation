@@ -455,9 +455,9 @@ def FlightID_IMEI_Cond_UNITS(request):
               'PacketV6Units___altitude',
               ]
   csvData = [[
-              x.child_conductivity_measurements_units.time.replace(tzinfo=timezone.utc).timestamp(),
-              x.child_conductivity_measurements_units.vert1,
-              x.child_conductivity_measurements_units.vert2,
+              None if not hasattr(x, 'child_conductivity_measurements_units') else x.child_conductivity_measurements_units.time.replace(tzinfo=timezone.utc).timestamp(),
+              None if not hasattr(x, 'child_conductivity_measurements_units') else x.child_conductivity_measurements_units.vert1,
+              None if not hasattr(x, 'child_conductivity_measurements_units') else x.child_conductivity_measurements_units.vert2,
               
               x.parent_packet.parent_transmission.parent_request.id,
               x.parent_packet.child_packet_v6_units.time.replace(tzinfo=timezone.utc).timestamp(),
