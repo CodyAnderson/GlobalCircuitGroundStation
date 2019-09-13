@@ -297,8 +297,8 @@ def FlightID_IMEI_Probe_Mag_RAW(request):
   filteredDataRows['Measurements'] = models.Measurements.objects.order_by('time')
   filteredDataRows['Measurements'] = filteredDataRows['Measurements'].select_related('parent_packet')
   filteredDataRows['Measurements'] = filteredDataRows['Measurements'].select_related('parent_packet__parent_transmission__parent_request')
-  filteredDataRows['Measurements'] = filteredDataRows['Measurements'].filter('parent_packet__parent_transmission__imei' = '300434063382350')
-  filteredDataRows['Measurements'] = filteredDataRows['Measurements'].filter('parent_packet__mcu_id' = '1')
+  filteredDataRows['Measurements'] = filteredDataRows['Measurements'].filter(parent_packet__parent_transmission__imei = '300434063382350')
+  filteredDataRows['Measurements'] = filteredDataRows['Measurements'].filter(parent_packet__mcu_id = '1')
 
   csvHeader = [
               'Measurements___time',
