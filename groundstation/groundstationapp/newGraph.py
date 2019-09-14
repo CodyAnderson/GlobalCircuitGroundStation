@@ -296,6 +296,7 @@ def FlightID_IMEI_Probe_Mag_RAW(request):
   filteredDataRows = {}
   filteredDataRows['Measurements'] = models.Measurements.objects.order_by('time')
   filteredDataRows['Measurements'] = filteredDataRows['Measurements'].select_related('parent_packet')
+  filteredDataRows['Measurements'] = filteredDataRows['Measurements'].select_related('parent_packet__child_packet_v6_units')
   filteredDataRows['Measurements'] = filteredDataRows['Measurements'].select_related('parent_packet__parent_transmission__parent_request')
   filteredDataRows['Measurements'] = filteredDataRows['Measurements'].filter(parent_packet__parent_transmission__imei = '300434063382350')
   filteredDataRows['Measurements'] = filteredDataRows['Measurements'].filter(parent_packet__mcu_id = '1')
@@ -312,11 +313,11 @@ def FlightID_IMEI_Probe_Mag_RAW(request):
               'Measurements___compassY',
               'Measurements___compassZ',
               
-              'PacketV6___id',
-              'PacketV6___time',
-              'PacketV6___latitude',
-              'PacketV6___longitude',
-              'PacketV6___altitude',
+              'PacketV6Units___id',
+              'PacketV6Units___time',
+              'PacketV6Units___latitude',
+              'PacketV6Units___longitude',
+              'PacketV6Units___altitude',
               ]
   csvData = [[
               x.time.replace(tzinfo=timezone.utc).timestamp(),
@@ -331,10 +332,10 @@ def FlightID_IMEI_Probe_Mag_RAW(request):
               x.compassZ,
               
               x.parent_packet.parent_transmission.parent_request.id,
-              x.parent_packet.time.replace(tzinfo=timezone.utc).timestamp(),
-              x.parent_packet.latitude,
-              x.parent_packet.longitude,
-              x.parent_packet.altitude,
+              x.parent_packet.child_packet_v6_units.time.replace(tzinfo=timezone.utc).timestamp(),
+              x.parent_packet.child_packet_v6_units.latitude,
+              x.parent_packet.child_packet_v6_units.longitude,
+              x.parent_packet.child_packet_v6_units.altitude,
               
              ] for x in filteredDataRows['Measurements']]
   context = {'csvHeader':  csvHeader, 'csvData': csvData}
