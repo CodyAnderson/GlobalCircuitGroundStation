@@ -436,8 +436,8 @@ def FlightID_IMEI_Cond_RAW(request):
     
     y = None
     
-    fullCondPackList = models.PacketV6Units.objects.filter(mcu_id = '1')
-    fullCondPackList = fullCondPackList.filter(parent_transmission__imei = '300434063382350')
+    fullCondPackList = models.PacketV6Units.objects.filter(parent_packet__mcu_id = '1')
+    fullCondPackList = fullCondPackList.filter(parent_packet__parent_transmission__imei = '300434063382350')
     condPackList = fullCondPackList.filter(time=x.parent_packet.conductivity_time)
     
     if(len(condPackList) > 0):
@@ -502,8 +502,8 @@ def FlightID_IMEI_Cond_UNITS(request):
     
     y = None
     
-    fullCondPackList = models.PacketV6Units.objects.filter(mcu_id = '1')
-    fullCondPackList = fullCondPackList.filter(parent_transmission__imei = '300434063382350')
+    fullCondPackList = models.PacketV6Units.objects.filter(parent_packet__mcu_id = '1')
+    fullCondPackList = fullCondPackList.filter(parent_packet__parent_transmission__imei = '300434063382350')
     condPackList = fullCondPackList.filter(time=x.parent_packet.conductivity_time)
     
     if(len(condPackList) > 0):
