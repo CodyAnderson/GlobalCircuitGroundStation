@@ -439,8 +439,8 @@ def FlightID_IMEI_Cond_RAW(request):
       print("----BEGIN----")
       print(x.parent_packet.conductivity_time)
       print(specialPacket)
-      print(specialPacket[0])
-      print(specialPacket[0].time)
+      #print(specialPacket[0])
+      #print(specialPacket[0].time)
       print(len(specialPacket))
       print("-----END-----")
     dataRow = [
