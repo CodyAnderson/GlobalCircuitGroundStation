@@ -412,11 +412,11 @@ def FlightID_IMEI_Cond_RAW(request):
               'ConductivityMeasurements___vert1',
               'ConductivityMeasurements___vert2',
               
-              '(ApproximateConductivityPacket)PacketV6___id',
-              '(ApproximateConductivityPacket)PacketV6___time',
-              '(ApproximateConductivityPacket)PacketV6___latitude',
-              '(ApproximateConductivityPacket)PacketV6___longitude',
-              '(ApproximateConductivityPacket)PacketV6___altitude',
+              '(ApproximateConductivityPacket)PacketV6Units___id',
+              '(ApproximateConductivityPacket)PacketV6Units___time',
+              '(ApproximateConductivityPacket)PacketV6Units___latitude',
+              '(ApproximateConductivityPacket)PacketV6Units___longitude',
+              '(ApproximateConductivityPacket)PacketV6Units___altitude',
               ]
   # csvData = [[
               # x.time.replace(tzinfo=timezone.utc).timestamp(),
@@ -433,26 +433,32 @@ def FlightID_IMEI_Cond_RAW(request):
   csvData = []
   
   for x in filteredDataRows['ConductivityMeasurements']:
-    if x.parent_packet.time == filteredDataRows['ConductivityMeasurements'][1727].parent_packet.time:
-      #specialPacket = models.PacketV6.objects.filter(time=x.parent_packet.conductivity_time)
-      specialPacket = models.PacketV6.objects.filter(time=filteredDataRows['ConductivityMeasurements'][1727].time)
-      print("----BEGIN----")
-      print(x.parent_packet.conductivity_time)
-      print(specialPacket)
-      #print(specialPacket[0])
-      #print(specialPacket[0].time)
-      print(len(specialPacket))
-      print("-----END-----")
+    
+    y = None
+    
+    fullCondPackList = models.PacketV6Units.objectsfilter(mcu_id = '1')
+    fullCondPackList = fullCondPackList.filter(parent_transmission__imei = '300434063382350')
+    condPackList = fullCondPackList.filter(time=x.parent_packet.conductivity_time)
+    
+    if(len(condPackList) > 0):
+      y = condPackList[0]
+    else:
+      condPackList = fullCondPackList.filter(time__gte=x.parent_packet.conductivity_time)
+      condPackList = condPackList.filter(time__lte=(x.parent_packet.conductivity_time+timedelta(minutes=10)))
+      
+    if(len(condPackList) > 0):
+      y = condPackList[0]
+      
     dataRow = [
                 x.time.replace(tzinfo=timezone.utc).timestamp(),
                 x.vert1,
                 x.vert2,
                 
-                x.parent_packet.parent_transmission.parent_request.id,
-                x.parent_packet.time.replace(tzinfo=timezone.utc).timestamp(),
-                x.parent_packet.latitude,
-                x.parent_packet.longitude,
-                x.parent_packet.altitude,
+                None if y is None else y.parent_packet.parent_transmission.parent_request.id,
+                None if y is None else y.time.replace(tzinfo=timezone.utc).timestamp(),
+                None if y is None else y.latitude,
+                None if y is None else y.longitude,
+                None if y is None else y.altitude,
                ]
     csvData.append(dataRow)
   context = {'csvHeader':  csvHeader, 'csvData': csvData}
@@ -473,24 +479,55 @@ def FlightID_IMEI_Cond_UNITS(request):
               'ConductivityMeasurementsUnits___vert1',
               'ConductivityMeasurementsUnits___vert2',
               
-              'PacketV6Units___id',
-              'PacketV6Units___time',
-              'PacketV6Units___latitude',
-              'PacketV6Units___longitude',
-              'PacketV6Units___altitude',
+              '(ApproximateConductivityPacket)PacketV6Units___id',
+              '(ApproximateConductivityPacket)PacketV6Units___time',
+              '(ApproximateConductivityPacket)PacketV6Units___latitude',
+              '(ApproximateConductivityPacket)PacketV6Units___longitude',
+              '(ApproximateConductivityPacket)PacketV6Units___altitude',
               ]
-  csvData = [[
-              None if not hasattr(x, 'child_conductivity_measurements_units') else x.child_conductivity_measurements_units.time.replace(tzinfo=timezone.utc).timestamp(),
-              None if not hasattr(x, 'child_conductivity_measurements_units') else x.child_conductivity_measurements_units.vert1,
-              None if not hasattr(x, 'child_conductivity_measurements_units') else x.child_conductivity_measurements_units.vert2,
+  # csvData = [[
+              # None if not hasattr(x, 'child_conductivity_measurements_units') else x.child_conductivity_measurements_units.time.replace(tzinfo=timezone.utc).timestamp(),
+              # None if not hasattr(x, 'child_conductivity_measurements_units') else x.child_conductivity_measurements_units.vert1,
+              # None if not hasattr(x, 'child_conductivity_measurements_units') else x.child_conductivity_measurements_units.vert2,
               
-              x.parent_packet.parent_transmission.parent_request.id,
-              x.parent_packet.child_packet_v6_units.time.replace(tzinfo=timezone.utc).timestamp(),
-              x.parent_packet.child_packet_v6_units.latitude,
-              x.parent_packet.child_packet_v6_units.longitude,
-              x.parent_packet.child_packet_v6_units.altitude,
+              # x.parent_packet.parent_transmission.parent_request.id,
+              # x.parent_packet.child_packet_v6_units.time.replace(tzinfo=timezone.utc).timestamp(),
+              # x.parent_packet.child_packet_v6_units.latitude,
+              # x.parent_packet.child_packet_v6_units.longitude,
+              # x.parent_packet.child_packet_v6_units.altitude,
               
-             ] for x in filteredDataRows['ConductivityMeasurementsUnits']]
+             # ] for x in filteredDataRows['ConductivityMeasurementsUnits']]
+  csvData = []
+  for x in filteredDataRows['ConductivityMeasurementsUnits']:
+    
+    y = None
+    
+    fullCondPackList = models.PacketV6Units.objectsfilter(mcu_id = '1')
+    fullCondPackList = fullCondPackList.filter(parent_transmission__imei = '300434063382350')
+    condPackList = fullCondPackList.filter(time=x.parent_packet.conductivity_time)
+    
+    if(len(condPackList) > 0):
+      y = condPackList[0]
+    else:
+      condPackList = fullCondPackList.filter(time__gte=x.parent_packet.conductivity_time)
+      condPackList = condPackList.filter(time__lte=(x.parent_packet.conductivity_time+timedelta(minutes=10)))
+      
+    if(len(condPackList) > 0):
+      y = condPackList[0]
+    
+    dataRow = [
+                None if not hasattr(x, 'child_conductivity_measurements_units') else x.child_conductivity_measurements_units.time.replace(tzinfo=timezone.utc).timestamp(),
+                None if not hasattr(x, 'child_conductivity_measurements_units') else x.child_conductivity_measurements_units.vert1,
+                None if not hasattr(x, 'child_conductivity_measurements_units') else x.child_conductivity_measurements_units.vert2,
+                
+                None if y is None else y.parent_packet.parent_transmission.parent_request.id,
+                None if y is None else y.time.replace(tzinfo=timezone.utc).timestamp(),
+                None if y is None else y.latitude,
+                None if y is None else y.longitude,
+                None if y is None else y.altitude,
+                
+               ]
+    csvData.append(dataRow)
   context = {'csvHeader':  csvHeader, 'csvData': csvData}
   return render(request, 'groundstation/csvFile.csv', context, content_type='text/csv')
   
