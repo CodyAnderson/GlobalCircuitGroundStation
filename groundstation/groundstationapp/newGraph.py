@@ -454,7 +454,7 @@ def FlightID_IMEI_Cond_RAW(request):
                 x.vert1,
                 x.vert2,
                 
-                None if y is None else y.parent_packet.parent_transmission.parent_request.id,
+                None if y is None else y.parent_packet_v6.parent_transmission.parent_request.id,
                 None if y is None else y.time.replace(tzinfo=timezone.utc).timestamp(),
                 None if y is None else y.latitude,
                 None if y is None else y.longitude,
@@ -520,7 +520,7 @@ def FlightID_IMEI_Cond_UNITS(request):
                 None if not hasattr(x, 'child_conductivity_measurements_units') else x.child_conductivity_measurements_units.vert1,
                 None if not hasattr(x, 'child_conductivity_measurements_units') else x.child_conductivity_measurements_units.vert2,
                 
-                None if y is None else y.parent_packet.parent_transmission.parent_request.id,
+                None if y is None else y.parent_packet_v6.parent_transmission.parent_request.id,
                 None if y is None else y.time.replace(tzinfo=timezone.utc).timestamp(),
                 None if y is None else y.latitude,
                 None if y is None else y.longitude,
