@@ -436,7 +436,7 @@ def FlightID_IMEI_Cond_RAW(request):
     
     y = None
     
-    fullCondPackList = models.PacketV6Units.objectsfilter(mcu_id = '1')
+    fullCondPackList = models.PacketV6Units.objects.filter(mcu_id = '1')
     fullCondPackList = fullCondPackList.filter(parent_transmission__imei = '300434063382350')
     condPackList = fullCondPackList.filter(time=x.parent_packet.conductivity_time)
     
@@ -502,7 +502,7 @@ def FlightID_IMEI_Cond_UNITS(request):
     
     y = None
     
-    fullCondPackList = models.PacketV6Units.objectsfilter(mcu_id = '1')
+    fullCondPackList = models.PacketV6Units.objects.filter(mcu_id = '1')
     fullCondPackList = fullCondPackList.filter(parent_transmission__imei = '300434063382350')
     condPackList = fullCondPackList.filter(time=x.parent_packet.conductivity_time)
     
@@ -525,7 +525,6 @@ def FlightID_IMEI_Cond_UNITS(request):
                 None if y is None else y.latitude,
                 None if y is None else y.longitude,
                 None if y is None else y.altitude,
-                
                ]
     csvData.append(dataRow)
   context = {'csvHeader':  csvHeader, 'csvData': csvData}
