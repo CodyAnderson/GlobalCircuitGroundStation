@@ -14,7 +14,7 @@ openpyxl==2.6.2
 pdfkit==0.6.1
 Pillow==6.0.0
 pytz==2019.1
-PyYAML==5.1
+PyYAML==5.4
 reportlab==3.5.21
 tablib==0.13.0
 wkhtmltopdf==0.2
